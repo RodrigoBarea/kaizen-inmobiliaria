@@ -128,7 +128,7 @@ export default function AdminBlogsPage() {
 
         <button
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
+          className="inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
         >
           <Plus className="w-4 h-4" />
           <span>Nuevo Artículo</span>
@@ -138,7 +138,7 @@ export default function AdminBlogsPage() {
       {/* Grid de Blogs */}
       {loading ? (
         <div className="py-20 flex items-center justify-center text-gray-400 gap-2">
-          <Loader2 className="w-6 h-6 animate-spin text-[#1c39bb]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#E60000]" />
           <span className="text-sm">Cargando blogs...</span>
         </div>
       ) : blogs.length === 0 ? (
@@ -174,7 +174,7 @@ export default function AdminBlogsPage() {
               </div>
 
               <div className="p-5 pt-0 border-t border-gray-50 flex items-center justify-between mt-3">
-                <span className="text-[11px] font-bold text-[#1c39bb]">
+                <span className="text-[11px] font-bold text-[#E60000]">
                   {blog.agente?.agent_name || 'Kaizen'}
                 </span>
 
@@ -193,10 +193,10 @@ export default function AdminBlogsPage() {
 
       {/* Modal Nuevo Blog */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 animate-fade-in max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl space-y-6 animate-fade-in max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b pb-3">
-              <h2 className="font-black text-lg text-gray-900">Redactar Artículo</h2>
+              <h2 className="font-black text-lg text-gray-900">Nuevo Artículo de Blog</h2>
               <button
                 onClick={() => setShowModal(false)}
                 className="text-gray-400 hover:text-gray-600 font-bold"
@@ -207,19 +207,19 @@ export default function AdminBlogsPage() {
 
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1">Título del Artículo *</label>
+                <label className="text-xs font-bold text-gray-700 block mb-1">Título de la Entrada *</label>
                 <input
                   type="text"
                   required
-                  placeholder="Ej. Claves para invertir en bienes raíces en 2026"
+                  placeholder="Ej. Oportunidades de inversión inmobiliaria en Tarija"
                   value={formData.titulo}
                   onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
-                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
+                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-[#E60000] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1">Autor / Asesor</label>
+                <label className="text-xs font-bold text-gray-700 block mb-1">Autor Asignado</label>
                 <select
                   value={formData.agente_id}
                   onChange={(e) => setFormData({ ...formData, agente_id: e.target.value })}
@@ -234,14 +234,14 @@ export default function AdminBlogsPage() {
               </div>
 
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1">Contenido del Artículo *</label>
+                <label className="text-xs font-bold text-gray-700 block mb-1">Contenido *</label>
                 <textarea
                   rows={6}
                   required
-                  placeholder="Escribe el texto completo del artículo..."
+                  placeholder="Redacta el contenido de tu artículo..."
                   value={formData.contenido}
                   onChange={(e) => setFormData({ ...formData, contenido: e.target.value })}
-                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
+                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-[#E60000] focus:outline-none"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export default function AdminBlogsPage() {
                   images={formData.portada ? [formData.portada] : []}
                   onChange={(urls) => setFormData({ ...formData, portada: urls[0] || '' })}
                   multiple={false}
-                  label="Foto de Portada (Cloudinary)"
+                  label="Foto de Portada del Artículo (Cloudinary)"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export default function AdminBlogsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow flex items-center gap-1.5"
+                  className="bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow flex items-center gap-1.5"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Publicar Artículo</span>

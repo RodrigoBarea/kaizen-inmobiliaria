@@ -38,13 +38,13 @@ export default function MapaPicker({ lat, lng, onChange, ciudad = 'Tarija' }: Pr
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <label className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-          <MapPin className="w-4 h-4 text-blue-600" />
+          <MapPin className="w-4 h-4 text-[#E60000]" />
           Coordenadas de Ubicación (Latitud / Longitud)
         </label>
         <button
           type="button"
           onClick={handleApplyCity}
-          className="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
+          className="text-xs text-[#E60000] hover:text-[#C00000] font-medium flex items-center gap-1"
         >
           <Locate className="w-3.5 h-3.5" />
           Centrar en {ciudad}
@@ -63,7 +63,7 @@ export default function MapaPicker({ lat, lng, onChange, ciudad = 'Tarija' }: Pr
               setCurrentLat(val);
               onChange({ lat: val, lng: currentLng });
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E60000] focus:border-[#E60000]"
           />
         </div>
         <div>
@@ -77,7 +77,7 @@ export default function MapaPicker({ lat, lng, onChange, ciudad = 'Tarija' }: Pr
               setCurrentLng(val);
               onChange({ lat: currentLat, lng: val });
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E60000] focus:border-[#E60000]"
           />
         </div>
       </div>

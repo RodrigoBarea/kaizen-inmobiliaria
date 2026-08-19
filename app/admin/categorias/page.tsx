@@ -108,14 +108,14 @@ export default function AdminCategoriasPage() {
             placeholder="Ej. Remate Judicial / Preventa"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-[#E60000] focus:outline-none"
           />
         </div>
 
         <button
           type="submit"
           disabled={saving}
-          className="w-full sm:w-auto bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-6 py-2.5 rounded-xl shadow transition text-sm flex items-center justify-center gap-2 shrink-0"
+          className="w-full sm:w-auto bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-6 py-2.5 rounded-xl shadow transition text-sm flex items-center justify-center gap-2 shrink-0"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
           <span>Agregar Categoría</span>

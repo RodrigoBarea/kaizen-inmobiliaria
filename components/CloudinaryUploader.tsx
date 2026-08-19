@@ -57,7 +57,7 @@ export default function CloudinaryUploader({
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <label className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-          <ImageIcon className="w-4 h-4 text-blue-600" />
+          <ImageIcon className="w-4 h-4 text-[#E60000]" />
           {label}
         </label>
         <span className="text-xs text-gray-500">
@@ -80,8 +80,8 @@ export default function CloudinaryUploader({
         onClick={() => fileInputRef.current?.click()}
         className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200 ${
           dragOver
-            ? 'border-blue-500 bg-blue-50/50'
-            : 'border-gray-300 hover:border-blue-400 bg-gray-50/50'
+            ? 'border-[#E60000] bg-red-50/50'
+            : 'border-gray-300 hover:border-[#E60000] bg-gray-50/50'
         }`}
       >
         <input
@@ -95,12 +95,12 @@ export default function CloudinaryUploader({
 
         {uploading ? (
           <div className="flex flex-col items-center justify-center py-4 space-y-2">
-            <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-            <p className="text-sm font-medium text-blue-600">Subiendo a Cloudinary...</p>
+            <Loader2 className="w-8 h-8 text-[#E60000] animate-spin" />
+            <p className="text-sm font-medium text-[#E60000]">Subiendo a Cloudinary...</p>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-2 space-y-2">
-            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+            <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-[#E60000]">
               <UploadCloud className="w-6 h-6" />
             </div>
             <div>
@@ -143,7 +143,7 @@ export default function CloudinaryUploader({
                 </button>
               </div>
               {idx === 0 && multiple && (
-                <span className="absolute bottom-1 left-1 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                <span className="absolute bottom-1 left-1 bg-[#1A1A1A] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
                   Principal
                 </span>
               )}
@@ -154,7 +154,7 @@ export default function CloudinaryUploader({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="aspect-[4/3] rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50/30 flex flex-col items-center justify-center text-gray-500 hover:text-blue-600 transition"
+              className="aspect-[4/3] rounded-lg border-2 border-dashed border-gray-300 hover:border-[#E60000] hover:bg-red-50/30 flex flex-col items-center justify-center text-gray-500 hover:text-[#E60000] transition"
             >
               <Plus className="w-6 h-6 mb-1" />
               <span className="text-xs font-medium">Agregar más</span>

@@ -73,7 +73,7 @@ export default function AdminLeadsPage() {
 
       {loading ? (
         <div className="py-20 flex items-center justify-center text-gray-400 gap-2">
-          <Loader2 className="w-6 h-6 animate-spin text-[#1c39bb]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#E60000]" />
           <span className="text-sm">Cargando solicitudes...</span>
         </div>
       ) : leads.length === 0 ? (
@@ -86,13 +86,13 @@ export default function AdminLeadsPage() {
             <div
               key={lead.id}
               className={`bg-white p-6 rounded-3xl border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 transition ${
-                lead.atendido ? 'border-gray-200 opacity-75' : 'border-blue-200 bg-blue-50/20'
+                lead.atendido ? 'border-gray-200 opacity-75' : 'border-red-200 bg-red-50/20'
               }`}
             >
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <h3 className="font-extrabold text-base text-gray-900">{lead.nombre}</h3>
-                  <span className="bg-blue-100 text-[#001E6C] font-bold text-xs px-2.5 py-0.5 rounded-full">
+                  <span className="bg-red-100 text-[#E60000] font-bold text-xs px-2.5 py-0.5 rounded-full">
                     {lead.tipo_inmueble}
                   </span>
                   {lead.atendido && (

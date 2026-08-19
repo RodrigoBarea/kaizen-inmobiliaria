@@ -95,7 +95,7 @@ export default function AdminInmueblesPage() {
 
         <Link
           href="/admin/inmuebles/nuevo"
-          className="inline-flex items-center gap-2 bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
+          className="inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
         >
           <Plus className="w-4 h-4" />
           <span>Nuevo Inmueble</span>
@@ -111,7 +111,7 @@ export default function AdminInmueblesPage() {
             placeholder="Buscar por título o dirección..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-[#E60000] focus:outline-none"
           />
         </div>
 
@@ -137,7 +137,7 @@ export default function AdminInmueblesPage() {
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         {loading ? (
           <div className="py-20 flex items-center justify-center text-gray-400 gap-2">
-            <Loader2 className="w-6 h-6 animate-spin text-[#1c39bb]" />
+            <Loader2 className="w-6 h-6 animate-spin text-[#E60000]" />
             <span className="text-sm">Cargando base de datos...</span>
           </div>
         ) : filtered.length === 0 ? (
@@ -192,12 +192,12 @@ export default function AdminInmueblesPage() {
                       <span className="block text-[11px] text-gray-400 font-normal">{i.ciudad}</span>
                     </td>
 
-                    <td className="p-4 font-black text-[#1c39bb] text-sm">
+                    <td className="p-4 font-black text-[#1A1A1A] text-sm">
                       ${Number(i.precio).toLocaleString()}
                     </td>
 
                     <td className="p-4">
-                      <span className="bg-blue-50 text-[#1c39bb] font-bold px-2.5 py-1 rounded-full text-[11px] border border-blue-100">
+                      <span className="bg-red-50 text-[#E60000] font-bold px-2.5 py-1 rounded-full text-[11px] border border-red-100">
                         {i.categoria?.nombre_categoria || 'Venta'}
                       </span>
                     </td>
@@ -251,7 +251,7 @@ export default function AdminInmueblesPage() {
                         </Link>
                         <Link
                           href={`/admin/inmuebles/editar/${i.id}`}
-                          className="p-1.5 text-blue-600 hover:text-blue-800 rounded-lg hover:bg-blue-50"
+                          className="p-1.5 text-gray-600 hover:text-[#E60000] rounded-lg hover:bg-gray-100"
                           title="Editar"
                         >
                           <Edit className="w-4 h-4" />

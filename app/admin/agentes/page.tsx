@@ -125,7 +125,7 @@ export default function AdminAgentesPage() {
 
         <button
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
+          className="inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-4 py-2.5 rounded-xl shadow transition text-xs"
         >
           <Plus className="w-4 h-4" />
           <span>Agregar Asesor</span>
@@ -135,7 +135,7 @@ export default function AdminAgentesPage() {
       {/* Grid de Agentes */}
       {loading ? (
         <div className="py-20 flex items-center justify-center text-gray-400 gap-2">
-          <Loader2 className="w-6 h-6 animate-spin text-[#1c39bb]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#E60000]" />
           <span className="text-sm">Cargando asesores...</span>
         </div>
       ) : agentes.length === 0 ? (
@@ -157,7 +157,7 @@ export default function AdminAgentesPage() {
                 <Trash2 className="w-4 h-4" />
               </button>
 
-              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-blue-50 shadow-md">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-gray-100 shadow-md">
                 <Image
                   src={
                     agente.foto_principal ||
@@ -171,17 +171,17 @@ export default function AdminAgentesPage() {
 
               <div>
                 <h3 className="font-extrabold text-base text-gray-900">{agente.agent_name}</h3>
-                <p className="text-xs font-semibold text-[#1c39bb]">{agente.cargo || 'Asesor'}</p>
+                <p className="text-xs font-semibold text-[#E60000]">{agente.cargo || 'Asesor'}</p>
               </div>
 
               <div className="w-full space-y-2 pt-3 border-t border-gray-100 text-xs text-gray-600">
                 <div className="flex items-center justify-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#1c39bb]" />
+                  <Phone className="w-3.5 h-3.5 text-[#E60000]" />
                   <span>{agente.telefono}</span>
                 </div>
                 {agente.correo && (
                   <div className="flex items-center justify-center gap-1.5 truncate">
-                    <Mail className="w-3.5 h-3.5 text-[#1c39bb]" />
+                    <Mail className="w-3.5 h-3.5 text-gray-500" />
                     <span className="truncate">{agente.correo}</span>
                   </div>
                 )}
@@ -191,67 +191,65 @@ export default function AdminAgentesPage() {
         </div>
       )}
 
-      {/* Modal Nuevo Agente */}
+      {/* Modal para Crear Agente */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-6 animate-fade-in max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-gray-100 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between border-b pb-3">
-              <h2 className="font-black text-lg text-gray-900">Registrar Asesor</h2>
+              <h3 className="font-black text-gray-900 text-base">Registrar Nuevo Asesor</h3>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600 font-bold"
+                className="text-gray-400 hover:text-gray-600 p-1"
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleCreate} className="space-y-4">
+            <form onSubmit={handleCreate} className="space-y-4 text-left">
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1">Nombre Completo *</label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Nombre Completo *</label>
                 <input
                   type="text"
                   required
-                  placeholder="Ej. Valeria Rios"
+                  placeholder="Ej: Marcelo Suarez"
                   value={formData.agent_name}
                   onChange={(e) => setFormData({ ...formData, agent_name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
+                  className="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-[#E60000] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-gray-700 block mb-1">Cargo / Especialidad</label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Cargo / Especialidad</label>
                 <input
                   type="text"
-                  placeholder="Ej. Asesora Senior de Inversiones"
+                  placeholder="Ej: Asesor de Inversiones Tarija"
                   value={formData.cargo}
                   onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
-                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
+                  className="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-[#E60000] focus:outline-none"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-bold text-gray-700 block mb-1">Teléfono / WhatsApp *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="+591 70000000"
-                    value={formData.telefono}
-                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                    className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">WhatsApp / Teléfono *</label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="+591 70000000"
+                  value={formData.telefono}
+                  onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-[#E60000] focus:outline-none"
+                />
+              </div>
 
-                <div>
-                  <label className="text-xs font-bold text-gray-700 block mb-1">Correo Electrónico</label>
-                  <input
-                    type="email"
-                    placeholder="asesor@kaizen.com"
-                    value={formData.correo}
-                    onChange={(e) => setFormData({ ...formData, correo: e.target.value })}
-                    className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Correo Electrónico</label>
+                <input
+                  type="email"
+                  placeholder="asesor@inmobiliariakaizen.com"
+                  value={formData.correo}
+                  onChange={(e) => setFormData({ ...formData, correo: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl text-xs focus:ring-2 focus:ring-[#E60000] focus:outline-none"
+                />
               </div>
 
               <div>
@@ -274,7 +272,7 @@ export default function AdminAgentesPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-[#001E6C] hover:bg-[#1c39bb] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow flex items-center gap-1.5"
+                  className="bg-[#E60000] hover:bg-[#C00000] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow flex items-center gap-1.5"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Guardar Asesor</span>

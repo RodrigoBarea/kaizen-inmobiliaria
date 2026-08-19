@@ -33,7 +33,7 @@ export default function BlogDetailPage() {
   if (loading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center text-gray-500 gap-3">
-        <Loader2 className="w-8 h-8 animate-spin text-[#1c39bb]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#E60000]" />
         <p className="text-sm font-semibold">Cargando artículo...</p>
       </div>
     );
@@ -45,7 +45,7 @@ export default function BlogDetailPage() {
         <h1 className="text-2xl font-bold text-gray-800">Artículo no encontrado</h1>
         <Link
           href="/blog/page/1"
-          className="inline-flex items-center gap-2 bg-[#001E6C] text-white px-6 py-2.5 rounded-xl font-bold text-sm"
+          className="inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white px-6 py-2.5 rounded-xl font-bold text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           Volver al blog
@@ -59,7 +59,7 @@ export default function BlogDetailPage() {
       
       <Link
         href="/blog/page/1"
-        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1c39bb] hover:underline"
+        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E60000] hover:underline"
       >
         <ArrowLeft className="w-4 h-4" />
         Volver a todos los artículos
