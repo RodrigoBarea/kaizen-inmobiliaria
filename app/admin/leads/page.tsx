@@ -140,7 +140,7 @@ export default function AdminLeadsPage() {
                 </a>
 
                 <button
-                  onClick={() => handleToggleAtendido(lead.id, Boolean(lead.atendido))}
+                  onClick={() => handleToggleAtendido(lead.id || '', Boolean(lead.atendido))}
                   className="px-3.5 py-2.5 border border-gray-300 hover:bg-gray-100 rounded-xl text-xs font-bold text-gray-700"
                 >
                   {lead.atendido ? 'Marcar pendiente' : 'Marcar atendido'}

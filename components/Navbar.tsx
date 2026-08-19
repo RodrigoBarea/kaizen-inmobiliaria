@@ -18,7 +18,7 @@ export default function Navbar() {
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria en Bolivia y quiero conversar con un especialista para conocer mis opciones. ¿Me ayudan?'
+    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria en Tarija y quiero conversar con un especialista para conocer mis opciones. ¿Me ayudan?'
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 

@@ -125,7 +125,7 @@ export default function VenderPage() {
                     Marketing Inmobiliario Premium
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Posicionamos tu inmueble con fotografía profesional, video recorridos y pauta digital segmentada a nivel nacional.
+                    Posicionamos tu inmueble con fotografía profesional, video recorridos y pauta digital segmentada para atraer a los mejores compradores e inversionistas de Tarija.
                   </p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function VenderPage() {
                     Tasación Técnica y Comercial
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Determinamos el precio justo de mercado basándonos en transacciones reales y recientes, asegurando competitividad y alta rentabilidad.
+                    Determinamos el precio justo de mercado basándonos en transacciones reales y recientes en Tarija, asegurando competitividad y alta rentabilidad.
                   </p>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export default function VenderPage() {
                 <span>¿Prefieres una atención inmediata?</span>
               </h4>
               <p className="text-xs text-emerald-800 leading-relaxed">
-                ¿Prefieres saltarte los formularios y hablar directamente con un especialista en tu ciudad?
+                ¿Prefieres saltarte los formularios y hablar directamente con un asesor especialista en Tarija?
               </p>
               <a
                 href={waUrl}

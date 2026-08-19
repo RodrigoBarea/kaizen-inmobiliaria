@@ -30,7 +30,7 @@ export default function AdminDashboard() {
 
         setStats({
           totalInmuebles: inmuebles.length,
-          destacados: inmuebles.filter((i) => i.is_featured).length,
+          destacados: inmuebles.filter((i: Inmueble) => i.is_featured).length,
           categorias: categorias.length,
           agentes: agentes.length,
           blogs: blogs.length,

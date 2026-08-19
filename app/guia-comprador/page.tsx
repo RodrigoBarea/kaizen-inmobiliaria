@@ -9,7 +9,7 @@ export default function GuiaCompradorPage() {
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    '¡Hola! 🏛️ Necesito información sobre su Asesoramiento Legal y Financiero para respaldar mi inversión en Bolivia de forma segura. ¿Con quién puedo hablar?'
+    '¡Hola! 🏛️ Necesito información sobre su Asesoramiento Legal y Financiero para respaldar mi inversión en Tarija de forma segura. ¿Con quién puedo hablar?'
   )}`;
 
   return (
@@ -18,7 +18,7 @@ export default function GuiaCompradorPage() {
       <div className="relative min-h-[320px] w-full overflow-hidden bg-[#1A1A1A] flex items-center justify-center">
         <Image
           src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&auto=format&fit=crop&q=80"
-          alt="Guía Definitiva del Comprador Inteligente"
+          alt="Guía Definitiva del Comprador Inteligente en Tarija"
           fill
           sizes="100vw"
           className="object-cover opacity-25"
@@ -26,13 +26,13 @@ export default function GuiaCompradorPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
           <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Para Compradores
+            Para Compradores en Tarija
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
             Guía Definitiva del Comprador Inteligente
           </h1>
           <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Domina el mercado, asegura tu crédito y evita las trampas legales al adquirir tu nuevo hogar en Bolivia.
+            Domina el mercado, asegura tu crédito y evita las trampas legales al adquirir tu nuevo hogar en Tarija.
           </p>
         </div>
       </div>
@@ -48,10 +48,10 @@ export default function GuiaCompradorPage() {
 
         <div className="space-y-4">
           <h2 className="font-headline-md text-2xl sm:text-3xl font-black text-[#1A1A1A]">
-            La Ruta Segura para Comprar tu Inmueble
+            La Ruta Segura para Comprar tu Inmueble en Tarija
           </h2>
           <p className="font-body-md text-sm text-gray-600 leading-relaxed">
-            Comprar un inmueble es una de las decisiones financieras más trascendentales. En KAIZEN te acompañamos paso a paso para garantizar que cada documento esté en regla y tu capital protegido.
+            Comprar un inmueble en Tarija es una de las decisiones financieras más trascendentales. En KAIZEN te acompañamos paso a paso para garantizar que cada documento esté en regla y tu capital protegido.
           </p>
         </div>
 
@@ -61,27 +61,27 @@ export default function GuiaCompradorPage() {
             {
               n: '1',
               title: 'Tu Realidad Financiera',
-              desc: 'Evaluación de presupuesto y estructuración de tu crédito (vivienda social o regular).',
+              desc: 'Evaluación de presupuesto y estructuración de tu crédito (vivienda social o regular en entidades bancarias).',
             },
             {
               n: '2',
               title: 'La Búsqueda Estratégica',
-              desc: 'Identificación de propiedades verificadas con alto potencial de plusvalía.',
+              desc: 'Identificación de propiedades verificadas con alto potencial de plusvalía en los mejores barrios de Tarija.',
             },
             {
               n: '3',
-              title: 'Auditoría Legal en DDRR',
-              desc: 'Revisión técnica del Folio Real, gravámenes y estado impositivo municipal.',
+              title: 'Auditoría Legal en DDRR Tarija',
+              desc: 'Revisión técnica del Folio Real, gravámenes y estado impositivo en la Alcaldía de Tarija.',
             },
             {
               n: '4',
               title: 'Minuta y Desembolso',
-              desc: 'Redacción segura del documento de transferencia y coordinación con la entidad bancaria.',
+              desc: 'Redacción segura del documento de transferencia y coordinación con la entidad bancaria y notaría.',
             },
             {
               n: '5',
               title: 'Registro Final',
-              desc: 'Consolidación de tu derecho propietario ante Derechos Reales y la Alcaldía.',
+              desc: 'Consolidación de tu derecho propietario ante Derechos Reales Tarija y Catastro Municipal.',
             },
           ].map((paso) => (
             <div
@@ -102,7 +102,7 @@ export default function GuiaCompradorPage() {
         {/* CTA */}
         <div className="bg-[#1A1A1A] text-white p-8 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <h3 className="font-headline-sm text-lg font-bold">¿Tienes dudas sobre una propiedad en particular?</h3>
+            <h3 className="font-headline-sm text-lg font-bold">¿Tienes dudas sobre una propiedad en Tarija?</h3>
             <p className="text-xs text-gray-300">
               Revisamos los papeles de tu futuro hogar sin compromiso.
             </p>

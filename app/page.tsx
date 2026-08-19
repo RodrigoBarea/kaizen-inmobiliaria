@@ -10,7 +10,7 @@ export const revalidate = 60;
 export default async function HomePage() {
   let inmueblesDestacados: Inmueble[] = [];
   try {
-    inmueblesDestacados = (await getInmuebles({ featuredOnly: true, limit: 6 })) || [];
+    inmueblesDestacados = (await getInmuebles({ isFeatured: true, limit: 6 })) || [];
   } catch (e) {
     console.error('Error fetching destacados:', e);
   }

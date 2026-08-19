@@ -19,8 +19,8 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'KAIZEN Bienes Raíces | Compra, Alquiler y Anticrético en Bolivia',
-  description: 'Encuentra tu lugar ideal con precisión y confianza. Inmuebles corporativos y residenciales de lujo en Tarija, Santa Cruz, La Paz y Cochabamba.',
+  title: 'KAIZEN Bienes Raíces | Inmobiliaria Líder en Tarija',
+  description: 'Compra, venta, alquiler y anticrético en Tarija. Encuentra tu casa, departamento o terreno con seguridad jurídica blindada y asesoría experta en Tarija.',
 };
 
 export default function RootLayout({

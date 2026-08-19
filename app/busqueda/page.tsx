@@ -174,13 +174,13 @@ function BusquedaContent() {
                 onChange={(e) => setSelectedCity(e.target.value)}
                 className="h-10 px-3 border border-surface-variant rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md shrink-0 focus:border-on-surface focus:ring-0 cursor-pointer"
               >
-                <option value="Todas">Todas las ciudades</option>
-                <option value="Tarija">Tarija</option>
-                <option value="Santa Cruz">Santa Cruz</option>
-                <option value="La Paz">La Paz</option>
-                <option value="Cochabamba">Cochabamba</option>
+                <option value="Todas">Toda Tarija</option>
+                <option value="Tarija">Tarija (Cercado)</option>
+                <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                <option value="Uriondo">Uriondo / El Valle</option>
                 <option value="Bermejo">Bermejo</option>
                 <option value="Yacuiba">Yacuiba</option>
+                <option value="Villa Montes">Villa Montes</option>
               </select>
 
               {/* Bedrooms Square Buttons */}

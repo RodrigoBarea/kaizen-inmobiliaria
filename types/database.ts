@@ -1,8 +1,13 @@
+export type TipoInmueble = 'Casa' | 'Departamento' | 'Terreno' | 'Oficina Comercial';
+
+export type CategoriaSlug = 'venta' | 'alquiler' | 'anticretico' | 'destacados';
+
 export interface Categoria {
   id: string;
   nombre_categoria: string;
-  slug: string;
-  created_at?: string | null;
+  slug: CategoriaSlug | string;
+  descripcion?: string | null;
+  created_at?: string;
 }
 
 export interface Agente {
@@ -13,56 +18,55 @@ export interface Agente {
   telefono: string;
   correo?: string | null;
   foto_principal?: string | null;
-  created_at?: string | null;
+  created_at?: string;
 }
 
-export type TipoInmueble = 'Casa' | 'Departamento' | 'Terreno' | 'Lote' | 'Tienda Comercial' | 'Edificio' | 'Oficina';
-
-export type CiudadBolivia = 'Tarija' | 'Santa Cruz' | 'La Paz' | 'Cochabamba' | 'Bermejo' | 'Yacuiba' | 'Sucre' | 'Potosi' | 'Oruro' | 'Beni' | 'Pando';
+export type CiudadTarija = 'Tarija' | 'San Lorenzo' | 'Uriondo' | 'Bermejo' | 'Yacuiba' | 'Villa Montes';
 
 export interface Inmueble {
   id: string;
   inmueble_name: string;
   slug: string;
-  direccion: string;
-  ciudad: CiudadBolivia | string;
-  tipo: TipoInmueble | string;
   precio: number;
+  moneda: string;
+  tipo: TipoInmueble | string;
+  ciudad: CiudadTarija | string;
+  direccion: string;
   dormitorios: number;
   banos: number;
-  terreno: number;
-  construccion?: number | null;
   estacionamientos?: number | null;
+  construccion?: number | null;
+  terreno: number;
   frente?: number | null;
-  descripcion?: string | null;
+  descripcion: string;
   lat: number;
   lng: number;
-  is_featured: boolean;
-  active: boolean;
   categoria_id?: string | null;
-  agente_id?: string | null;
   categoria?: Categoria | null;
+  agente_id?: string | null;
   agente?: Agente | null;
   imagenes: string[];
-  created_at?: string | null;
-  updated_at?: string | null;
+  is_featured: boolean;
+  active?: boolean;
+  created_at?: string;
 }
 
 export interface Blog {
   id: string;
   titulo: string;
   slug: string;
+  resumen?: string | null;
   contenido: string;
+  foto_principal?: string | null;
   portada?: string | null;
-  active: boolean;
-  agente_id?: string | null;
+  autor_id?: string | null;
+  autor?: Agente | null;
   agente?: Agente | null;
-  created_at?: string | null;
-  updated_at?: string | null;
+  created_at?: string;
 }
 
 export interface LeadVender {
-  id: string;
+  id?: string;
   nombre: string;
   telefono: string;
   email?: string | null;
@@ -70,6 +74,6 @@ export interface LeadVender {
   ubicacion: string;
   precio_estimado?: number | null;
   detalles?: string | null;
-  atendido?: boolean | null;
-  created_at?: string | null;
+  atendido?: boolean;
+  created_at?: string;
 }

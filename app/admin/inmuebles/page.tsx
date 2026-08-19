@@ -122,11 +122,13 @@ export default function AdminInmueblesPage() {
             onChange={(e) => setFilterCity(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-xl text-xs font-semibold focus:outline-none bg-white"
           >
-            <option value="Todos">Todas las ciudades</option>
-            <option value="Tarija">Tarija</option>
-            <option value="Santa Cruz">Santa Cruz</option>
-            <option value="La Paz">La Paz</option>
-            <option value="Cochabamba">Cochabamba</option>
+            <option value="Todos">Toda Tarija</option>
+            <option value="Tarija">Tarija (Cercado)</option>
+            <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+            <option value="Uriondo">Uriondo / El Valle</option>
+            <option value="Bermejo">Bermejo</option>
+            <option value="Yacuiba">Yacuiba</option>
+            <option value="Villa Montes">Villa Montes</option>
           </select>
         </div>
       </div>
@@ -216,7 +218,7 @@ export default function AdminInmueblesPage() {
 
                     <td className="p-4 text-center">
                       <button
-                        onClick={() => handleToggleActive(i.id, i.active)}
+                        onClick={() => handleToggleActive(i.id, Boolean(i.active !== false))}
                         className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full transition ${
                           i.active
                             ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'

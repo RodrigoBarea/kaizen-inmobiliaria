@@ -73,8 +73,8 @@ export default function EditarInmueblePage() {
           setCategoriaId(inmueble.categoria_id || (cats[0]?.id ?? ''));
           setAgenteId(inmueble.agente_id || (ags[0]?.id ?? ''));
           setImagenes(inmueble.imagenes || []);
-          setIsFeatured(inmueble.is_featured);
-          setActive(inmueble.active);
+          setIsFeatured(Boolean(inmueble.is_featured));
+          setActive(Boolean(inmueble.active !== false));
         }
       } catch (err) {
         console.error(err);
@@ -244,12 +244,12 @@ export default function EditarInmueblePage() {
                   onChange={(e) => setCiudad(e.target.value)}
                   className="w-full h-12 px-4 rounded border border-surface-variant focus:border-on-surface focus:ring-0 bg-surface-bright font-body-md text-on-surface"
                 >
-                  <option value="Tarija">Tarija</option>
-                  <option value="Santa Cruz">Santa Cruz</option>
-                  <option value="La Paz">La Paz</option>
-                  <option value="Cochabamba">Cochabamba</option>
+                  <option value="Tarija">Tarija (Cercado)</option>
+                  <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                  <option value="Uriondo">Uriondo / El Valle</option>
                   <option value="Bermejo">Bermejo</option>
                   <option value="Yacuiba">Yacuiba</option>
+                  <option value="Villa Montes">Villa Montes</option>
                 </select>
               </div>
 

@@ -43,7 +43,7 @@ export default function SobreNosotrosPage() {
             KAIZEN: INTEGRIDAD, VISIÓN Y MEJORA CONTINUA EN CADA METRO CUADRADO.
           </h1>
           <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            El mercado inmobiliario boliviano necesitaba evolucionar. En KAIZEN, no somos simples intermediarios; somos arquitectos de tu tranquilidad patrimonial. Elevamos los estándares de la industria combinando la precisión técnica, el rigor legal y un servicio al cliente genuinamente excepcional.
+            El mercado inmobiliario en Tarija necesitaba evolucionar. En KAIZEN, no somos simples intermediarios; somos arquitectos de tu tranquilidad patrimonial. Elevamos los estándares de la industria combinando la precisión técnica, el rigor legal y un servicio al cliente genuinamente excepcional.
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function SobreNosotrosPage() {
             </div>
             <h2 className="font-headline-md text-2xl font-black text-[#1A1A1A]">Nuestra Misión</h2>
             <p className="font-body-md text-sm text-gray-600 leading-relaxed">
-              Brindar soluciones inmobiliarias integrales y seguras en Bolivia, garantizando transacciones transparentes mediante asesoría legal y financiera experta, protegiendo el patrimonio de cada cliente.
+              Brindar soluciones inmobiliarias integrales y seguras en Tarija, garantizando transacciones transparentes mediante asesoría legal y financiera experta, protegiendo el patrimonio de cada cliente.
             </p>
           </div>
 
@@ -68,7 +68,7 @@ export default function SobreNosotrosPage() {
             </div>
             <h2 className="font-headline-md text-2xl font-black text-[#1A1A1A]">Nuestra Visión</h2>
             <p className="font-body-md text-sm text-gray-600 leading-relaxed">
-              Consolidarnos como la red inmobiliaria más confiable y tecnológicamente avanzada de Bolivia, siendo el referente indiscutible en seguridad jurídica y rentabilidad.
+              Consolidarnos como la red inmobiliaria más confiable y tecnológicamente avanzada de Tarija, siendo el referente indiscutible en seguridad jurídica y rentabilidad.
             </p>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function SobreNosotrosPage() {
               Conoce a los Estrategas Detrás de tu Próxima Gran Inversión.
             </h2>
             <p className="font-body-md text-sm sm:text-base text-gray-600 max-w-xl mx-auto">
-              Especialistas locales en La Paz, Santa Cruz, Cochabamba y Tarija listos para guiarte.
+              Especialistas locales en Tarija, San Lorenzo, Uriondo, Bermejo y Yacuiba listos para guiarte.
             </p>
           </div>
 

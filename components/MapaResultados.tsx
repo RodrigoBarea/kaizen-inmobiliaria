@@ -13,11 +13,11 @@ interface Props {
 
 const CITY_COORDINATES: Record<string, [number, number]> = {
   Tarija: [-64.7296, -21.5355],
-  'Santa Cruz': [-63.1812, -17.7833],
-  'La Paz': [-68.1193, -16.4897],
-  Cochabamba: [-66.1561, -17.3895],
+  'San Lorenzo': [-64.7497, -21.4172],
+  Uriondo: [-64.6547, -21.6961],
   Bermejo: [-64.3378, -22.7322],
   Yacuiba: [-63.6775, -22.0164],
+  'Villa Montes': [-63.4708, -21.2589],
 };
 
 export default function MapaResultados({ inmuebles, ciudadSeleccionada }: Props) {

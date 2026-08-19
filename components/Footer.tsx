@@ -33,7 +33,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-xs text-gray-400 leading-relaxed">
-              Agencia Inmobiliaria basada en el principio de la mejora continua. Transparencia, asesoramiento legal especializado y tecnología para tus inversiones inmobiliarias en Bolivia.
+              Agencia Inmobiliaria basada en el principio de la mejora continua. Transparencia, asesoramiento legal especializado y tecnología para tus inversiones inmobiliarias en Tarija.
             </p>
             <div className="flex items-center space-x-3 pt-2">
               <a

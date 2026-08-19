@@ -12,11 +12,11 @@ interface Props {
 
 const CITY_DEFAULT_COORDS: Record<string, { lat: number; lng: number }> = {
   Tarija: { lat: -21.5355, lng: -64.7296 },
-  'Santa Cruz': { lat: -17.7833, lng: -63.1812 },
-  'La Paz': { lat: -16.4897, lng: -68.1193 },
-  Cochabamba: { lat: -17.3895, lng: -66.1561 },
+  'San Lorenzo': { lat: -21.4172, lng: -64.7497 },
+  Uriondo: { lat: -21.6961, lng: -64.6547 },
   Bermejo: { lat: -22.7322, lng: -64.3378 },
   Yacuiba: { lat: -22.0164, lng: -63.6775 },
+  'Villa Montes': { lat: -21.2589, lng: -63.4708 },
 };
 
 export default function MapaPicker({ lat, lng, onChange, ciudad = 'Tarija' }: Props) {

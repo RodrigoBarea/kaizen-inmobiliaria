@@ -89,7 +89,7 @@ export default function BannerPrincipal() {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="font-body-lg text-sm sm:text-base md:text-lg text-white/90 mb-9 max-w-2xl mx-auto drop-shadow leading-relaxed"
         >
-          Garantizamos tu tranquilidad en Bolivia con verificación rigurosa en Derechos Reales, asesoría crediticia y rentabilidad asegurada.
+          Garantizamos tu tranquilidad en Tarija con verificación rigurosa en Derechos Reales, asesoría crediticia y rentabilidad asegurada.
         </motion.p>
 
         {/* Mega Buscador Central */}
@@ -146,23 +146,23 @@ export default function BannerPrincipal() {
           {/* Fila Inferior: Inputs limpios */}
           <form onSubmit={handleSearch} className="p-4 sm:p-6 bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
             
-            {/* Select Ciudad */}
+            {/* Select Ciudad / Zona */}
             <div>
               <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">
-                Ciudad o Zona
+                Zona o Municipio
               </label>
               <select
                 value={ciudad}
                 onChange={(e) => setCiudad(e.target.value)}
                 className="w-full h-11 px-3 rounded border border-gray-300 font-body-md text-sm text-[#1A1A1A] focus:border-[#E60000] focus:ring-0 bg-white cursor-pointer"
               >
-                <option value="Todas">¿En qué ciudad buscas invertir?</option>
-                <option value="Tarija">Tarija</option>
-                <option value="Santa Cruz">Santa Cruz</option>
-                <option value="La Paz">La Paz</option>
-                <option value="Cochabamba">Cochabamba</option>
+                <option value="Todas">Toda Tarija</option>
+                <option value="Tarija">Tarija (Cercado)</option>
+                <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                <option value="Uriondo">Uriondo / El Valle</option>
                 <option value="Bermejo">Bermejo</option>
                 <option value="Yacuiba">Yacuiba</option>
+                <option value="Villa Montes">Villa Montes</option>
               </select>
             </div>
 

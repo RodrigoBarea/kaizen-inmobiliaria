@@ -8,7 +8,7 @@ export default function Asesoramiento() {
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   const waUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    '¡Hola! 🏛️ Necesito información sobre su Asesoramiento Legal y Financiero para respaldar mi inversión en Bolivia de forma segura. ¿Con quién puedo hablar?'
+    '¡Hola! 🏛️ Necesito información sobre su Asesoramiento Legal y Financiero para respaldar mi inversión en Tarija de forma segura. ¿Con quién puedo hablar?'
   )}`;
 
   return (
@@ -22,10 +22,10 @@ export default function Asesoramiento() {
               Filosofía de Mejora Continua
             </span>
             <h2 className="font-headline-md text-3xl sm:text-4xl md:text-5xl font-black text-[#1A1A1A] tracking-tight">
-              El Estándar KAIZEN: <span className="text-[#E60000]">Evolucionando el Mercado Inmobiliario Boliviano</span>
+              El Estándar KAIZEN: <span className="text-[#E60000]">Evolucionando el Mercado Inmobiliario en Tarija</span>
             </h2>
             <p className="font-body-md text-sm sm:text-base text-gray-600 mt-4 leading-relaxed max-w-2xl">
-              <strong>"Kaizen"</strong> significa mejora continua. Redefinimos la gestión inmobiliaria en Bolivia eliminando la improvisación, protegiendo tu capital y asegurando que cada paso te acerque a tus metas financieras con total transparencia.
+              <strong>"Kaizen"</strong> significa mejora continua. Redefinimos la gestión inmobiliaria en Tarija eliminando la improvisación, protegiendo tu capital y asegurando que cada paso te acerque a tus metas financieras con total transparencia.
             </p>
           </div>
 

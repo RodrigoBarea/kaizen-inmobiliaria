@@ -21,7 +21,7 @@ export default function DestacadosPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const data = await getInmuebles({ featuredOnly: true });
+        const data = await getInmuebles({ isFeatured: true });
         setInmuebles(data);
       } catch (err) {
         console.error(err);

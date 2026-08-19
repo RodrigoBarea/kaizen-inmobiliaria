@@ -1,72 +1,70 @@
 -- ==============================================================================
--- SCHEMA SUPABASE: PORTAL INMOBILIARIO KAIZEN
+-- KAIZEN BIENES RAÍCES - SCHEMA DE BASE DE DATOS SUPABASE (ENFOQUE TARIJA)
 -- ==============================================================================
--- Ejecuta este script en el SQL Editor de tu proyecto de Supabase.
 
--- 1. EXTENSIONES
+-- Habilitar extensión UUID
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- 2. TABLA: CATEGORIAS (Venta, Alquiler, Anticrético, etc.)
+-- 1. TABLA: CATEGORIAS (Operaciones Inmobiliarias)
 CREATE TABLE IF NOT EXISTS public.categorias (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre_categoria TEXT NOT NULL UNIQUE,
     slug TEXT NOT NULL UNIQUE,
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    descripcion TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 3. TABLA: AGENTES
+-- 2. TABLA: AGENTES (Equipo Inmobiliario KAIZEN Tarija)
 CREATE TABLE IF NOT EXISTS public.agentes (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     agent_name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
-    cargo TEXT DEFAULT 'Asesor Inmobiliario',
+    cargo TEXT,
     telefono TEXT NOT NULL,
     correo TEXT,
-    foto_principal TEXT, -- URL Cloudinary
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    foto_principal TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 4. TABLA: INMUEBLES
+-- 3. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija)
 CREATE TABLE IF NOT EXISTS public.inmuebles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     inmueble_name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
+    precio NUMERIC(15, 2) NOT NULL,
+    moneda TEXT DEFAULT '$us' NOT NULL,
+    tipo TEXT NOT NULL CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial')),
+    ciudad TEXT NOT NULL CHECK (ciudad IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes')),
     direccion TEXT NOT NULL,
-    ciudad TEXT NOT NULL CHECK (ciudad IN ('Tarija', 'Santa Cruz', 'La Paz', 'Cochabamba', 'Bermejo', 'Yacuiba', 'Sucre', 'Potosi', 'Oruro', 'Beni', 'Pando')),
-    tipo TEXT NOT NULL CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Lote', 'Tienda Comercial', 'Edificio', 'Oficina')),
-    precio NUMERIC(14,2) NOT NULL,
-    dormitorios INT DEFAULT 0,
-    banos INT DEFAULT 0,
-    terreno NUMERIC(10,2) DEFAULT 0,
-    construccion NUMERIC(10,2) DEFAULT 0,
-    estacionamientos INT DEFAULT 0,
-    frente NUMERIC(10,2) DEFAULT 0,
-    descripcion TEXT,
-    lat DOUBLE PRECISION DEFAULT -21.5355,
-    lng DOUBLE PRECISION DEFAULT -64.7296,
-    is_featured BOOLEAN DEFAULT false,
-    active BOOLEAN DEFAULT true,
-    categoria_id UUID REFERENCES public.categorias(id) ON DELETE SET NULL,
-    agente_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL,
-    imagenes JSONB DEFAULT '[]'::jsonb, -- Array de strings con URLs de Cloudinary
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
-    updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    dormitorios INTEGER DEFAULT 0 NOT NULL,
+    banos INTEGER DEFAULT 0 NOT NULL,
+    estacionamientos INTEGER DEFAULT 0,
+    construccion NUMERIC(10, 2),
+    terreno NUMERIC(10, 2) NOT NULL,
+    frente NUMERIC(10, 2),
+    descripcion TEXT NOT NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    lng DOUBLE PRECISION NOT NULL,
+    categoria_id UUID NOT NULL REFERENCES public.categorias(id) ON DELETE RESTRICT,
+    agente_id UUID NOT NULL REFERENCES public.agentes(id) ON DELETE RESTRICT,
+    imagenes TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
+    is_featured BOOLEAN DEFAULT false NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 5. TABLA: BLOGS
+-- 4. TABLA: BLOGS (Artículos del Mercado Inmobiliario en Tarija)
 CREATE TABLE IF NOT EXISTS public.blogs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     titulo TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
+    resumen TEXT,
     contenido TEXT NOT NULL,
-    portada TEXT, -- URL Cloudinary
-    active BOOLEAN DEFAULT true,
-    agente_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
-    updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    foto_principal TEXT,
+    autor_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 6. TABLA: LEADS / CONTACTOS PARA VENDER
+-- 5. TABLA: LEADS_VENDER (Captación de Propiedades en Tarija)
 CREATE TABLE IF NOT EXISTS public.leads_vender (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre TEXT NOT NULL,
@@ -74,360 +72,325 @@ CREATE TABLE IF NOT EXISTS public.leads_vender (
     email TEXT,
     tipo_inmueble TEXT NOT NULL,
     ubicacion TEXT NOT NULL,
-    precio_estimado NUMERIC(14,2),
+    precio_estimado NUMERIC(15, 2),
     detalles TEXT,
-    atendido BOOLEAN DEFAULT false,
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 7. ÍNDICES DE RENDIMIENTO
-CREATE INDEX IF NOT EXISTS idx_inmuebles_slug ON public.inmuebles(slug);
-CREATE INDEX IF NOT EXISTS idx_inmuebles_active ON public.inmuebles(active);
-CREATE INDEX IF NOT EXISTS idx_inmuebles_featured ON public.inmuebles(is_featured);
-CREATE INDEX IF NOT EXISTS idx_inmuebles_categoria ON public.inmuebles(categoria_id);
-CREATE INDEX IF NOT EXISTS idx_inmuebles_ciudad ON public.inmuebles(ciudad);
-CREATE INDEX IF NOT EXISTS idx_inmuebles_precio ON public.inmuebles(precio);
-CREATE INDEX IF NOT EXISTS idx_blogs_slug ON public.blogs(slug);
+-- ==============================================================================
+-- SEGURIDAD Y POLÍTICAS RLS (Row Level Security)
+-- ==============================================================================
 
--- 8. POLÍTICAS DE SEGURIDAD (ROW LEVEL SECURITY)
 ALTER TABLE public.categorias ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.agentes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inmuebles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads_vender ENABLE ROW LEVEL SECURITY;
 
--- Políticas de Lectura Pública (Cualquier visitante puede ver inmuebles activos, categorías, agentes y blogs)
+-- Políticas de Lectura Pública
 CREATE POLICY "Lectura pública de categorías" ON public.categorias FOR SELECT USING (true);
 CREATE POLICY "Lectura pública de agentes" ON public.agentes FOR SELECT USING (true);
-CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USING (active = true OR auth.role() = 'authenticated');
-CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (active = true OR auth.role() = 'authenticated');
+CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USING (true);
+CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (true);
 
--- Permitir a visitantes enviar formulario de vender
-CREATE POLICY "Envio de formulario vender anonimo" ON public.leads_vender FOR INSERT WITH CHECK (true);
+-- Escritura pública para captación de leads
+CREATE POLICY "Inserción pública de leads de venta" ON public.leads_vender FOR INSERT WITH CHECK (true);
 
--- Políticas de Administración (CRUD total para usuarios autenticados o con clave)
-CREATE POLICY "Admin CRUD categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin CRUD agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin CRUD inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin CRUD blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Admin CRUD leads_vender" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
+-- Políticas completas para usuarios autenticados (Gestor CMS / Admin)
+CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
--- (Opcional) Política permisiva para inserción si se opera con API anon durante desarrollo inicial:
-CREATE POLICY "Anon insercion inmuebles dev" ON public.inmuebles FOR INSERT TO anon WITH CHECK (true);
-CREATE POLICY "Anon actualizacion inmuebles dev" ON public.inmuebles FOR UPDATE TO anon USING (true);
-CREATE POLICY "Anon eliminacion inmuebles dev" ON public.inmuebles FOR DELETE TO anon USING (true);
-CREATE POLICY "Anon CRUD categorias dev" ON public.categorias FOR ALL TO anon USING (true) WITH CHECK (true);
-CREATE POLICY "Anon CRUD agentes dev" ON public.agentes FOR ALL TO anon USING (true) WITH CHECK (true);
-CREATE POLICY "Anon CRUD blogs dev" ON public.blogs FOR ALL TO anon USING (true) WITH CHECK (true);
+-- ==============================================================================
+-- DATOS INICIALES (SEED DATA 100% TARIJA)
+-- ==============================================================================
 
--- 9. DATOS SEMILLA (SEED DATA)
-INSERT INTO public.categorias (id, nombre_categoria, slug) VALUES
-  ('11111111-1111-1111-1111-111111111111', 'Venta', 'venta'),
-  ('22222222-2222-2222-2222-222222222222', 'Alquiler', 'alquiler'),
-  ('33333333-3333-3333-3333-333333333333', 'Anticrético', 'anticretico')
+-- Categorías
+INSERT INTO public.categorias (id, nombre_categoria, slug, descripcion) VALUES
+  ('11111111-1111-1111-1111-111111111111', 'Venta', 'venta', 'Propiedades disponibles para compra y transferencia de dominio en Tarija'),
+  ('22222222-2222-2222-2222-222222222222', 'Alquiler', 'alquiler', 'Casas, departamentos y oficinas en alquiler en Tarija'),
+  ('33333333-3333-3333-3333-333333333333', 'Anticrético', 'anticretico', 'Contratos de anticrético respaldados por registro en Derechos Reales Tarija'),
+  ('44444444-4444-4444-4444-444444444444', 'Destacados', 'destacados', 'Selección de propiedades exclusivas de alta plusvalía en Tarija')
 ON CONFLICT (slug) DO NOTHING;
 
+-- Agentes de Tarija
 INSERT INTO public.agentes (id, agent_name, slug, cargo, telefono, correo, foto_principal) VALUES
-  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Carlos Mendoza', 'carlos-mendoza', 'Director Comercial & Broker', '+591 70000000', 'carlos@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80'),
-  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80')
+  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Carlos Mendoza', 'carlos-mendoza', 'Director Comercial & Broker Tarija', '+591 70000000', 'carlos@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80'),
+  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones Tarija', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80')
 ON CONFLICT (slug) DO NOTHING;
 
+-- 12 Inmuebles en Zonas Prominentes de Tarija
 INSERT INTO public.inmuebles (
-    id, inmueble_name, slug, direccion, ciudad, tipo, precio, dormitorios, banos, terreno, construccion, estacionamientos, frente, descripcion, lat, lng, is_featured, active, categoria_id, agente_id, imagenes
+    id, inmueble_name, slug, precio, moneda, tipo, ciudad, direccion,
+    dormitorios, banos, estacionamientos, construccion, terreno, frente,
+    descripcion, lat, lng, categoria_id, agente_id, imagenes, is_featured
 ) VALUES
-  (
+(
     '00000000-0000-0000-0000-000000000001',
-    'Hermosa Casa Moderna en Barrio Miraflores',
-    'hermosa-casa-moderna-en-barrio-miraflores',
-    'Av. Las Palmeras #450, Barrio Miraflores',
-    'Tarija',
-    'Casa',
+    'Residencia Moderna en Miraflores',
+    'residencia-moderna-en-miraflores-tarija',
     185000,
-    4,
-    3,
-    350,
-    280,
-    2,
-    14,
-    'Espectacular residencia moderna de 2 plantas con finos acabados, amplio jardín con churrasquera techada, suite principal con vestidor y balcón panorámico. Cocina equipada con isla de cuarzo y muebles empotrados de primera calidad.',
-    -21.5355,
-    -64.7296,
-    true,
-    true,
+    '$us',
+    'Casa',
+    'Tarija',
+    'Barrio Miraflores, Calle Las Rosas',
+    4, 3, 2, 320, 450, 15,
+    'Exclusiva residencia en el prestigioso Barrio Miraflores de Tarija. Acabados de lujo, jardín privado con churrasquera, cocina equipada con isla de cuarzo y amplia máster suite con vestidor.',
+    -21.5398,
+    -64.7355,
     '11111111-1111-1111-1111-111111111111',
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
+    ARRAY[
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+),
+(
     '00000000-0000-0000-0000-000000000002',
-    'Departamento de Lujo en Equipetrol',
-    'departamento-de-lujo-en-equipetrol',
-    'Calle 8 Este, Barrio Equipetrol',
-    'Santa Cruz',
-    'Departamento',
+    'Penthouse Panorámico en Aranjuez',
+    'penthouse-panoramico-en-aranjuez-tarija',
     145000,
-    3,
-    2,
-    140,
-    140,
-    1,
-    0,
-    'Exclusivo departamento en piso alto con vista panorámica. Edificio inteligente con piscina infinita, gimnasio equipado, salón de eventos y seguridad 24/7. Acabados importados y domótica integrada.',
-    -17.7712,
-    -63.1950,
-    true,
-    true,
-    '11111111-1111-1111-1111-111111111111',
-    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000003',
-    'Casa en Alquiler Zona San Gerónimo',
-    'casa-en-alquiler-zona-san-geronimo',
-    'Zona San Gerónimo, Pasaje Los Sauces',
-    'Tarija',
-    'Casa',
-    750,
-    3,
-    2,
-    260,
-    190,
-    2,
-    10,
-    'Acogedora casa en alquiler en zona tranquila y residencial. Cuenta con living comedor luminoso, cocina cerrada, patio trasero con parrillero y garaje para 2 vehículos.',
-    -21.5420,
-    -64.7150,
-    true,
-    true,
-    '22222222-2222-2222-2222-222222222222',
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000004',
-    'Departamento en Anticrético Calacoto',
-    'departamento-en-anticretico-calacoto',
-    'Calle 15 de Calacoto',
-    'La Paz',
+    '$us',
     'Departamento',
-    45000,
-    2,
-    2,
-    95,
-    95,
-    1,
-    0,
-    'Hermoso departamento soleado en anticrético ubicado en el corazón de la zona sur. Calefacción central, cocina con mesones de granito y terraza privada.',
-    -16.5385,
-    -68.0845,
-    true,
-    true,
-    '33333333-3333-3333-3333-333333333333',
-    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000005',
-    'Residencia Minimalista en Las Palmas',
-    'residencia-minimalista-en-las-palmas',
-    'Av. Las Palmas, Condominio El Roble',
-    'Santa Cruz',
-    'Casa',
-    320000,
-    4,
-    4,
-    420,
-    360,
-    3,
-    16,
-    'Lujosa casa minimalista en condominio exclusivo. Piscina privada con deck de madera, galería con asador gourmet, cocina integrada y suite máster con jacuzzi.',
-    -17.8015,
-    -63.2050,
-    true,
-    true,
-    '11111111-1111-1111-1111-111111111111',
-    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000006',
-    'Casa Estilo Colonial en Aranjuez',
-    'casa-estilo-colonial-en-aranjuez',
-    'Calle Los Pinos, Barrio Aranjuez',
     'Tarija',
-    'Casa',
-    210000,
-    4,
-    3,
-    380,
-    290,
-    2,
-    15,
-    'Hermosa propiedad de diseño cálido colonial con detalles en madera tallada, amplios corredores con teja española, jardín consolidado y pozo de agua propio.',
-    -21.5280,
-    -64.7390,
-    true,
-    true,
-    '11111111-1111-1111-1111-111111111111',
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000007',
-    'Terreno Urbano en Zona Norte',
-    'terreno-urbano-en-zona-norte',
-    'Av. Circunvalación Norte',
-    'Cochabamba',
-    'Terreno',
-    98000,
-    0,
-    0,
-    500,
-    0,
-    0,
-    20,
-    'Excelente lote totalmente plano con todos los servicios básicos instalados (agua, luz, alcantarillado, gas natural). Ideal para proyecto residencial o comercial.',
-    -17.3750,
-    -66.1510,
-    false,
-    true,
-    '11111111-1111-1111-1111-111111111111',
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000008',
-    'Penthouse Corporativo Norte en Alquiler',
-    'penthouse-corporativo-norte-en-alquiler',
-    '4to Anillo, Zona Norte',
-    'Santa Cruz',
-    'Departamento',
-    1200,
-    3,
-    3,
-    180,
-    180,
-    2,
-    0,
-    'Espectacular departamento amoblado de lujo con vista panorámica. Cortinas automatizadas, aire acondicionado central, terraza privada y áreas sociales de primer nivel.',
-    -17.7620,
-    -63.1780,
-    true,
-    true,
-    '22222222-2222-2222-2222-222222222222',
-    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=1200&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000009',
-    'Oficina en Torre Empresarial Centro',
-    'oficina-en-torre-empresarial-centro',
-    'Paseo El Prado, Centro Financiero',
-    'La Paz',
-    'Oficina Comercial',
-    850,
-    2,
-    2,
-    110,
-    110,
-    1,
-    0,
-    'Oficina ejecutiva con divisiones en vidrio templado, recepción, sala de juntas y kitchenette. Cableado estructurado y seguridad las 24 horas.',
-    -16.5010,
-    -68.1320,
-    false,
-    true,
-    '22222222-2222-2222-2222-222222222222',
-    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000010',
-    'Departamento Amoblado en Barrio Senac',
-    'departamento-amoblado-en-barrio-senac',
-    'Barrio Senac, Calle Las Palmeras',
-    'Tarija',
-    'Departamento',
-    500,
-    2,
-    1,
-    75,
-    75,
-    1,
-    0,
-    'Cómodo y moderno departamento completamente amoblado y equipado. Incluye wifi, agua y expensas. Excelente ubicación cercana a universidades y centros comerciales.',
-    -21.5450,
-    -64.7380,
-    false,
-    true,
-    '22222222-2222-2222-2222-222222222222',
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000011',
-    'Casa Amplia en Anticrético San Martín',
-    'casa-amplia-en-anticretico-san-martin',
-    'Barrio San Martín, Calle Los Ceibos',
-    'Tarija',
-    'Casa',
-    38000,
-    3,
-    2,
-    220,
-    160,
-    2,
-    10,
-    'Casa independiente en anticrético por 2 años forzosos. 3 dormitorios amplios, patio privado, cocina con cajonería alta y baja, garaje techado.',
-    -21.5310,
+    'Av. Los Molles, Barrio Aranjuez',
+    3, 3, 2, 210, 210, 0,
+    'Penthouse con terraza privada y vista panorámica inigualable al Valle Central de Tarija. Incluye domótica, suite principal con hidromasaje y acceso a piscina comunitaria.',
+    -21.5285,
     -64.7210,
-    true,
-    true,
+    '11111111-1111-1111-1111-111111111111',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    ARRAY[
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+),
+(
+    '00000000-0000-0000-0000-000000000003',
+    'Terreno Urbanizado en San Jerónimo',
+    'terreno-urbanizado-en-san-jeronimo-tarija',
+    75000,
+    '$us',
+    'Terreno',
+    'Tarija',
+    'Barrio San Jerónimo, Costanera del Guadalquivir',
+    0, 0, 0, 0, 580, 18,
+    'Lote completamente plano con todos los servicios básicos instalados a pasos de la Costanera del Guadalquivir. Zona de alta plusvalía residencial.',
+    -21.5420,
+    -64.7180,
+    '11111111-1111-1111-1111-111111111111',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    ARRAY[
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+),
+(
+    '00000000-0000-0000-0000-000000000004',
+    'Casa Estilo Campestre en Tomatitas',
+    'casa-estilo-campestre-en-tomatitas-tarija',
+    125000,
+    '$us',
+    'Casa',
+    'San Lorenzo',
+    'Camino a Tomatitas, San Lorenzo',
+    3, 2, 3, 240, 750, 20,
+    'Hermosa propiedad campestre rodeada de vegetación, árboles frutales y microclima agradable. Perfecta para casa de fin de semana o vivienda permanente.',
+    -21.4850,
+    -64.7620,
+    '11111111-1111-1111-1111-111111111111',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    ARRAY[
+        'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000005',
+    'Departamento en Alquiler en Barrio Senac',
+    'departamento-en-alquiler-en-barrio-senac-tarija',
+    480,
+    '$us',
+    'Departamento',
+    'Tarija',
+    'Barrio Senac, Av. Principal',
+    2, 2, 1, 95, 95, 0,
+    'Departamento moderno de 2 dormitorios totalmente amoblado. Edificio seguro con ascensor, cámaras de seguridad y excelente iluminación natural.',
+    -21.5470,
+    -64.7420,
+    '22222222-2222-2222-2222-222222222222',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    ARRAY[
+        'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000006',
+    'Oficina Corporativa en Alquiler - Zona Central',
+    'oficina-corporativa-en-alquiler-zona-central-tarija',
+    650,
+    '$us',
+    'Oficina Comercial',
+    'Tarija',
+    'Calle Sucre esq. Virginio Lema, Zona Central',
+    0, 2, 1, 120, 120, 0,
+    'Oficina comercial en el corazón financiero de Tarija. Planta libre, baño privado, recepción y sistema de climatización.',
+    -21.5320,
+    -64.7330,
+    '22222222-2222-2222-2222-222222222222',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    ARRAY[
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000007',
+    'Anticrético Casa Familiar en Barrio Tabladita',
+    'anticretico-casa-familiar-en-barrio-tabladita-tarija',
+    35000,
+    '$us',
+    'Casa',
+    'Tarija',
+    'Barrio Tabladita, Calle Los Sauces',
+    3, 2, 2, 220, 350, 12,
+    'Excelente casa en anticrético. Totalmente saneada con Folio Real en Derechos Reales Tarija para inscripción preventiva de gravamen.',
+    -21.5510,
+    -64.7380,
     '33333333-3333-3333-3333-333333333333',
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-    '["https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  ),
-  (
-    '00000000-0000-0000-0000-000000000012',
-    'Departamento Soleado en Cala Cala',
-    'departamento-soleado-en-cala-cala',
-    'Av. Libertador Bolívar, Cala Cala',
-    'Cochabamba',
+    ARRAY[
+        'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+),
+(
+    '00000000-0000-0000-0000-000000000008',
+    'Anticrético Departamento en Barrio San Martín',
+    'anticretico-departamento-en-barrio-san-martin-tarija',
+    22000,
+    '$us',
     'Departamento',
-    35000,
-    3,
-    2,
-    120,
-    120,
-    1,
-    0,
-    'Espacioso departamento en anticrético en piso intermedio. Muy luminoso y cálido, roperos empotrados, suite con vestidor, edificio con ascensor y seguridad.',
-    -17.3690,
-    -66.1600,
-    false,
-    true,
+    'Tarija',
+    'Barrio San Martín, a 2 cuadras de la Plaza',
+    2, 1, 1, 80, 80, 0,
+    'Departamento en planta baja en anticrético por 2 años forzosos. Cocina con cajonería alta y baja, roperos empotrados y patio de servicio.',
+    -21.5370,
+    -64.7260,
     '33333333-3333-3333-3333-333333333333',
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-    '["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&auto=format&fit=crop&q=80"]'::jsonb
-  )
+    ARRAY[
+        'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000009',
+    'Chalet de Lujo en San Mateo',
+    'chalet-de-lujo-en-san-mateo-tarija',
+    230000,
+    '$us',
+    'Casa',
+    'Tarija',
+    'Zona San Mateo, Urbanización Los Álamos',
+    5, 4, 4, 380, 900, 25,
+    'Chalet de ensueño con piscina templada, quincho techado, salón de juegos y extensos jardines. Documentación 100% al día en DDRR Tarija.',
+    -21.4980,
+    -64.7460,
+    '11111111-1111-1111-1111-111111111111',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    ARRAY[
+        'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+),
+(
+    '00000000-0000-0000-0000-000000000010',
+    'Terreno en Zona Las Panizas',
+    'terreno-en-zona-las-panizas-tarija',
+    42000,
+    '$us',
+    'Terreno',
+    'Tarija',
+    'Las Panizas, a minutos del centro',
+    0, 0, 0, 0, 420, 14,
+    'Terreno con cerramiento perimetral, plano aprobado y línea de agua y luz en puerta. Alta proyección de revalorización en Tarija.',
+    -21.5580,
+    -64.7290,
+    '11111111-1111-1111-1111-111111111111',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    ARRAY[
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000011',
+    'Casa Comercial en El Tejar',
+    'casa-comercial-en-el-tejar-tarija',
+    160000,
+    '$us',
+    'Casa',
+    'Tarija',
+    'Barrio El Tejar, cerca a la Universidad UAJMS',
+    4, 3, 2, 280, 320, 12,
+    'Propiedad ideal para renta universitaria o comercio. Cuenta con local a la calle y departamentos independientes de alta demanda de alquiler.',
+    -21.5450,
+    -64.7310,
+    '11111111-1111-1111-1111-111111111111',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    ARRAY[
+        'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&auto=format&fit=crop&q=80'
+    ],
+    false
+),
+(
+    '00000000-0000-0000-0000-000000000012',
+    'Finca Rústica y Viñedo en Uriondo',
+    'finca-rustica-y-vinedo-en-uriondo-tarija',
+    195000,
+    '$us',
+    'Terreno',
+    'Uriondo',
+    'El Valle de la Concepción, Uriondo',
+    2, 2, 5, 150, 5000, 50,
+    'Hermosa propiedad en la Ruta del Vino de Tarija con viñedos en producción, casa patronal y derecho de agua de riego permanente.',
+    -21.6850,
+    -64.6550,
+    '11111111-1111-1111-1111-111111111111',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    ARRAY[
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
+    ],
+    true
+)
 ON CONFLICT (slug) DO NOTHING;
 
-INSERT INTO public.blogs (titulo, slug, contenido, portada, active, agente_id) VALUES
-  (
-    'Guía definitiva para comprar tu primera vivienda en Bolivia',
-    'guia-definitiva-para-comprar-tu-primera-vivienda-en-bolivia',
-    'Comprar una propiedad es uno de los pasos financieros más importantes. En esta guía te explicamos los requisitos bancarios para créditos de vivienda social, revisión de títulos de propiedad en Derechos Reales y aspectos clave para tomar la mejor decisión.',
+-- Artículos de Blog Inmobiliario Tarija
+INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, autor_id) VALUES
+(
+    '99999999-9999-9999-9999-999999999991',
+    'Guía definitiva para comprar tu primera vivienda en Tarija',
+    'guia-definitiva-para-comprar-tu-primera-vivienda-en-tarija',
+    'Aprende los pasos esenciales, documentación legal requerida en DDRR Tarija y cómo acceder al crédito de vivienda social.',
+    'Comprar una casa o departamento en Tarija es un paso fundamental para consolidar tu patrimonio. En este artículo desglosamos la importancia de auditar el Folio Real en Derechos Reales de Tarija, verificar la ausencia de gravámenes e hipotecas ocultas y realizar la transferencia con plena seguridad jurídica.',
     'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&auto=format&fit=crop&q=80',
-    true,
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
-  ),
-  (
-    'Tendencias del mercado inmobiliario en 2026',
-    'tendencias-del-mercado-inmobiliario-en-2026',
-    'Análisis de la plusvalía en las principales ciudades de Bolivia, zonas con mayor rentabilidad para inversión en alquiler y el impacto de los nuevos proyectos de urbanización sustentable.',
+),
+(
+    '99999999-9999-9999-9999-999999999992',
+    'Zonas con mayor plusvalía y rentabilidad inmobiliaria en Tarija',
+    'zonas-con-mayor-plusvalia-y-rentabilidad-inmobiliaria-en-tarija',
+    'Conoce los barrios con mayor proyección de crecimiento y rentabilidad en Tarija: Miraflores, Aranjuez, San Mateo y San Jerónimo.',
+    'Análisis de la plusvalía en la ciudad de Tarija, zonas con mayor rentabilidad para inversión en alquiler tradicional o temporario y el impacto de los nuevos proyectos de urbanización y costaneras.',
     'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
-    true,
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
-  )
+)
 ON CONFLICT (slug) DO NOTHING;
