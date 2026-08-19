@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS public.categorias (
     descripcion TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+ALTER TABLE public.categorias ADD COLUMN IF NOT EXISTS descripcion TEXT;
 
 -- 2. TABLA: AGENTES (Equipo Inmobiliario KAIZEN Tarija)
 CREATE TABLE IF NOT EXISTS public.agentes (
@@ -25,6 +26,9 @@ CREATE TABLE IF NOT EXISTS public.agentes (
     foto_principal TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS cargo TEXT;
+ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS correo TEXT;
+ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS foto_principal TEXT;
 
 -- 3. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija)
 CREATE TABLE IF NOT EXISTS public.inmuebles (
@@ -33,8 +37,8 @@ CREATE TABLE IF NOT EXISTS public.inmuebles (
     slug TEXT NOT NULL UNIQUE,
     precio NUMERIC(15, 2) NOT NULL,
     moneda TEXT DEFAULT '$us' NOT NULL,
-    tipo TEXT NOT NULL CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial')),
-    ciudad TEXT NOT NULL CHECK (ciudad IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes')),
+    tipo TEXT NOT NULL,
+    ciudad TEXT NOT NULL,
     direccion TEXT NOT NULL,
     dormitorios INTEGER DEFAULT 0 NOT NULL,
     banos INTEGER DEFAULT 0 NOT NULL,
@@ -52,6 +56,16 @@ CREATE TABLE IF NOT EXISTS public.inmuebles (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Asegurar columnas y restricciones de inmuebles
+ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS estacionamientos INTEGER DEFAULT 0;
+ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS construccion NUMERIC(10, 2);
+ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS frente NUMERIC(10, 2);
+ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
+ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_tipo_check;
+ALTER TABLE public.inmuebles ADD CONSTRAINT inmuebles_tipo_check CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial'));
+ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_ciudad_check;
+ALTER TABLE public.inmuebles ADD CONSTRAINT inmuebles_ciudad_check CHECK (ciudad IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes'));
+
 -- 4. TABLA: BLOGS (Artículos del Mercado Inmobiliario en Tarija)
 CREATE TABLE IF NOT EXISTS public.blogs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -63,6 +77,9 @@ CREATE TABLE IF NOT EXISTS public.blogs (
     autor_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS resumen TEXT;
+ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS foto_principal TEXT;
+ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS autor_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL;
 
 -- 5. TABLA: LEADS_VENDER (Captación de Propiedades en Tarija)
 CREATE TABLE IF NOT EXISTS public.leads_vender (
@@ -76,6 +93,7 @@ CREATE TABLE IF NOT EXISTS public.leads_vender (
     detalles TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+ALTER TABLE public.leads_vender ADD COLUMN IF NOT EXISTS atendido BOOLEAN DEFAULT false;
 
 -- ==============================================================================
 -- SEGURIDAD Y POLÍTICAS RLS (Row Level Security) IDEMPOTENTES
