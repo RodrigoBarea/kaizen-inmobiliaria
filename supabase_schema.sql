@@ -1,22 +1,30 @@
 -- ==============================================================================
--- KAIZEN BIENES RAÍCES - SCHEMA DE BASE DE DATOS SUPABASE (ENFOQUE TARIJA)
+-- KAIZEN BIENES RAÍCES - LIMPIEZA, ESTRUCTURA Y DATOS 100% TARIJA
 -- ==============================================================================
+-- Este script elimina de forma segura las tablas anteriores e instala el
+-- nuevo schema completo con las 12 propiedades y agentes de Tarija.
 
 -- Habilitar extensión UUID
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- 1. TABLA: CATEGORIAS (Operaciones Inmobiliarias)
-CREATE TABLE IF NOT EXISTS public.categorias (
+-- 1. LIMPIEZA COMPLETA DE TABLAS ANTERIORES
+DROP TABLE IF EXISTS public.leads_vender CASCADE;
+DROP TABLE IF EXISTS public.blogs CASCADE;
+DROP TABLE IF EXISTS public.inmuebles CASCADE;
+DROP TABLE IF EXISTS public.agentes CASCADE;
+DROP TABLE IF EXISTS public.categorias CASCADE;
+
+-- 2. TABLA: CATEGORIAS (Operaciones Inmobiliarias)
+CREATE TABLE public.categorias (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre_categoria TEXT NOT NULL UNIQUE,
     slug TEXT NOT NULL UNIQUE,
     descripcion TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
-ALTER TABLE public.categorias ADD COLUMN IF NOT EXISTS descripcion TEXT;
 
--- 2. TABLA: AGENTES (Equipo Inmobiliario KAIZEN Tarija)
-CREATE TABLE IF NOT EXISTS public.agentes (
+-- 3. TABLA: AGENTES (Equipo Inmobiliario KAIZEN Tarija)
+CREATE TABLE public.agentes (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     agent_name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
@@ -26,19 +34,16 @@ CREATE TABLE IF NOT EXISTS public.agentes (
     foto_principal TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
-ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS cargo TEXT;
-ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS correo TEXT;
-ALTER TABLE public.agentes ADD COLUMN IF NOT EXISTS foto_principal TEXT;
 
--- 3. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija)
-CREATE TABLE IF NOT EXISTS public.inmuebles (
+-- 4. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija)
+CREATE TABLE public.inmuebles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     inmueble_name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
     precio NUMERIC(15, 2) NOT NULL,
     moneda TEXT DEFAULT '$us' NOT NULL,
-    tipo TEXT NOT NULL,
-    ciudad TEXT NOT NULL,
+    tipo TEXT NOT NULL CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial')),
+    ciudad TEXT NOT NULL CHECK (ciudad IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes')),
     direccion TEXT NOT NULL,
     dormitorios INTEGER DEFAULT 0 NOT NULL,
     banos INTEGER DEFAULT 0 NOT NULL,
@@ -56,28 +61,8 @@ CREATE TABLE IF NOT EXISTS public.inmuebles (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Asegurar columnas y restricciones de inmuebles
-ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS estacionamientos INTEGER DEFAULT 0;
-ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS construccion NUMERIC(10, 2);
-ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS frente NUMERIC(10, 2);
-ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
-
--- Normalizar datos previos si existían registros de otras ciudades
-UPDATE public.inmuebles 
-SET tipo = 'Casa' 
-WHERE tipo NOT IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial');
-
-UPDATE public.inmuebles 
-SET ciudad = 'Tarija' 
-WHERE ciudad NOT IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes');
-
-ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_tipo_check;
-ALTER TABLE public.inmuebles ADD CONSTRAINT inmuebles_tipo_check CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial'));
-ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_ciudad_check;
-ALTER TABLE public.inmuebles ADD CONSTRAINT inmuebles_ciudad_check CHECK (ciudad IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes'));
-
--- 4. TABLA: BLOGS (Artículos del Mercado Inmobiliario en Tarija)
-CREATE TABLE IF NOT EXISTS public.blogs (
+-- 5. TABLA: BLOGS (Artículos del Mercado Inmobiliario en Tarija)
+CREATE TABLE public.blogs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     titulo TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
@@ -87,12 +72,9 @@ CREATE TABLE IF NOT EXISTS public.blogs (
     autor_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
-ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS resumen TEXT;
-ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS foto_principal TEXT;
-ALTER TABLE public.blogs ADD COLUMN IF NOT EXISTS autor_id UUID REFERENCES public.agentes(id) ON DELETE SET NULL;
 
--- 5. TABLA: LEADS_VENDER (Captación de Propiedades en Tarija)
-CREATE TABLE IF NOT EXISTS public.leads_vender (
+-- 6. TABLA: LEADS_VENDER (Captación de Propiedades en Tarija)
+CREATE TABLE public.leads_vender (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre TEXT NOT NULL,
     telefono TEXT NOT NULL,
@@ -101,12 +83,12 @@ CREATE TABLE IF NOT EXISTS public.leads_vender (
     ubicacion TEXT NOT NULL,
     precio_estimado NUMERIC(15, 2),
     detalles TEXT,
+    atendido BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
-ALTER TABLE public.leads_vender ADD COLUMN IF NOT EXISTS atendido BOOLEAN DEFAULT false;
 
 -- ==============================================================================
--- SEGURIDAD Y POLÍTICAS RLS (Row Level Security) IDEMPOTENTES
+-- SEGURIDAD Y POLÍTICAS RLS (Row Level Security)
 -- ==============================================================================
 
 ALTER TABLE public.categorias ENABLE ROW LEVEL SECURITY;
@@ -115,65 +97,39 @@ ALTER TABLE public.inmuebles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads_vender ENABLE ROW LEVEL SECURITY;
 
--- Políticas de Lectura Pública (Recrear de forma segura si ya existen)
-DROP POLICY IF EXISTS "Lectura pública de categorías" ON public.categorias;
+-- Políticas de Lectura Pública
 CREATE POLICY "Lectura pública de categorías" ON public.categorias FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Lectura pública de agentes" ON public.agentes;
 CREATE POLICY "Lectura pública de agentes" ON public.agentes FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Lectura pública de inmuebles" ON public.inmuebles;
 CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Lectura pública de blogs" ON public.blogs;
 CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (true);
 
 -- Escritura pública para captación de leads
-DROP POLICY IF EXISTS "Inserción pública de leads de venta" ON public.leads_vender;
 CREATE POLICY "Inserción pública de leads de venta" ON public.leads_vender FOR INSERT WITH CHECK (true);
 
 -- Políticas completas para usuarios autenticados (Gestor CMS / Admin)
-DROP POLICY IF EXISTS "Control total autenticado categorias" ON public.categorias;
 CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Control total autenticado agentes" ON public.agentes;
 CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Control total autenticado inmuebles" ON public.inmuebles;
 CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Control total autenticado blogs" ON public.blogs;
 CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Control total autenticado leads" ON public.leads_vender;
 CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==============================================================================
--- DATOS INICIALES (SEED DATA 100% TARIJA)
+-- INSERCIÓN DE DATOS 100% TARIJA (SEED DATA)
 -- ==============================================================================
 
--- Categorías
+-- 1. Categorías
 INSERT INTO public.categorias (id, nombre_categoria, slug, descripcion) VALUES
   ('11111111-1111-1111-1111-111111111111', 'Venta', 'venta', 'Propiedades disponibles para compra y transferencia de dominio en Tarija'),
   ('22222222-2222-2222-2222-222222222222', 'Alquiler', 'alquiler', 'Casas, departamentos y oficinas en alquiler en Tarija'),
   ('33333333-3333-3333-3333-333333333333', 'Anticrético', 'anticretico', 'Contratos de anticrético respaldados por registro en Derechos Reales Tarija'),
-  ('44444444-4444-4444-4444-444444444444', 'Destacados', 'destacados', 'Selección de propiedades exclusivas de alta plusvalía en Tarija')
-ON CONFLICT (slug) DO UPDATE SET
-  nombre_categoria = EXCLUDED.nombre_categoria,
-  descripcion = EXCLUDED.descripcion;
+  ('44444444-4444-4444-4444-444444444444', 'Destacados', 'destacados', 'Selección de propiedades exclusivas de alta plusvalía en Tarija');
 
--- Agentes de Tarija
+-- 2. Agentes de Tarija
 INSERT INTO public.agentes (id, agent_name, slug, cargo, telefono, correo, foto_principal) VALUES
   ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Carlos Mendoza', 'carlos-mendoza', 'Director Comercial & Broker Tarija', '+591 70000000', 'carlos@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80'),
-  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones Tarija', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80')
-ON CONFLICT (slug) DO UPDATE SET
-  agent_name = EXCLUDED.agent_name,
-  cargo = EXCLUDED.cargo,
-  telefono = EXCLUDED.telefono,
-  correo = EXCLUDED.correo,
-  foto_principal = EXCLUDED.foto_principal;
+  ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones Tarija', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80');
 
--- 12 Inmuebles en Zonas Prominentes de Tarija
+-- 3. 12 Inmuebles en Zonas Prominentes de Tarija
 INSERT INTO public.inmuebles (
     id, inmueble_name, slug, precio, moneda, tipo, ciudad, direccion,
     dormitorios, banos, estacionamientos, construccion, terreno, frente,
@@ -422,29 +378,9 @@ INSERT INTO public.inmuebles (
         'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
     ],
     true
-)
-ON CONFLICT (slug) DO UPDATE SET
-  inmueble_name = EXCLUDED.inmueble_name,
-  precio = EXCLUDED.precio,
-  moneda = EXCLUDED.moneda,
-  tipo = EXCLUDED.tipo,
-  ciudad = EXCLUDED.ciudad,
-  direccion = EXCLUDED.direccion,
-  dormitorios = EXCLUDED.dormitorios,
-  banos = EXCLUDED.banos,
-  estacionamientos = EXCLUDED.estacionamientos,
-  construccion = EXCLUDED.construccion,
-  terreno = EXCLUDED.terreno,
-  frente = EXCLUDED.frente,
-  descripcion = EXCLUDED.descripcion,
-  lat = EXCLUDED.lat,
-  lng = EXCLUDED.lng,
-  categoria_id = EXCLUDED.categoria_id,
-  agente_id = EXCLUDED.agente_id,
-  imagenes = EXCLUDED.imagenes,
-  is_featured = EXCLUDED.is_featured;
+);
 
--- Artículos de Blog Inmobiliario Tarija
+-- 4. Artículos de Blog Inmobiliario Tarija
 INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, autor_id) VALUES
 (
     '99999999-9999-9999-9999-999999999991',
@@ -463,10 +399,4 @@ INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, 
     'Análisis de la plusvalía en la ciudad de Tarija, zonas con mayor rentabilidad para inversión en alquiler tradicional o temporario y el impacto de los nuevos proyectos de urbanización y costaneras.',
     'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
-)
-ON CONFLICT (slug) DO UPDATE SET
-  titulo = EXCLUDED.titulo,
-  resumen = EXCLUDED.resumen,
-  contenido = EXCLUDED.contenido,
-  foto_principal = EXCLUDED.foto_principal,
-  autor_id = EXCLUDED.autor_id;
+);
