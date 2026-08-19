@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS public.leads_vender (
 );
 
 -- ==============================================================================
--- SEGURIDAD Y POLÍTICAS RLS (Row Level Security)
+-- SEGURIDAD Y POLÍTICAS RLS (Row Level Security) IDEMPOTENTES
 -- ==============================================================================
 
 ALTER TABLE public.categorias ENABLE ROW LEVEL SECURITY;
@@ -87,20 +87,37 @@ ALTER TABLE public.inmuebles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads_vender ENABLE ROW LEVEL SECURITY;
 
--- Políticas de Lectura Pública
+-- Políticas de Lectura Pública (Recrear de forma segura si ya existen)
+DROP POLICY IF EXISTS "Lectura pública de categorías" ON public.categorias;
 CREATE POLICY "Lectura pública de categorías" ON public.categorias FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Lectura pública de agentes" ON public.agentes;
 CREATE POLICY "Lectura pública de agentes" ON public.agentes FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Lectura pública de inmuebles" ON public.inmuebles;
 CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Lectura pública de blogs" ON public.blogs;
 CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (true);
 
 -- Escritura pública para captación de leads
+DROP POLICY IF EXISTS "Inserción pública de leads de venta" ON public.leads_vender;
 CREATE POLICY "Inserción pública de leads de venta" ON public.leads_vender FOR INSERT WITH CHECK (true);
 
 -- Políticas completas para usuarios autenticados (Gestor CMS / Admin)
+DROP POLICY IF EXISTS "Control total autenticado categorias" ON public.categorias;
 CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Control total autenticado agentes" ON public.agentes;
 CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Control total autenticado inmuebles" ON public.inmuebles;
 CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Control total autenticado blogs" ON public.blogs;
 CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Control total autenticado leads" ON public.leads_vender;
 CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==============================================================================
@@ -113,13 +130,20 @@ INSERT INTO public.categorias (id, nombre_categoria, slug, descripcion) VALUES
   ('22222222-2222-2222-2222-222222222222', 'Alquiler', 'alquiler', 'Casas, departamentos y oficinas en alquiler en Tarija'),
   ('33333333-3333-3333-3333-333333333333', 'Anticrético', 'anticretico', 'Contratos de anticrético respaldados por registro en Derechos Reales Tarija'),
   ('44444444-4444-4444-4444-444444444444', 'Destacados', 'destacados', 'Selección de propiedades exclusivas de alta plusvalía en Tarija')
-ON CONFLICT (slug) DO NOTHING;
+ON CONFLICT (slug) DO UPDATE SET
+  nombre_categoria = EXCLUDED.nombre_categoria,
+  descripcion = EXCLUDED.descripcion;
 
 -- Agentes de Tarija
 INSERT INTO public.agentes (id, agent_name, slug, cargo, telefono, correo, foto_principal) VALUES
   ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Carlos Mendoza', 'carlos-mendoza', 'Director Comercial & Broker Tarija', '+591 70000000', 'carlos@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80'),
   ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones Tarija', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80')
-ON CONFLICT (slug) DO NOTHING;
+ON CONFLICT (slug) DO UPDATE SET
+  agent_name = EXCLUDED.agent_name,
+  cargo = EXCLUDED.cargo,
+  telefono = EXCLUDED.telefono,
+  correo = EXCLUDED.correo,
+  foto_principal = EXCLUDED.foto_principal;
 
 -- 12 Inmuebles en Zonas Prominentes de Tarija
 INSERT INTO public.inmuebles (
@@ -371,7 +395,26 @@ INSERT INTO public.inmuebles (
     ],
     true
 )
-ON CONFLICT (slug) DO NOTHING;
+ON CONFLICT (slug) DO UPDATE SET
+  inmueble_name = EXCLUDED.inmueble_name,
+  precio = EXCLUDED.precio,
+  moneda = EXCLUDED.moneda,
+  tipo = EXCLUDED.tipo,
+  ciudad = EXCLUDED.ciudad,
+  direccion = EXCLUDED.direccion,
+  dormitorios = EXCLUDED.dormitorios,
+  banos = EXCLUDED.banos,
+  estacionamientos = EXCLUDED.estacionamientos,
+  construccion = EXCLUDED.construccion,
+  terreno = EXCLUDED.terreno,
+  frente = EXCLUDED.frente,
+  descripcion = EXCLUDED.descripcion,
+  lat = EXCLUDED.lat,
+  lng = EXCLUDED.lng,
+  categoria_id = EXCLUDED.categoria_id,
+  agente_id = EXCLUDED.agente_id,
+  imagenes = EXCLUDED.imagenes,
+  is_featured = EXCLUDED.is_featured;
 
 -- Artículos de Blog Inmobiliario Tarija
 INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, autor_id) VALUES
@@ -393,4 +436,9 @@ INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, 
     'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
 )
-ON CONFLICT (slug) DO NOTHING;
+ON CONFLICT (slug) DO UPDATE SET
+  titulo = EXCLUDED.titulo,
+  resumen = EXCLUDED.resumen,
+  contenido = EXCLUDED.contenido,
+  foto_principal = EXCLUDED.foto_principal,
+  autor_id = EXCLUDED.autor_id;
