@@ -61,6 +61,16 @@ ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS estacionamientos INTEGER D
 ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS construccion NUMERIC(10, 2);
 ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS frente NUMERIC(10, 2);
 ALTER TABLE public.inmuebles ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
+
+-- Normalizar datos previos si existían registros de otras ciudades
+UPDATE public.inmuebles 
+SET tipo = 'Casa' 
+WHERE tipo NOT IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial');
+
+UPDATE public.inmuebles 
+SET ciudad = 'Tarija' 
+WHERE ciudad NOT IN ('Tarija', 'San Lorenzo', 'Uriondo', 'Bermejo', 'Yacuiba', 'Villa Montes');
+
 ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_tipo_check;
 ALTER TABLE public.inmuebles ADD CONSTRAINT inmuebles_tipo_check CHECK (tipo IN ('Casa', 'Departamento', 'Terreno', 'Oficina Comercial'));
 ALTER TABLE public.inmuebles DROP CONSTRAINT IF EXISTS inmuebles_ciudad_check;
