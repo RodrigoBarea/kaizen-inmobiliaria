@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { getInmuebleBySlug } from '@/lib/supabase';
 import { Inmueble } from '@/types/database';
-import MapaDetalle from '@/components/MapaDetalle';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { FaWhatsapp } from 'react-icons/fa';
+
+const MapaDetalle = dynamic(() => import('@/components/MapaDetalle'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full min-h-[320px] flex items-center justify-center bg-gray-100 text-gray-500 font-bold text-sm">
+      Cargando ubicación...
+    </div>
+  ),
+});
 
 export default function InmuebleDetallePage() {
   const params = useParams();

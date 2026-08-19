@@ -1,11 +1,20 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { getInmuebles } from '@/lib/supabase';
 import { Inmueble } from '@/types/database';
 import InmuebleCard from '@/components/InmuebleCard';
-import MapaResultados from '@/components/MapaResultados';
+
+const MapaResultados = dynamic(() => import('@/components/MapaResultados'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full min-h-[500px] flex items-center justify-center bg-gray-100 text-gray-500 font-bold text-sm">
+      Cargando mapa interactivo...
+    </div>
+  ),
+});
 
 function BusquedaContent() {
   const searchParams = useSearchParams();

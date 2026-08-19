@@ -23,159 +23,142 @@ const CITY_COORDINATES: Record<string, [number, number]> = {
 export default function MapaResultados({ inmuebles, ciudadSeleccionada }: Props) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [useFallback, setUseFallback] = useState(false);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
   const [selectedInmueble, setSelectedInmueble] = useState<Inmueble | null>(null);
+
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
   useEffect(() => {
-    if (!token || !mapContainer.current) {
-      setUseFallback(true);
-      return;
-    }
+    if (!mapContainer.current) return;
 
-    try {
-      mapboxgl.accessToken = token;
-      const initialCenter: [number, number] =
-        ciudadSeleccionada && CITY_COORDINATES[ciudadSeleccionada]
-          ? CITY_COORDINATES[ciudadSeleccionada]
-          : [-64.7296, -21.5355];
-
-      const map = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v11',
-        center: initialCenter,
-        zoom: 12,
-      });
-
-      map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-      mapRef.current = map;
-
-      // Add Custom Kaizen Stitch Markers
-      inmuebles.forEach((inmueble) => {
-        if (!inmueble.lat || !inmueble.lng) return;
-
-        const formattedPrice =
-          inmueble.precio >= 1000
-            ? `$${(inmueble.precio / 1000).toFixed(0)}k`
-            : `$${inmueble.precio}`;
-
-        const el = document.createElement('div');
-        el.className = 'map-marker cursor-pointer';
-        el.innerHTML = `
-          <div style="background-color: #1a1c1c; color: white; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border: 1px solid #1a1c1c; position: relative; white-space: nowrap;">
-            ${formattedPrice}
-            <div style="position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #1a1c1c;"></div>
-          </div>
-        `;
-
-        el.addEventListener('click', () => {
-          setSelectedInmueble(inmueble);
-        });
-
-        new mapboxgl.Marker({ element: el })
-          .setLngLat([inmueble.lng, inmueble.lat])
-          .addTo(map);
-      });
-
-      return () => {
-        map.remove();
-      };
-    } catch (err) {
-      console.warn('Mapbox error, falling back:', err);
-      setUseFallback(true);
-    }
-  }, [inmuebles, ciudadSeleccionada, token]);
-
-  if (useFallback || !token) {
-    const center: [number, number] =
+    const initialCenter: [number, number] =
       ciudadSeleccionada && CITY_COORDINATES[ciudadSeleccionada]
         ? CITY_COORDINATES[ciudadSeleccionada]
         : [-64.7296, -21.5355];
-    const osmUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${center[0] - 0.08}%2C${center[1] - 0.08}%2C${center[0] + 0.08}%2C${center[1] + 0.08}&layer=mapnik`;
 
-    return (
-      <div className="w-full h-full min-h-[400px] relative bg-surface-container flex flex-col">
-        <iframe
-          src={osmUrl}
-          title="Mapa de Resultados"
-          className="w-full h-full border-0 flex-1 opacity-90"
-          loading="lazy"
-        />
+    if (token) {
+      mapboxgl.accessToken = token;
+    }
 
-        {/* Lista flotante de marcadores rápidos */}
-        <div className="absolute bottom-4 left-4 right-4 bg-surface/95 backdrop-blur-md p-4 rounded-lg shadow-xl border border-surface-variant max-h-48 overflow-y-auto">
-          <p className="font-caption text-caption text-secondary uppercase tracking-wider mb-2 flex items-center gap-1 font-bold">
-            <span className="material-symbols-outlined text-primary text-[16px]">location_on</span>
-            Propiedades en el mapa ({inmuebles.length})
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {inmuebles.map((i) => (
-              <Link
-                key={i.id}
-                href={`/inmueble/${i.slug}`}
-                className="flex items-center justify-between p-2 rounded bg-surface-container-low hover:bg-surface-container-high border border-surface-variant transition text-xs"
-              >
-                <span className="font-semibold text-on-surface truncate">{i.inmueble_name}</span>
-                <span className="font-bold text-primary shrink-0 ml-2">
-                  ${Number(i.precio).toLocaleString()}
-                </span>
-              </Link>
-            ))}
-          </div>
+    const map = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: initialCenter,
+      zoom: 12,
+    });
+
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    mapRef.current = map;
+
+    return () => {
+      map.remove();
+    };
+  }, [ciudadSeleccionada, token]);
+
+  // Update Markers
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // Clear existing markers
+    markersRef.current.forEach((m) => m.remove());
+    markersRef.current = [];
+
+    // Add Markers
+    inmuebles.forEach((inmueble) => {
+      if (!inmueble.lat || !inmueble.lng) return;
+
+      const formattedPrice =
+        inmueble.precio >= 1000
+          ? `$${(inmueble.precio / 1000).toFixed(0)}k`
+          : `$${inmueble.precio}`;
+
+      // Custom marker DOM element
+      const el = document.createElement('div');
+      el.className = 'custom-map-marker group';
+      el.innerHTML = `
+        <div class="bg-[#1A1A1A] group-hover:bg-[#E60000] text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-md cursor-pointer transition-all duration-200 transform group-hover:scale-110 flex items-center gap-1 border-2 border-white">
+          <span>${formattedPrice}</span>
         </div>
+      `;
 
-        {/* Watermark */}
-        <div className="absolute bottom-8 right-8 opacity-5 pointer-events-none">
-          <span className="font-headline-md text-8xl text-on-surface font-bold tracking-tighter">
-            KAIZEN
-          </span>
-        </div>
-      </div>
-    );
-  }
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setSelectedInmueble(inmueble);
+        map.flyTo({
+          center: [inmueble.lng, inmueble.lat],
+          zoom: 14,
+          speed: 1.2,
+        });
+      });
+
+      const marker = new mapboxgl.Marker({ element: el })
+        .setLngLat([inmueble.lng, inmueble.lat])
+        .addTo(map);
+
+      markersRef.current.push(marker);
+    });
+
+    // Auto-fit bounds if we have multiple valid coordinates
+    const validInmuebles = inmuebles.filter((i) => i.lat && i.lng);
+    if (validInmuebles.length > 1) {
+      const bounds = new mapboxgl.LngLatBounds();
+      validInmuebles.forEach((i) => bounds.extend([i.lng, i.lat]));
+      map.fitBounds(bounds, { padding: 60, maxZoom: 15 });
+    }
+  }, [inmuebles]);
 
   return (
-    <div className="w-full h-full min-h-[400px] relative">
+    <div className="relative w-full h-full min-h-[500px] overflow-hidden bg-gray-100">
+      {/* Map Container */}
       <div ref={mapContainer} className="w-full h-full" />
 
-      {/* Tarjeta emergente de propiedad seleccionada (Stitch Preview) */}
+      {/* Floating Property Card on Click */}
       {selectedInmueble && (
-        <div className="absolute bottom-6 left-6 right-6 max-w-sm bg-surface rounded-lg shadow-[0_15px_45px_rgba(0,0,0,0.12)] p-4 border border-surface-variant z-30 animate-fade-in">
-          <div className="flex justify-between items-start">
-            <h4 className="font-headline-sm text-sm text-on-surface line-clamp-1 font-bold">
-              {selectedInmueble.inmueble_name}
-            </h4>
-            <button
-              type="button"
-              onClick={() => setSelectedInmueble(null)}
-              className="text-secondary hover:text-on-surface text-sm font-bold ml-2"
-            >
-              ✕
-            </button>
-          </div>
-          <p className="font-caption text-caption text-secondary mt-0.5">
-            {selectedInmueble.direccion}, {selectedInmueble.ciudad}
-          </p>
-          <div className="flex items-center justify-between mt-3 pt-2 border-t border-surface-variant">
-            <span className="font-headline-sm text-base font-bold text-primary">
-              $us {Number(selectedInmueble.precio).toLocaleString()}
-            </span>
-            <Link
-              href={`/inmueble/${selectedInmueble.slug}`}
-              className="bg-primary hover:bg-on-primary-fixed-variant text-white font-label-md text-caption px-3 py-1.5 rounded transition"
-            >
-              Ver detalles
-            </Link>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-[90%] max-w-sm bg-white rounded-xl shadow-2xl border border-gray-200 p-4 transition-all duration-300">
+          <button
+            type="button"
+            onClick={() => setSelectedInmueble(null)}
+            className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-xs transition"
+          >
+            ✕
+          </button>
+          <div className="flex gap-3">
+            <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0 relative">
+              <img
+                src={
+                  selectedInmueble.imagenes?.[0] ||
+                  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&auto=format&fit=crop&q=80'
+                }
+                alt={selectedInmueble.inmueble_name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <span className="text-[#E60000] font-black text-sm block">
+                $us {Number(selectedInmueble.precio).toLocaleString()}
+              </span>
+              <h4 className="font-bold text-xs text-[#1A1A1A] truncate mt-0.5">
+                {selectedInmueble.inmueble_name}
+              </h4>
+              <p className="text-[11px] text-gray-500 truncate">
+                {selectedInmueble.direccion}, {selectedInmueble.ciudad}
+              </p>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-[10px] text-gray-500 font-semibold">
+                  {selectedInmueble.dormitorios} hab. • {selectedInmueble.banos} bñ.
+                </span>
+                <Link
+                  href={`/inmueble/${selectedInmueble.slug}`}
+                  className="text-[11px] font-bold text-[#E60000] hover:underline"
+                >
+                  Ver Inmueble →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}
-
-      {/* Watermark */}
-      <div className="absolute bottom-8 right-8 opacity-5 pointer-events-none">
-        <span className="font-headline-md text-8xl text-on-surface font-bold tracking-tighter">
-          KAIZEN
-        </span>
-      </div>
     </div>
   );
 }

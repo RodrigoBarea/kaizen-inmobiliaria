@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { MapPin } from 'lucide-react';
 
 interface Props {
   lat: number;
@@ -12,63 +11,42 @@ interface Props {
 }
 
 export default function MapaDetalle({ lat = -21.5355, lng = -64.7296, title = 'Ubicación' }: Props) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [useFallback, setUseFallback] = useState(false);
+  const mapContainer = useRef<HTMLDivElement>(null);
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
   useEffect(() => {
-    if (!token || !mapRef.current) {
-      setUseFallback(true);
-      return;
-    }
+    if (!mapContainer.current) return;
 
-    try {
+    if (token) {
       mapboxgl.accessToken = token;
-      const map = new mapboxgl.Map({
-        container: mapRef.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: [lng, lat],
-        zoom: 14,
-      });
-
-      map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-      new mapboxgl.Marker({ color: '#1c39bb' })
-        .setLngLat([lng, lat])
-        .addTo(map);
-
-      return () => {
-        map.remove();
-      };
-    } catch (e) {
-      console.warn('Mapbox initialization error, falling back to OSM:', e);
-      setUseFallback(true);
     }
+
+    const map = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [lng, lat],
+      zoom: 14,
+    });
+
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    // Custom Red Kaizen Marker
+    const el = document.createElement('div');
+    el.className = 'w-9 h-9 rounded-full bg-[#E60000] border-4 border-white shadow-xl flex items-center justify-center text-white';
+    el.innerHTML = '<span class="material-symbols-outlined text-[18px]">home</span>';
+
+    new mapboxgl.Marker({ element: el })
+      .setLngLat([lng, lat])
+      .addTo(map);
+
+    return () => {
+      map.remove();
+    };
   }, [lat, lng, token]);
 
-  if (useFallback || !token) {
-    // OpenStreetMap Embed Fallback
-    const osmUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.008}%2C${lat - 0.008}%2C${lng + 0.008}%2C${lat + 0.008}&layer=mapnik&marker=${lat}%2C${lng}`;
-
-    return (
-      <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-inner border border-gray-200 relative bg-gray-100">
-        <iframe
-          src={osmUrl}
-          title={title}
-          className="w-full h-full border-0"
-          loading="lazy"
-        />
-        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow text-xs font-bold text-gray-700 flex items-center gap-1.5">
-          <MapPin className="w-4 h-4 text-blue-600" />
-          <span>{title} ({lat.toFixed(4)}, {lng.toFixed(4)})</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-md border border-gray-200 relative">
-      <div ref={mapRef} className="w-full h-full" />
+    <div className="w-full h-full min-h-[320px] rounded-lg overflow-hidden relative bg-gray-100">
+      <div ref={mapContainer} className="w-full h-full" />
     </div>
   );
 }
