@@ -58,15 +58,15 @@ export default function FormularioAsesoria() {
       
       {/* Ambient Radial Glows */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#E60000]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -right-32 w-96 h-96 bg-[#E60000]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10 space-y-10">
         
         {/* Cabecera Central */}
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="w-10 h-10 mx-auto rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-950/50">
-            <TreePine className="w-5 h-5" />
+          <div className="w-10 h-10 mx-auto rounded-full bg-red-950/70 border border-red-500/30 text-[#E60000] flex items-center justify-center shadow-lg shadow-red-950/50">
+            <Sparkles className="w-5 h-5" />
           </div>
           <h2 className="font-headline-md text-3xl sm:text-4xl font-black text-white tracking-tight">
             Descubre una nueva forma de vivir e invertir
@@ -103,7 +103,7 @@ export default function FormularioAsesoria() {
             <div className="space-y-3.5 pt-2">
               
               <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#202020] border border-white/5 hover:border-white/10 transition">
-                <div className="w-10 h-10 rounded-xl bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-red-950/60 border border-red-500/30 text-[#E60000] flex items-center justify-center shrink-0">
                   <DollarSign className="w-5 h-5" />
                 </div>
                 <div>
