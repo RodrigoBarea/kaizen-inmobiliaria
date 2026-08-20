@@ -65,6 +65,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5398,
     lng: -64.7355,
     is_featured: true,
+    is_rural: false,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -95,6 +96,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5285,
     lng: -64.7210,
     is_featured: true,
+    is_rural: false,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -124,6 +126,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5420,
     lng: -64.7180,
     is_featured: true,
+    is_rural: false,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -152,6 +155,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.4850,
     lng: -64.7620,
     is_featured: false,
+    is_rural: true,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -181,6 +185,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5470,
     lng: -64.7420,
     is_featured: false,
+    is_rural: false,
     active: true,
     categoria_id: '22222222-2222-2222-2222-222222222222',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -209,6 +214,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5320,
     lng: -64.7330,
     is_featured: false,
+    is_rural: false,
     active: true,
     categoria_id: '22222222-2222-2222-2222-222222222222',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -237,6 +243,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5510,
     lng: -64.7380,
     is_featured: true,
+    is_rural: false,
     active: true,
     categoria_id: '33333333-3333-3333-3333-333333333333',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -265,6 +272,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5370,
     lng: -64.7260,
     is_featured: false,
+    is_rural: false,
     active: true,
     categoria_id: '33333333-3333-3333-3333-333333333333',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -293,6 +301,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.4980,
     lng: -64.7460,
     is_featured: true,
+    is_rural: false,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -321,6 +330,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.5580,
     lng: -64.7290,
     is_featured: false,
+    is_rural: false,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -332,30 +342,32 @@ export const MOCK_INMUEBLES: Inmueble[] = [
   },
   {
     id: '00000000-0000-0000-0000-000000000011',
-    inmueble_name: 'Casa Comercial en El Tejar',
-    slug: 'casa-comercial-en-el-tejar-tarija',
-    direccion: 'Barrio El Tejar, cerca a la Universidad UAJMS',
+    inmueble_name: 'Quinta Campestre en San Andrés',
+    slug: 'quinta-campestre-en-san-andres-tarija',
+    direccion: 'Comunidad San Andrés, Ruta de la Papa y Frutales',
     ciudad: 'Tarija',
     tipo: 'Casa',
-    precio: 160000,
+    precio: 115000,
     moneda: '$us',
-    dormitorios: 4,
-    banos: 3,
-    terreno: 320,
-    construccion: 280,
-    estacionamientos: 2,
-    frente: 12,
-    descripcion: 'Propiedad ideal para renta universitaria o comercio. Cuenta con local a la calle y departamentos independientes de alta demanda de alquiler.',
-    lat: -21.5450,
-    lng: -64.7310,
-    is_featured: false,
+    dormitorios: 3,
+    banos: 2,
+    terreno: 2500,
+    construccion: 180,
+    estacionamientos: 4,
+    frente: 35,
+    descripcion: 'Hermosa quinta con casa de campo, huerta de frutales en producción, sistema de riego por goteo y vistas despejadas a la serranía de Sama.',
+    lat: -21.5850,
+    lng: -64.7890,
+    is_featured: true,
+    is_rural: true,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
     categoria: MOCK_CATEGORIAS[0],
     agente: MOCK_AGENTES[0],
     imagenes: [
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&auto=format&fit=crop&q=80',
     ],
   },
   {
@@ -377,6 +389,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     lat: -21.6850,
     lng: -64.6550,
     is_featured: true,
+    is_rural: true,
     active: true,
     categoria_id: '11111111-1111-1111-1111-111111111111',
     agente_id: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
@@ -384,6 +397,7 @@ export const MOCK_INMUEBLES: Inmueble[] = [
     agente: MOCK_AGENTES[1],
     imagenes: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&auto=format&fit=crop&q=80',
     ],
   },
 ];
@@ -423,10 +437,10 @@ export const MOCK_LEADS: LeadVender[] = [
     nombre: 'Roberto Vaca',
     telefono: '+591 71234567',
     email: 'roberto.vaca@email.com',
-    tipo_inmueble: 'Casa',
-    ubicacion: 'Tarija, Barrio Miraflores',
-    precio_estimado: 175000,
-    detalles: 'Casa de 2 plantas con garaje doble.',
+    tipo_inmueble: 'Casa Campestre',
+    ubicacion: 'San Lorenzo, Tarija',
+    precio_estimado: 120000,
+    detalles: 'Quinta de media hectárea con agua de riego.',
     atendido: false,
     created_at: '2026-08-18T12:00:00Z',
   },
@@ -447,6 +461,8 @@ export async function getInmuebles(options?: {
   categoriaSlug?: string;
   isFeatured?: boolean;
   featuredOnly?: boolean;
+  isRural?: boolean;
+  ruralOnly?: boolean;
   activeOnly?: boolean;
   limit?: number;
   offset?: number;
@@ -455,6 +471,7 @@ export async function getInmuebles(options?: {
   search?: string;
 }): Promise<Inmueble[]> {
   const isFeaturedFilter = options?.featuredOnly ?? options?.isFeatured;
+  const isRuralFilter = options?.ruralOnly ?? options?.isRural;
 
   if (!isSupabaseConfigured) {
     let result = [...inMemoryInmuebles];
@@ -463,6 +480,8 @@ export async function getInmuebles(options?: {
       const slug = options.categoriaSlug.toLowerCase();
       if (slug === 'destacados') {
         result = result.filter((i) => i.is_featured);
+      } else if (slug === 'area-rural') {
+        result = result.filter((i) => i.is_rural);
       } else {
         result = result.filter((i) => i.categoria?.slug === slug);
       }
@@ -470,6 +489,10 @@ export async function getInmuebles(options?: {
 
     if (isFeaturedFilter !== undefined) {
       result = result.filter((i) => i.is_featured === isFeaturedFilter);
+    }
+
+    if (isRuralFilter !== undefined) {
+      result = result.filter((i) => Boolean(i.is_rural) === isRuralFilter);
     }
 
     if (options?.activeOnly) {
@@ -509,6 +532,10 @@ export async function getInmuebles(options?: {
       query = query.eq('is_featured', isFeaturedFilter);
     }
 
+    if (isRuralFilter !== undefined) {
+      query = query.eq('is_rural', isRuralFilter);
+    }
+
     if (options?.ciudad && options.ciudad !== 'Todas' && options.ciudad !== 'Todos') {
       query = query.ilike('ciudad', `%${options.ciudad}%`);
     }
@@ -520,6 +547,8 @@ export async function getInmuebles(options?: {
     if (options?.categoriaSlug && options.categoriaSlug !== 'todos') {
       if (options.categoriaSlug === 'destacados') {
         query = query.eq('is_featured', true);
+      } else if (options.categoriaSlug === 'area-rural') {
+        query = query.eq('is_rural', true);
       }
     }
 
@@ -542,21 +571,29 @@ export async function countInmuebles(options?: {
   categoriaSlug?: string;
   isFeatured?: boolean;
   featuredOnly?: boolean;
+  isRural?: boolean;
+  ruralOnly?: boolean;
   activeOnly?: boolean;
 }): Promise<number> {
   const isFeaturedFilter = options?.featuredOnly ?? options?.isFeatured;
+  const isRuralFilter = options?.ruralOnly ?? options?.isRural;
 
   if (!isSupabaseConfigured) {
     let result = [...inMemoryInmuebles];
     if (options?.categoriaSlug && options.categoriaSlug !== 'todos') {
       if (options.categoriaSlug === 'destacados') {
         result = result.filter((i) => i.is_featured);
+      } else if (options.categoriaSlug === 'area-rural') {
+        result = result.filter((i) => i.is_rural);
       } else {
         result = result.filter((i) => i.categoria?.slug === options.categoriaSlug);
       }
     }
     if (isFeaturedFilter !== undefined) {
       result = result.filter((i) => i.is_featured === isFeaturedFilter);
+    }
+    if (isRuralFilter !== undefined) {
+      result = result.filter((i) => Boolean(i.is_rural) === isRuralFilter);
     }
     return result.length;
   }
@@ -565,6 +602,9 @@ export async function countInmuebles(options?: {
     let query = supabase.from('inmuebles').select('*', { count: 'exact', head: true });
     if (isFeaturedFilter !== undefined) {
       query = query.eq('is_featured', isFeaturedFilter);
+    }
+    if (isRuralFilter !== undefined) {
+      query = query.eq('is_rural', isRuralFilter);
     }
     const { count, error } = await query;
     if (error) throw error;
@@ -638,6 +678,7 @@ export async function createInmueble(inmueble: Partial<Inmueble>): Promise<Inmue
     agente_id: inmueble.agente_id || MOCK_AGENTES[0].id,
     imagenes: inmueble.imagenes || [],
     is_featured: Boolean(inmueble.is_featured),
+    is_rural: Boolean(inmueble.is_rural),
     active: true,
     created_at: new Date().toISOString(),
   };

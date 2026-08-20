@@ -54,6 +54,11 @@ export default function InmuebleCard({ inmueble }: Props) {
                 <span>⭐ Destacado KAIZEN</span>
               </div>
             )}
+            {inmueble.is_rural && (
+              <div className="bg-emerald-700 text-white text-[10px] uppercase px-2.5 py-1 rounded font-bold tracking-wider shadow-sm flex items-center gap-1">
+                <span>🌿 Área Rural</span>
+              </div>
+            )}
             <div className="bg-white/95 backdrop-blur text-[#1A1A1A] text-[10px] uppercase px-2.5 py-1 rounded font-bold tracking-wider border border-gray-200 shadow-sm flex items-center gap-1">
               <span>{categoriaNombre}</span>
             </div>

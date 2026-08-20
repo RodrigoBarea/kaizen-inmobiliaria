@@ -1,8 +1,8 @@
 -- ==============================================================================
--- KAIZEN BIENES RAÍCES - LIMPIEZA, ESTRUCTURA Y DATOS 100% TARIJA
+-- KAIZEN BIENES RAÍCES - LIMPIEZA, ESTRUCTURA Y DATOS 100% TARIJA (CON ÁREA RURAL)
 -- ==============================================================================
 -- Este script elimina de forma segura las tablas anteriores e instala el
--- nuevo schema completo con las 12 propiedades y agentes de Tarija.
+-- nuevo schema completo con las 12 propiedades, agentes de Tarija y soporte rural.
 
 -- Habilitar extensión UUID
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -35,7 +35,7 @@ CREATE TABLE public.agentes (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 4. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija)
+-- 4. TABLA: INMUEBLES (Catálogo de Propiedades en Tarija + Área Rural)
 CREATE TABLE public.inmuebles (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     inmueble_name TEXT NOT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE public.inmuebles (
     agente_id UUID NOT NULL REFERENCES public.agentes(id) ON DELETE RESTRICT,
     imagenes TEXT[] DEFAULT '{}'::TEXT[] NOT NULL,
     is_featured BOOLEAN DEFAULT false NOT NULL,
+    is_rural BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -114,7 +115,7 @@ CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authe
 CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==============================================================================
--- INSERCIÓN DE DATOS 100% TARIJA (SEED DATA)
+-- INSERCIÓN DE DATOS 100% TARIJA (SEED DATA CON PROPIEDADES RURALES)
 -- ==============================================================================
 
 -- 1. Categorías
@@ -129,11 +130,11 @@ INSERT INTO public.agentes (id, agent_name, slug, cargo, telefono, correo, foto_
   ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Carlos Mendoza', 'carlos-mendoza', 'Director Comercial & Broker Tarija', '+591 70000000', 'carlos@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80'),
   ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Valeria Rios', 'valeria-rios', 'Asesora Senior de Inversiones Tarija', '+591 70000000', 'valeria@inmobiliariakaizen.com', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80');
 
--- 3. 12 Inmuebles en Zonas Prominentes de Tarija
+-- 3. 12 Inmuebles en Tarija (Incluyendo Selección Especial de Área Rural)
 INSERT INTO public.inmuebles (
     id, inmueble_name, slug, precio, moneda, tipo, ciudad, direccion,
     dormitorios, banos, estacionamientos, construccion, terreno, frente,
-    descripcion, lat, lng, categoria_id, agente_id, imagenes, is_featured
+    descripcion, lat, lng, categoria_id, agente_id, imagenes, is_featured, is_rural
 ) VALUES
 (
     '00000000-0000-0000-0000-000000000001',
@@ -155,7 +156,8 @@ INSERT INTO public.inmuebles (
         'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&auto=format&fit=crop&q=80'
     ],
-    true
+    true,
+    false
 ),
 (
     '00000000-0000-0000-0000-000000000002',
@@ -176,7 +178,8 @@ INSERT INTO public.inmuebles (
         'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&auto=format&fit=crop&q=80'
     ],
-    true
+    true,
+    false
 ),
 (
     '00000000-0000-0000-0000-000000000003',
@@ -196,7 +199,8 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
     ],
-    true
+    true,
+    false
 ),
 (
     '00000000-0000-0000-0000-000000000004',
@@ -217,7 +221,8 @@ INSERT INTO public.inmuebles (
         'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&auto=format&fit=crop&q=80',
         'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&auto=format&fit=crop&q=80'
     ],
-    false
+    false,
+    true
 ),
 (
     '00000000-0000-0000-0000-000000000005',
@@ -237,6 +242,7 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&auto=format&fit=crop&q=80'
     ],
+    false,
     false
 ),
 (
@@ -257,6 +263,7 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&fit=crop&q=80'
     ],
+    false,
     false
 ),
 (
@@ -277,7 +284,8 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&auto=format&fit=crop&q=80'
     ],
-    true
+    true,
+    false
 ),
 (
     '00000000-0000-0000-0000-000000000008',
@@ -297,6 +305,7 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&auto=format&fit=crop&q=80'
     ],
+    false,
     false
 ),
 (
@@ -317,7 +326,8 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&auto=format&fit=crop&q=80'
     ],
-    true
+    true,
+    false
 ),
 (
     '00000000-0000-0000-0000-000000000010',
@@ -337,27 +347,30 @@ INSERT INTO public.inmuebles (
     ARRAY[
         'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
     ],
+    false,
     false
 ),
 (
     '00000000-0000-0000-0000-000000000011',
-    'Casa Comercial en El Tejar',
-    'casa-comercial-en-el-tejar-tarija',
-    160000,
+    'Quinta Campestre en San Andrés',
+    'quinta-campestre-en-san-andres-tarija',
+    115000,
     '$us',
     'Casa',
     'Tarija',
-    'Barrio El Tejar, cerca a la Universidad UAJMS',
-    4, 3, 2, 280, 320, 12,
-    'Propiedad ideal para renta universitaria o comercio. Cuenta con local a la calle y departamentos independientes de alta demanda de alquiler.',
-    -21.5450,
-    -64.7310,
+    'Comunidad San Andrés, Ruta de la Papa y Frutales',
+    3, 2, 4, 180, 2500, 35,
+    'Hermosa quinta con casa de campo, huerta de frutales en producción, sistema de riego por goteo y vistas despejadas a la serranía de Sama.',
+    -21.5850,
+    -64.7890,
     '11111111-1111-1111-1111-111111111111',
     'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
     ARRAY[
-        'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&auto=format&fit=crop&q=80'
     ],
-    false
+    true,
+    true
 ),
 (
     '00000000-0000-0000-0000-000000000012',
@@ -375,8 +388,10 @@ INSERT INTO public.inmuebles (
     '11111111-1111-1111-1111-111111111111',
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
     ARRAY[
-        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80'
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&auto=format&fit=crop&q=80'
     ],
+    true,
     true
 );
 

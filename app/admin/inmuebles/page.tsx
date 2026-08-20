@@ -58,6 +58,15 @@ export default function AdminInmueblesPage() {
     );
   };
 
+  const handleToggleRural = async (id: string, currentVal: boolean) => {
+    if (isSupabaseConfigured) {
+      await supabase.from('inmuebles').update({ is_rural: !currentVal }).eq('id', id);
+    }
+    setInmuebles((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, is_rural: !currentVal } : item))
+    );
+  };
+
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`¿Estás seguro de eliminar el inmueble "${name}"?`)) return;
 
@@ -154,6 +163,7 @@ export default function AdminInmueblesPage() {
                   <th className="p-4">Precio (USD)</th>
                   <th className="p-4">Operación</th>
                   <th className="p-4 text-center">Destacado</th>
+                  <th className="p-4 text-center">Área Rural</th>
                   <th className="p-4 text-center">Estado</th>
                   <th className="p-4 text-right">Acciones</th>
                 </tr>
@@ -213,6 +223,21 @@ export default function AdminInmueblesPage() {
                         title={i.is_featured ? 'Quitar de destacados' : 'Marcar como destacado'}
                       >
                         <Sparkles className="w-4 h-4" />
+                      </button>
+                    </td>
+
+                    <td className="p-4 text-center">
+                      <button
+                        onClick={() => handleToggleRural(i.id, Boolean(i.is_rural))}
+                        className={`px-2 py-1 rounded-lg border text-[11px] font-bold transition flex items-center gap-1 mx-auto ${
+                          i.is_rural
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                            : 'text-gray-300 hover:text-gray-500 border-gray-200'
+                        }`}
+                        title={i.is_rural ? 'Quitar de Área Rural' : 'Marcar como Área Rural'}
+                      >
+                        <span>🌿</span>
+                        <span>{i.is_rural ? 'Rural' : 'Urbano'}</span>
                       </button>
                     </td>
 

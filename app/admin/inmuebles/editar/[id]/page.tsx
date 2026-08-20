@@ -38,6 +38,7 @@ export default function EditarInmueblePage() {
   const [agenteId, setAgenteId] = useState('');
   const [imagenes, setImagenes] = useState<string[]>([]);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [isRural, setIsRural] = useState(false);
   const [active, setActive] = useState(true);
 
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function EditarInmueblePage() {
           setAgenteId(inmueble.agente_id || (ags[0]?.id ?? ''));
           setImagenes(inmueble.imagenes || []);
           setIsFeatured(Boolean(inmueble.is_featured));
+          setIsRural(Boolean(inmueble.is_rural));
           setActive(Boolean(inmueble.active !== false));
         }
       } catch (err) {
@@ -114,6 +116,7 @@ export default function EditarInmueblePage() {
         agente_id: agenteId || null,
         imagenes,
         is_featured: isFeatured,
+        is_rural: isRural,
         active,
       });
 
@@ -358,7 +361,7 @@ export default function EditarInmueblePage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-8 pt-4 border-t border-surface-variant">
+            <div className="flex flex-wrap items-center gap-8 pt-4 border-t border-surface-variant">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
@@ -368,6 +371,18 @@ export default function EditarInmueblePage() {
                 />
                 <span className="font-label-md text-label-md font-semibold text-on-surface">
                   Destacar en la Portada
+                </span>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isRural}
+                  onChange={(e) => setIsRural(e.target.checked)}
+                  className="w-5 h-5 text-emerald-600 rounded border-surface-variant focus:ring-emerald-500"
+                />
+                <span className="font-label-md text-label-md font-semibold text-emerald-800">
+                  🌿 Pertenece al Área Rural / Finca / Campo
                 </span>
               </label>
 

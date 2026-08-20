@@ -1,6 +1,6 @@
 export type TipoInmueble = 'Casa' | 'Departamento' | 'Terreno' | 'Oficina Comercial';
 
-export type CategoriaSlug = 'venta' | 'alquiler' | 'anticretico' | 'destacados';
+export type CategoriaSlug = 'venta' | 'alquiler' | 'anticretico' | 'destacados' | 'area-rural';
 
 export interface Categoria {
   id: string;
@@ -47,6 +47,7 @@ export interface Inmueble {
   agente?: Agente | null;
   imagenes: string[];
   is_featured: boolean;
+  is_rural?: boolean;
   active?: boolean;
   created_at?: string;
 }

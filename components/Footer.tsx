@@ -102,6 +102,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/area-rural" className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition flex items-center gap-1">
+                  <span>🌿 Área Rural / Fincas</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/busqueda" className="hover:text-white hover:underline transition">
                   Búsqueda con Mapa
                 </Link>

@@ -34,6 +34,7 @@ export default function NuevoInmueblePage() {
   const [agenteId, setAgenteId] = useState('');
   const [imagenes, setImagenes] = useState<string[]>([]);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [isRural, setIsRural] = useState(false);
   const [active, setActive] = useState(true);
 
   useEffect(() => {
@@ -87,6 +88,7 @@ export default function NuevoInmueblePage() {
         agente_id: agenteId || null,
         imagenes,
         is_featured: isFeatured,
+        is_rural: isRural,
         active,
       });
 
@@ -339,6 +341,18 @@ export default function NuevoInmueblePage() {
                 />
                 <span className="font-label-md text-label-md font-semibold text-on-surface">
                   Destacar en la Portada
+                </span>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isRural}
+                  onChange={(e) => setIsRural(e.target.checked)}
+                  className="w-5 h-5 text-emerald-600 rounded border-surface-variant focus:ring-emerald-500"
+                />
+                <span className="font-label-md text-label-md font-semibold text-emerald-800">
+                  🌿 Pertenece al Área Rural / Finca / Campo
                 </span>
               </label>
 

@@ -27,6 +27,8 @@ export default function Navbar() {
     pathname.startsWith('/alquiler') ||
     pathname.startsWith('/anticretico');
 
+  const isRuralActive = pathname.startsWith('/area-rural');
+
   return (
     <header className="bg-white/95 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-200 shadow-sm transition-all duration-300 h-20 shrink-0">
       <div className="flex justify-between items-center px-4 sm:px-8 h-20 w-full max-w-[1360px] mx-auto">
@@ -46,10 +48,10 @@ export default function Navbar() {
         </Link>
 
         {/* Menú Central */}
-        <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4 h-full">
+        <nav className="hidden lg:flex items-center space-x-2 xl:space-x-3 h-full">
           <Link
             href="/"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
               pathname === '/'
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -66,7 +68,7 @@ export default function Navbar() {
           >
             <button
               type="button"
-              className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors flex items-center gap-1 ${
+              className={`font-label-md text-sm px-3 py-2 rounded transition-colors flex items-center gap-1 ${
                 isInmueblesActive
                   ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                   : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -85,37 +87,57 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute top-16 left-0 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-2 z-50"
+                  className="absolute top-16 left-0 w-52 bg-white border border-gray-200 rounded-lg shadow-xl py-2 z-50"
                 >
                   <Link
                     href="/compra/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Comprar
+                    Comprar Propiedades
                   </Link>
                   <Link
                     href="/alquiler/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Alquilar
+                    Propiedades en Alquiler
                   </Link>
                   <Link
                     href="/anticretico/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Anticrético
+                    Propiedades en Anticrético
+                  </Link>
+                  <div className="border-t border-gray-100 my-1"></div>
+                  <Link
+                    href="/area-rural"
+                    onClick={() => setInmueblesDropdown(false)}
+                    className="block px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50 font-bold transition-colors flex items-center gap-1.5"
+                  >
+                    <span>🌿 Área Rural / Fincas</span>
                   </Link>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
+          {/* Enlace Destacado: Área Rural */}
+          <Link
+            href="/area-rural"
+            className={`font-label-md text-sm px-3 py-2 rounded transition-colors flex items-center gap-1 ${
+              isRuralActive
+                ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 bg-emerald-50/50'
+                : 'text-[#1A1A1A] hover:text-emerald-700 hover:bg-emerald-50/50'
+            }`}
+          >
+            <span>🌿 Área Rural</span>
+          </Link>
+
           <Link
             href="/sobre-nosotros"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
               pathname === '/sobre-nosotros'
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -126,7 +148,7 @@ export default function Navbar() {
 
           <Link
             href="/blog/page/1"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
               pathname.startsWith('/blog')
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -136,67 +158,72 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Lado derecho */}
-        <div className="hidden sm:flex items-center space-x-3">
+        {/* Botones de Acción (Derecha) */}
+        <div className="hidden lg:flex items-center space-x-3">
           <Link
             href="/vender"
-            className="bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-xs sm:text-sm font-bold px-4 py-2.5 rounded transition-all shadow-sm flex items-center gap-1.5"
+            className="bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-xs uppercase tracking-wider font-bold py-3 px-5 rounded shadow transition-colors flex items-center gap-1.5"
           >
-            <span className="material-symbols-outlined text-[18px]">add_home</span>
-            <span>Publicar Propiedad</span>
+            <span className="material-symbols-outlined text-sm">add_home</span>
+            <span>Vender mi Inmueble</span>
           </Link>
 
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-xs sm:text-sm font-bold px-3.5 py-2.5 rounded transition-all shadow-sm flex items-center gap-1.5"
+            className="bg-[#10B981] hover:bg-[#059669] text-white p-3 rounded shadow transition-colors flex items-center justify-center"
+            aria-label="Hablar por WhatsApp"
           >
-            <FaWhatsapp className="text-base" />
-            <span>WhatsApp</span>
+            <FaWhatsapp className="text-xl" />
           </a>
-
-          <Link
-            href="/admin"
-            className="text-gray-400 hover:text-[#1A1A1A] p-2 rounded hover:bg-gray-100 transition"
-            title="Gestor de Información (Admin)"
-          >
-            <span className="material-symbols-outlined text-[20px]">account_circle</span>
-          </Link>
         </div>
 
-        {/* Mobile menu trigger */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden text-[#1A1A1A] p-2 rounded hover:bg-gray-100"
-          aria-label="Menú"
-        >
-          <span className="material-symbols-outlined text-[28px]">
-            {mobileMenuOpen ? 'close' : 'menu'}
-          </span>
-        </button>
+        {/* Botón Menú Móvil */}
+        <div className="flex lg:hidden items-center space-x-2">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#10B981] text-white p-2.5 rounded shadow"
+            aria-label="WhatsApp"
+          >
+            <FaWhatsapp className="text-lg" />
+          </a>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 text-[#1A1A1A] hover:text-[#E60000] rounded focus:outline-none"
+            aria-label="Abrir menú de navegación"
+          >
+            <span className="material-symbols-outlined text-3xl">
+              {mobileMenuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
+        </div>
+
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Menú Móvil Desplegable */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
             className="lg:hidden bg-white border-b border-gray-200 shadow-xl overflow-hidden"
           >
-            <div className="px-6 py-5 space-y-2">
+            <div className="px-6 py-4 space-y-3 font-body-md text-left">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-[#1A1A1A] font-bold border-b border-gray-100 text-sm"
+                className="block py-2 text-[#1A1A1A] font-semibold border-b border-gray-100 text-sm"
               >
                 Inicio
               </Link>
-              
-              <div className="py-2 border-b border-gray-100">
+
+              <div className="py-1 border-b border-gray-100">
                 <span className="block text-xs uppercase font-bold text-gray-400 mb-1 tracking-wider">
                   Inmuebles
                 </span>
@@ -222,8 +249,23 @@ export default function Navbar() {
                   >
                     Anticrético
                   </Link>
+                  <Link
+                    href="/area-rural"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-1 text-sm font-bold text-emerald-700 hover:text-emerald-800"
+                  >
+                    🌿 Área Rural / Fincas & Campo
+                  </Link>
                 </div>
               </div>
+
+              <Link
+                href="/area-rural"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 text-emerald-800 font-bold border-b border-gray-100 text-sm"
+              >
+                🌿 Área Rural (Fincas & Viñedos)
+              </Link>
 
               <Link
                 href="/sobre-nosotros"
@@ -258,16 +300,8 @@ export default function Navbar() {
                   className="w-full bg-[#10B981] text-white py-2.5 rounded font-bold text-center flex items-center justify-center gap-1.5 text-xs"
                 >
                   <FaWhatsapp className="text-base" />
-                  <span>WhatsApp Inmobiliario</span>
+                  <span>Contactar por WhatsApp</span>
                 </a>
-
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full bg-gray-100 text-[#1A1A1A] py-2 rounded text-xs font-semibold text-center"
-                >
-                  Acceso Gestor (CMS)
-                </Link>
               </div>
             </div>
           </motion.div>
