@@ -71,7 +71,7 @@ export default function FormularioAsesoria() {
             Descubre una nueva forma de vivir e invertir
           </h2>
           <p className="text-xs sm:text-sm text-gray-500 max-w-lg mx-auto leading-relaxed">
-            Asesoramiento profesional para comprar, vender o tomar en anticrético tu próxima propiedad en la ciudad de Tarija o en el área rural.
+            Asesoramiento profesional para comprar, tomar en anticrético o alquilar tu próxima propiedad en la ciudad de Tarija o en el área rural.
           </p>
         </div>
 
@@ -207,8 +207,8 @@ export default function FormularioAsesoria() {
                   <label className="text-xs font-bold text-gray-700 block mb-2">
                     ¿Qué tipo de asesoría necesitas? *
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {['Comprar', 'Vender', 'Anticrético', 'Alquilar'].map((opc) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {['Comprar', 'Anticrético', 'Alquilar'].map((opc) => (
                       <button
                         key={opc}
                         type="button"

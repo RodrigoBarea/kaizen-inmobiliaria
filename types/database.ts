@@ -84,7 +84,7 @@ export interface SolicitudAsesoria {
   nombre: string;
   telefono: string;
   email?: string | null;
-  interes: 'Comprar' | 'Vender' | 'Anticrético' | 'Alquilar' | string;
+  interes: 'Comprar' | 'Anticrético' | 'Alquilar' | string;
   zona_interes: 'Ciudad de Tarija' | 'Área Rural / Fincas' | 'Ambas Zonas' | string;
   tipo_inmueble: 'Casa' | 'Departamento' | 'Terreno' | 'Finca / Quinta' | 'Oficina Comercial' | string;
   presupuesto?: string | null;

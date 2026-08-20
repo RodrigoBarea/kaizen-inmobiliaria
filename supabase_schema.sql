@@ -112,13 +112,13 @@ CREATE TABLE public.metricas_empresa (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 8. TABLA: SOLICITUDES_ASESORIA (Interesados en Comprar, Vender, Anticrético en Ciudad o Área Rural)
+-- 8. TABLA: SOLICITUDES_ASESORIA (Interesados en Comprar, Anticrético o Alquilar en Ciudad o Área Rural)
 CREATE TABLE public.solicitudes_asesoria (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre TEXT NOT NULL,
     telefono TEXT NOT NULL,
     email TEXT,
-    interes TEXT NOT NULL, -- 'Comprar', 'Vender', 'Anticrético', 'Alquilar'
+    interes TEXT NOT NULL, -- 'Comprar', 'Anticrético', 'Alquilar'
     zona_interes TEXT NOT NULL, -- 'Ciudad de Tarija', 'Área Rural / Fincas', 'Ambas Zonas'
     tipo_inmueble TEXT NOT NULL, -- 'Casa', 'Departamento', 'Terreno', 'Finca / Quinta', 'Oficina Comercial'
     presupuesto TEXT,
