@@ -381,26 +381,27 @@ export default function InmuebleDetallePage() {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-12 bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-sm font-bold rounded transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="w-full h-12 bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-sm font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
               >
-                <span className="material-symbols-outlined text-[20px]">calendar_month</span>
-                <span>📅 Agendar Visita Exclusiva</span>
+                <span className="material-symbols-outlined text-[20px] text-white">calendar_month</span>
+                <span>Agendar Visita Exclusiva</span>
               </a>
 
               <a
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-12 bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-sm font-bold rounded transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="w-full h-12 bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-sm font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
               >
-                <FaWhatsapp className="text-xl" />
-                <span>💬 Consultar Condiciones (WhatsApp)</span>
+                <FaWhatsapp className="text-xl text-white" />
+                <span>Consultar Condiciones (WhatsApp)</span>
               </a>
             </div>
 
             {/* Safety badge */}
             <div className="flex items-center gap-2 text-xs text-gray-700 font-semibold justify-center pt-2 border-t border-gray-200">
-              <span>🛡️ Propiedad con Revisión Legal KAIZEN</span>
+              <span className="text-[#1A1A1A]">🛡️</span>
+              <span>Propiedad con Revisión Legal KAIZEN</span>
             </div>
 
           </div>
