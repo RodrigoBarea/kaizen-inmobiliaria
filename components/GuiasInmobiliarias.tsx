@@ -41,7 +41,7 @@ export default function GuiasInmobiliarias() {
                 </p>
                 <div className="pt-2">
                   <span className="inline-flex items-center gap-1.5 font-label-md text-xs font-bold text-[#E60000] group-hover:underline">
-                    <span>Descargar Guía Gratuita</span>
+                    <span>Ver Guía Gratuita</span>
                     <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </span>
                 </div>
