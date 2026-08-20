@@ -79,6 +79,20 @@ export interface LeadVender {
   created_at?: string;
 }
 
+export interface SolicitudAsesoria {
+  id?: string;
+  nombre: string;
+  telefono: string;
+  email?: string | null;
+  interes: 'Comprar' | 'Vender' | 'Anticrético' | 'Alquilar' | string;
+  zona_interes: 'Ciudad de Tarija' | 'Área Rural / Fincas' | 'Ambas Zonas' | string;
+  tipo_inmueble: 'Casa' | 'Departamento' | 'Terreno' | 'Finca / Quinta' | 'Oficina Comercial' | string;
+  presupuesto?: string | null;
+  mensaje?: string | null;
+  atendido?: boolean;
+  created_at?: string;
+}
+
 export interface MetricasEmpresa {
   id?: string;
   propiedades_transaccionadas: number;

@@ -2,7 +2,7 @@ import BannerPrincipal from '@/components/Banner';
 import InmueblesDestacados from '@/components/InmueblesDestacados';
 import DatosRelevantes from '@/components/DatosRelevantes';
 import AreaRuralSection from '@/components/AreaRuralSection';
-import Asesoramiento from '@/components/Asesoramiento';
+import FormularioAsesoria from '@/components/FormularioAsesoria';
 import GuiasInmobiliarias from '@/components/GuiasInmobiliarias';
 import { getInmuebles, getMetricas } from '@/lib/supabase';
 import { Inmueble, MetricasEmpresa } from '@/types/database';
@@ -33,7 +33,7 @@ export default async function HomePage() {
       <InmueblesDestacados inmuebles={inmueblesDestacados} />
       <AreaRuralSection inmuebles={inmueblesRurales} />
       <DatosRelevantes metricas={metricas} />
-      <Asesoramiento />
+      <FormularioAsesoria />
       <GuiasInmobiliarias />
     </>
   );

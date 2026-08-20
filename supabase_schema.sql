@@ -8,6 +8,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 1. LIMPIEZA COMPLETA DE TABLAS ANTERIORES
+DROP TABLE IF EXISTS public.solicitudes_asesoria CASCADE;
 DROP TABLE IF EXISTS public.metricas_empresa CASCADE;
 DROP TABLE IF EXISTS public.leads_vender CASCADE;
 DROP TABLE IF EXISTS public.blogs CASCADE;
@@ -111,6 +112,21 @@ CREATE TABLE public.metricas_empresa (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- 8. TABLA: SOLICITUDES_ASESORIA (Interesados en Comprar, Vender, Anticrético en Ciudad o Área Rural)
+CREATE TABLE public.solicitudes_asesoria (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nombre TEXT NOT NULL,
+    telefono TEXT NOT NULL,
+    email TEXT,
+    interes TEXT NOT NULL, -- 'Comprar', 'Vender', 'Anticrético', 'Alquilar'
+    zona_interes TEXT NOT NULL, -- 'Ciudad de Tarija', 'Área Rural / Fincas', 'Ambas Zonas'
+    tipo_inmueble TEXT NOT NULL, -- 'Casa', 'Departamento', 'Terreno', 'Finca / Quinta', 'Oficina Comercial'
+    presupuesto TEXT,
+    mensaje TEXT,
+    atendido BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- ==============================================================================
 -- SEGURIDAD Y POLÍTICAS RLS (Row Level Security)
 -- ==============================================================================
@@ -121,6 +137,7 @@ ALTER TABLE public.inmuebles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads_vender ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.metricas_empresa ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.solicitudes_asesoria ENABLE ROW LEVEL SECURITY;
 
 -- Políticas de Lectura Pública
 CREATE POLICY "Lectura pública de categorías" ON public.categorias FOR SELECT USING (true);
@@ -129,8 +146,9 @@ CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USI
 CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (true);
 CREATE POLICY "Lectura pública de metricas" ON public.metricas_empresa FOR SELECT USING (true);
 
--- Escritura pública para captación de leads
+-- Escritura pública para captación de leads y asesorías
 CREATE POLICY "Inserción pública de leads de venta" ON public.leads_vender FOR INSERT WITH CHECK (true);
+CREATE POLICY "Inserción pública de asesorías" ON public.solicitudes_asesoria FOR INSERT WITH CHECK (true);
 
 -- Políticas completas para usuarios autenticados (Gestor CMS / Admin)
 CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
@@ -139,6 +157,7 @@ CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL 
 CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado metricas" ON public.metricas_empresa FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado asesorias" ON public.solicitudes_asesoria FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==============================================================================
 -- INSERCIÓN DE DATOS 100% TARIJA (SEED DATA CON PROPIEDADES RURALES)

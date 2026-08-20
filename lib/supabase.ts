@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Inmueble, Categoria, Agente, Blog, LeadVender, MetricasEmpresa } from '@/types/database';
+import { Inmueble, Categoria, Agente, Blog, LeadVender, MetricasEmpresa, SolicitudAsesoria } from '@/types/database';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -935,4 +935,97 @@ export async function updateMetricas(updates: Partial<MetricasEmpresa>): Promise
     return inMemoryMetricas;
   }
 }
+
+// ==========================================
+// SOLICITUDES DE ASESORIA API
+// ==========================================
+
+export const MOCK_SOLICITUDES_ASESORIA: SolicitudAsesoria[] = [
+  {
+    id: 'ase-1',
+    nombre: 'Gonzalo Morales',
+    telefono: '+591 72987654',
+    email: 'gonzalo.morales@email.com',
+    interes: 'Comprar',
+    zona_interes: 'Área Rural / Fincas',
+    tipo_inmueble: 'Finca / Quinta',
+    presupuesto: '$us 80,000 - $us 150,000',
+    mensaje: 'Busco terreno o pequeña finca en Uriondo con agua de riego para viñedo familiar.',
+    atendido: false,
+    created_at: '2026-08-19T16:00:00Z',
+  },
+  {
+    id: 'ase-2',
+    nombre: 'Mariana Gutierrez',
+    telefono: '+591 71239876',
+    email: 'mariana.gtz@email.com',
+    interes: 'Anticrético',
+    zona_interes: 'Ciudad de Tarija',
+    tipo_inmueble: 'Departamento',
+    presupuesto: '$us 20,000 - $us 30,000',
+    mensaje: 'Busco departamento de 2 o 3 dormitorios en Miraflores o Aranjuez.',
+    atendido: true,
+    created_at: '2026-08-18T10:30:00Z',
+  },
+];
+
+let inMemorySolicitudesAsesoria: SolicitudAsesoria[] = [...MOCK_SOLICITUDES_ASESORIA];
+
+export async function getSolicitudesAsesoria(): Promise<SolicitudAsesoria[]> {
+  if (!isSupabaseConfigured) return inMemorySolicitudesAsesoria;
+  try {
+    const { data, error } = await supabase
+      .from('solicitudes_asesoria')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.warn('getSolicitudesAsesoria error, using memory fallback:', err);
+    return inMemorySolicitudesAsesoria;
+  }
+}
+
+export async function createSolicitudAsesoria(solicitud: SolicitudAsesoria): Promise<boolean> {
+  const newSolicitud: SolicitudAsesoria = {
+    ...solicitud,
+    id: `ase-${Date.now()}`,
+    atendido: false,
+    created_at: new Date().toISOString(),
+  };
+
+  if (!isSupabaseConfigured) {
+    inMemorySolicitudesAsesoria.unshift(newSolicitud);
+    return true;
+  }
+
+  try {
+    const { error } = await supabase.from('solicitudes_asesoria').insert([solicitud]);
+    if (error) throw error;
+    return true;
+  } catch (err) {
+    console.warn('createSolicitudAsesoria error, fallback local:', err);
+    inMemorySolicitudesAsesoria.unshift(newSolicitud);
+    return true;
+  }
+}
+
+export async function updateSolicitudAsesoria(id: string, updates: Partial<SolicitudAsesoria>): Promise<boolean> {
+  const idx = inMemorySolicitudesAsesoria.findIndex((s) => s.id === id);
+  if (idx !== -1) {
+    inMemorySolicitudesAsesoria[idx] = { ...inMemorySolicitudesAsesoria[idx], ...updates };
+  }
+
+  if (!isSupabaseConfigured) return true;
+
+  try {
+    const { error } = await supabase.from('solicitudes_asesoria').update(updates).eq('id', id);
+    if (error) throw error;
+    return true;
+  } catch (err) {
+    console.warn('updateSolicitudAsesoria error:', err);
+    return true;
+  }
+}
+
 
