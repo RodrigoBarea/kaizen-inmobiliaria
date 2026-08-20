@@ -89,13 +89,15 @@ function StatCard({
             <span>{inView ? animatedCount : 0}</span>
             {suffix && <span className="text-sm sm:text-base font-bold text-gray-500">{suffix}</span>}
           </div>
-          <h3 className="font-extrabold text-base text-gray-900 mt-2 line-clamp-1">
-            {title}
-          </h3>
+          <div className="min-h-[48px] flex items-center mt-2">
+            <h3 className="font-extrabold text-sm sm:text-base text-gray-900 leading-snug">
+              {title}
+            </h3>
+          </div>
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-100 leading-relaxed">
+      <p className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-100 leading-relaxed min-h-[40px] flex items-center">
         {subtitle}
       </p>
     </div>

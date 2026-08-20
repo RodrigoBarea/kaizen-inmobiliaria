@@ -31,8 +31,8 @@ export default async function HomePage() {
     <>
       <BannerPrincipal />
       <InmueblesDestacados inmuebles={inmueblesDestacados} />
-      <DatosRelevantes metricas={metricas} />
       <AreaRuralSection inmuebles={inmueblesRurales} />
+      <DatosRelevantes metricas={metricas} />
       <Asesoramiento />
       <GuiasInmobiliarias />
     </>
