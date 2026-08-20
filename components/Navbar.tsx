@@ -33,15 +33,15 @@ export default function Navbar() {
       <div className="flex justify-between items-center px-4 sm:px-8 h-20 w-full max-w-[1360px] mx-auto">
         
         {/* Logo Oficial KAIZEN */}
-        <Link href="/" className="flex items-center gap-2 group shrink-0">
-          <div className="relative h-12 w-auto flex items-center">
+        <Link href="/" className="flex items-center group shrink-0 py-1">
+          <div className="relative h-14 sm:h-16 w-auto flex items-center">
             <Image
               src="/logos/negro-png-alta-calidad.png"
               alt="KAIZEN Bienes Raíces"
-              width={180}
-              height={48}
+              width={240}
+              height={64}
               priority
-              className="h-11 sm:h-12 w-auto object-contain"
+              className="h-12 sm:h-14 md:h-[58px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
             />
           </div>
         </Link>
