@@ -36,9 +36,9 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2 group shrink-0">
           <div className="relative h-12 w-auto flex items-center">
             <Image
-              src="/logo.png"
+              src="/logos/negro-png-alta-calidad.png"
               alt="KAIZEN Bienes Raíces"
-              width={160}
+              width={180}
               height={48}
               priority
               className="h-11 sm:h-12 w-auto object-contain"

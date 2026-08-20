@@ -23,12 +23,12 @@ export default function Footer() {
           
           {/* Col 1: Brand & Philosophy */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block bg-white/95 p-2 rounded-lg">
+            <Link href="/" className="inline-block">
               <Image
-                src="/logo.png"
+                src="/logos/blanco-png-alta-calidad.png"
                 alt="KAIZEN Bienes Raíces"
-                width={150}
-                height={45}
+                width={160}
+                height={48}
                 className="h-10 w-auto object-contain"
               />
             </Link>

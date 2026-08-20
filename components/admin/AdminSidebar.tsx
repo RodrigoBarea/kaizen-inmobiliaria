@@ -22,7 +22,7 @@ export default function AdminSidebar() {
       <div className="h-20 flex items-center px-gutter border-b border-surface-variant/10">
         <Link href="/admin" className="inline-block bg-white/95 p-1.5 rounded-lg">
           <Image
-            src="/logo.png"
+            src="/logos/negro-png-alta-calidad.png"
             alt="KAIZEN Admin"
             width={140}
             height={40}
