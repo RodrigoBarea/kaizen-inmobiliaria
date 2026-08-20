@@ -78,3 +78,25 @@ export interface LeadVender {
   atendido?: boolean;
   created_at?: string;
 }
+
+export interface MetricasEmpresa {
+  id?: string;
+  propiedades_transaccionadas: number;
+  propiedades_transaccionadas_label: string;
+  propiedades_transaccionadas_sub: string;
+  
+  hectareas_gestionadas: number;
+  hectareas_gestionadas_label: string;
+  hectareas_gestionadas_sub: string;
+  
+  dias_promedio_colocacion: number;
+  dias_promedio_colocacion_label: string;
+  dias_promedio_colocacion_sub: string;
+  
+  seguridad_juridica_porcentaje: number;
+  seguridad_juridica_label: string;
+  seguridad_juridica_sub: string;
+  
+  updated_at?: string;
+}
+

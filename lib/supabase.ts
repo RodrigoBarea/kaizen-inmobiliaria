@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Inmueble, Categoria, Agente, Blog, LeadVender } from '@/types/database';
+import { Inmueble, Categoria, Agente, Blog, LeadVender, MetricasEmpresa } from '@/types/database';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -861,3 +861,78 @@ export async function createLeadVender(lead: LeadVender): Promise<boolean> {
     return true;
   }
 }
+
+// ==========================================
+// METRICAS & DATOS RELEVANTES API
+// ==========================================
+
+export const MOCK_METRICAS: MetricasEmpresa = {
+  id: '88888888-8888-8888-8888-888888888888',
+  propiedades_transaccionadas: 180,
+  propiedades_transaccionadas_label: 'Propiedades Transaccionadas',
+  propiedades_transaccionadas_sub: 'Casas, departamentos y lotes cerrados con éxito',
+  
+  hectareas_gestionadas: 60,
+  hectareas_gestionadas_label: 'Terrenos y Lotes Gestionados',
+  hectareas_gestionadas_sub: 'Fuerte presencia en áreas de expansión y campo en Tarija',
+  
+  dias_promedio_colocacion: 35,
+  dias_promedio_colocacion_label: 'Tiempo Promedio de Colocación',
+  dias_promedio_colocacion_sub: 'Eficiencia y agilidad para quien busca vender o alquilar',
+  
+  seguridad_juridica_porcentaje: 100,
+  seguridad_juridica_label: 'Seguridad Jurídica y Respaldo',
+  seguridad_juridica_sub: 'Tranquilidad en trámites legales y Derechos Reales',
+  
+  updated_at: '2026-08-20T12:00:00Z',
+};
+
+let inMemoryMetricas: MetricasEmpresa = { ...MOCK_METRICAS };
+
+export async function getMetricas(): Promise<MetricasEmpresa> {
+  if (!isSupabaseConfigured) {
+    return inMemoryMetricas;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('metricas_empresa')
+      .select('*')
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.warn('getMetricas query error, using fallback:', error);
+      return inMemoryMetricas;
+    }
+
+    return data as MetricasEmpresa;
+  } catch (err) {
+    console.warn('getMetricas error:', err);
+    return inMemoryMetricas;
+  }
+}
+
+export async function updateMetricas(updates: Partial<MetricasEmpresa>): Promise<MetricasEmpresa> {
+  inMemoryMetricas = { ...inMemoryMetricas, ...updates, updated_at: new Date().toISOString() };
+
+  if (!isSupabaseConfigured) {
+    return inMemoryMetricas;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('metricas_empresa')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', inMemoryMetricas.id || '88888888-8888-8888-8888-888888888888')
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data as MetricasEmpresa;
+  } catch (err) {
+    console.warn('updateMetricas error:', err);
+    return inMemoryMetricas;
+  }
+}
+

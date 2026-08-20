@@ -8,6 +8,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 1. LIMPIEZA COMPLETA DE TABLAS ANTERIORES
+DROP TABLE IF EXISTS public.metricas_empresa CASCADE;
 DROP TABLE IF EXISTS public.leads_vender CASCADE;
 DROP TABLE IF EXISTS public.blogs CASCADE;
 DROP TABLE IF EXISTS public.inmuebles CASCADE;
@@ -88,6 +89,28 @@ CREATE TABLE public.leads_vender (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- 7. TABLA: METRICAS_EMPRESA (Datos Relevantes y Tracción de KAIZEN)
+CREATE TABLE public.metricas_empresa (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    propiedades_transaccionadas INTEGER DEFAULT 180 NOT NULL,
+    propiedades_transaccionadas_label TEXT DEFAULT 'Propiedades Transaccionadas' NOT NULL,
+    propiedades_transaccionadas_sub TEXT DEFAULT 'Casas, departamentos y lotes cerrados con éxito en Tarija' NOT NULL,
+    
+    hectareas_gestionadas INTEGER DEFAULT 60 NOT NULL,
+    hectareas_gestionadas_label TEXT DEFAULT 'Terrenos y Lotes Gestionados' NOT NULL,
+    hectareas_gestionadas_sub TEXT DEFAULT 'Fuerte presencia en áreas de expansión urbana y campo' NOT NULL,
+    
+    dias_promedio_colocacion INTEGER DEFAULT 35 NOT NULL,
+    dias_promedio_colocacion_label TEXT DEFAULT 'Tiempo Promedio de Colocación' NOT NULL,
+    dias_promedio_colocacion_sub TEXT DEFAULT 'Eficiencia y agilidad para quien busca vender o alquilar' NOT NULL,
+    
+    seguridad_juridica_porcentaje INTEGER DEFAULT 100 NOT NULL,
+    seguridad_juridica_label TEXT DEFAULT 'Seguridad Jurídica y Respaldo' NOT NULL,
+    seguridad_juridica_sub TEXT DEFAULT 'Tranquilidad en trámites legales y Derechos Reales' NOT NULL,
+    
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- ==============================================================================
 -- SEGURIDAD Y POLÍTICAS RLS (Row Level Security)
 -- ==============================================================================
@@ -97,17 +120,25 @@ ALTER TABLE public.agentes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inmuebles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.leads_vender ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.metricas_empresa ENABLE ROW LEVEL SECURITY;
 
 -- Políticas de Lectura Pública
 CREATE POLICY "Lectura pública de categorías" ON public.categorias FOR SELECT USING (true);
 CREATE POLICY "Lectura pública de agentes" ON public.agentes FOR SELECT USING (true);
 CREATE POLICY "Lectura pública de inmuebles" ON public.inmuebles FOR SELECT USING (true);
 CREATE POLICY "Lectura pública de blogs" ON public.blogs FOR SELECT USING (true);
+CREATE POLICY "Lectura pública de metricas" ON public.metricas_empresa FOR SELECT USING (true);
 
 -- Escritura pública para captación de leads
 CREATE POLICY "Inserción pública de leads de venta" ON public.leads_vender FOR INSERT WITH CHECK (true);
 
 -- Políticas completas para usuarios autenticados (Gestor CMS / Admin)
+CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Control total autenticado metricas" ON public.metricas_empresa FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
@@ -414,4 +445,35 @@ INSERT INTO public.blogs (id, titulo, slug, resumen, contenido, foto_principal, 
     'Análisis de la plusvalía en la ciudad de Tarija, zonas con mayor rentabilidad para inversión en alquiler tradicional o temporario y el impacto de los nuevos proyectos de urbanización y costaneras.',
     'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
     'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+);
+
+-- 5. Métricas y Datos Relevantes KAIZEN
+INSERT INTO public.metricas_empresa (
+    id,
+    propiedades_transaccionadas,
+    propiedades_transaccionadas_label,
+    propiedades_transaccionadas_sub,
+    hectareas_gestionadas,
+    hectareas_gestionadas_label,
+    hectareas_gestionadas_sub,
+    dias_promedio_colocacion,
+    dias_promedio_colocacion_label,
+    dias_promedio_colocacion_sub,
+    seguridad_juridica_porcentaje,
+    seguridad_juridica_label,
+    seguridad_juridica_sub
+) VALUES (
+    '88888888-8888-8888-8888-888888888888',
+    180,
+    'Propiedades Transaccionadas',
+    'Casas, departamentos y lotes cerrados con éxito en Tarija',
+    60,
+    'Terrenos y Lotes Gestionados',
+    'Fuerte presencia en áreas de expansión urbana y campo',
+    35,
+    'Tiempo Promedio de Colocación',
+    'Eficiencia y agilidad para quien busca vender o alquilar',
+    100,
+    'Seguridad Jurídica y Respaldo',
+    'Tranquilidad en trámites legales y Derechos Reales'
 );
