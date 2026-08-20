@@ -25,9 +25,8 @@ export default function Navbar() {
   const isInmueblesActive =
     pathname.startsWith('/compra') ||
     pathname.startsWith('/alquiler') ||
-    pathname.startsWith('/anticretico');
-
-  const isRuralActive = pathname.startsWith('/area-rural');
+    pathname.startsWith('/anticretico') ||
+    pathname.startsWith('/area-rural');
 
   return (
     <header className="bg-white/95 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-200 shadow-sm transition-all duration-300 h-20 shrink-0">
@@ -48,10 +47,10 @@ export default function Navbar() {
         </Link>
 
         {/* Menú Central */}
-        <nav className="hidden lg:flex items-center space-x-2 xl:space-x-3 h-full">
+        <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4 h-full">
           <Link
             href="/"
-            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
               pathname === '/'
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -68,7 +67,7 @@ export default function Navbar() {
           >
             <button
               type="button"
-              className={`font-label-md text-sm px-3 py-2 rounded transition-colors flex items-center gap-1 ${
+              className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors flex items-center gap-1 ${
                 isInmueblesActive
                   ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                   : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -92,52 +91,40 @@ export default function Navbar() {
                   <Link
                     href="/compra/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Comprar Propiedades
+                    Comprar
                   </Link>
                   <Link
                     href="/alquiler/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Propiedades en Alquiler
+                    Alquilar
                   </Link>
                   <Link
                     href="/anticretico/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
                   >
-                    Propiedades en Anticrético
+                    Anticrético
                   </Link>
                   <div className="border-t border-gray-100 my-1"></div>
                   <Link
                     href="/area-rural"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2 text-sm text-emerald-700 hover:bg-emerald-50 font-bold transition-colors flex items-center gap-1.5"
+                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-emerald-50 hover:text-emerald-700 font-semibold transition-colors flex items-center gap-1.5"
                   >
-                    <span>🌿 Área Rural / Fincas</span>
+                    <span>Área Rural / Fincas</span>
                   </Link>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Enlace Destacado: Área Rural */}
-          <Link
-            href="/area-rural"
-            className={`font-label-md text-sm px-3 py-2 rounded transition-colors flex items-center gap-1 ${
-              isRuralActive
-                ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 bg-emerald-50/50'
-                : 'text-[#1A1A1A] hover:text-emerald-700 hover:bg-emerald-50/50'
-            }`}
-          >
-            <span>🌿 Área Rural</span>
-          </Link>
-
           <Link
             href="/sobre-nosotros"
-            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
               pathname === '/sobre-nosotros'
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -148,7 +135,7 @@ export default function Navbar() {
 
           <Link
             href="/blog/page/1"
-            className={`font-label-md text-sm px-3 py-2 rounded transition-colors ${
+            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
               pathname.startsWith('/blog')
                 ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
                 : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
@@ -252,20 +239,12 @@ export default function Navbar() {
                   <Link
                     href="/area-rural"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-sm font-bold text-emerald-700 hover:text-emerald-800"
+                    className="block py-1 text-sm font-semibold text-[#1A1A1A] hover:text-[#E60000]"
                   >
-                    🌿 Área Rural / Fincas & Campo
+                    Área Rural / Fincas
                   </Link>
                 </div>
               </div>
-
-              <Link
-                href="/area-rural"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-emerald-800 font-bold border-b border-gray-100 text-sm"
-              >
-                🌿 Área Rural (Fincas & Viñedos)
-              </Link>
 
               <Link
                 href="/sobre-nosotros"
