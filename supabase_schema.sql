@@ -139,11 +139,6 @@ CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL 
 CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Control total autenticado metricas" ON public.metricas_empresa FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Control total autenticado categorias" ON public.categorias FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Control total autenticado agentes" ON public.agentes FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Control total autenticado inmuebles" ON public.inmuebles FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Control total autenticado blogs" ON public.blogs FOR ALL TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "Control total autenticado leads" ON public.leads_vender FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- ==============================================================================
 -- INSERCIÓN DE DATOS 100% TARIJA (SEED DATA CON PROPIEDADES RURALES)
