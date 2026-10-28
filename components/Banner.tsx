@@ -58,21 +58,6 @@ export default function BannerPrincipal() {
           {/* Column Left: Editorial Narrative & Value Proposition */}
           <div className="lg:col-span-6 flex flex-col justify-center z-10">
             
-            {/* Eyebrow Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex flex-wrap items-center gap-2 mb-6"
-            >
-              <span className="px-3 py-1 bg-emerald-subtle text-[#0B4632] border border-[#0B4632]/20 rounded-full text-legal-badge font-legal-badge uppercase tracking-wider font-semibold">
-                Correduría Homologada Tarija
-              </span>
-              <span className="text-legal-badge font-legal-badge text-text-muted tracking-wide">
-                Registro DD.RR. & Notaría N° 4
-              </span>
-            </motion.div>
-
             {/* Editorial Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
@@ -90,37 +75,10 @@ export default function BannerPrincipal() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl mb-8 sm:mb-10 leading-relaxed"
+              className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl leading-relaxed"
             >
               Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
             </motion.p>
-
-            {/* Metrics Snapshot Row */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="grid grid-cols-3 gap-4 border-t border-border-hairline pt-6 max-w-lg mb-4"
-            >
-              <div>
-                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">100%</span>
-                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
-                  Folio Real Limpio
-                </span>
-              </div>
-              <div>
-                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">0</span>
-                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
-                  Gravámenes Ocultos
-                </span>
-              </div>
-              <div>
-                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">15 Días</span>
-                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
-                  Pre-aprobación VIP
-                </span>
-              </div>
-            </motion.div>
 
           </div>
 
