@@ -22,7 +22,7 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
       badge: 'Agua de Riego Permanente',
       price: '$210,000 USD',
       img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=800&auto=format&fit=crop&q=80',
-      action: 'Ver Plano & Título Agrario',
+      action: 'Ver Inmueble',
       link: '/area-rural',
     },
     {
@@ -34,7 +34,7 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
       badge: 'Folio Matriz Individual',
       price: 'Desde $45,000 USD',
       img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=80',
-      action: 'Descargar Masterplan',
+      action: 'Ver Inmueble',
       link: '/area-rural',
     },
     {
@@ -46,7 +46,7 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
       badge: 'Ideal Frutales / Viñedo',
       price: '$175,000 USD',
       img: 'https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?w=800&auto=format&fit=crop&q=80',
-      action: 'Solicitar Dictamen Legal',
+      action: 'Ver Inmueble',
       link: '/area-rural',
     },
   ];
@@ -143,7 +143,7 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                         href={`/inmueble/${item.slug}`}
                         className="block w-full text-center py-2.5 border border-[#b6efd3] text-[#b6efd3] hover:bg-[#b6efd3] hover:text-black font-body-sm font-semibold transition-colors rounded-[2px]"
                       >
-                        Ver Plano & Ficha Técnica
+                        Ver Inmueble
                       </Link>
                     </div>
                   </div>

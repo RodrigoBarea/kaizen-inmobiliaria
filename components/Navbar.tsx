@@ -34,8 +34,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-surface-stone/95 backdrop-blur-md border-b border-border-hairline transition-all duration-300">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex justify-between items-center max-w-[1500px] mx-auto">
         
-        {/* Brand Logo & Geolocation Mark */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center group shrink-0">
           <div className="relative h-11 sm:h-12 w-auto flex items-center">
             <Image
               src="/logos/negro-png-alta-calidad.png"
@@ -45,14 +45,6 @@ export default function Navbar() {
               priority
               className="h-10 sm:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
             />
-          </div>
-          <div className="hidden xl:flex flex-col border-l border-border-hairline pl-3">
-            <span className="text-[10px] font-legal-badge uppercase tracking-widest text-text-muted font-semibold">
-              Tarija · Valle Central de Bolivia
-            </span>
-            <span className="text-[9px] text-[#0B4632] font-semibold tracking-wider uppercase">
-              DD.RR. & Notaría Homologada
-            </span>
           </div>
         </Link>
 
@@ -209,7 +201,7 @@ export default function Navbar() {
             <span className="material-symbols-outlined text-[20px]">search</span>
           </Link>
 
-          {/* Direct VIP WhatsApp CTA */}
+          {/* Direct WhatsApp CTA */}
           <a
             href={waUrl}
             target="_blank"
@@ -217,7 +209,7 @@ export default function Navbar() {
             className="hidden sm:inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white px-4 py-2 rounded-[2px] text-xs font-semibold tracking-tight shadow-sm transition-all duration-150 hover:-translate-y-0.5"
           >
             <FaWhatsapp className="text-sm" />
-            <span>Consulta VIP</span>
+            <span>Agenda tu visita</span>
           </a>
 
           {/* Mobile Menu Toggle Button */}

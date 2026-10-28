@@ -105,7 +105,7 @@ export default function InmuebleCard({ inmueble }: Props) {
             </p>
 
             <p className="font-body-md text-xs text-text-muted mb-4 line-clamp-2 leading-relaxed">
-              {descripcion || 'Inmueble auditado bajo rigurosa inspección legal y técnica en Tarija.'}
+              {descripcion || 'Inmueble auditado bajo rigurosa verificación legal y técnica en Tarija.'}
             </p>
           </div>
 
@@ -145,7 +145,7 @@ export default function InmuebleCard({ inmueble }: Props) {
               </div>
 
               <span className="text-xs font-medium text-primary group-hover:text-kaizen-red flex items-center gap-0.5 transition-colors">
-                <span>Inspección</span>
+                <span>Ver Inmueble</span>
                 <span className="material-symbols-outlined text-[16px]">chevron_right</span>
               </span>
             </div>

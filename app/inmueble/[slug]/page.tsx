@@ -45,7 +45,7 @@ export default function InmuebleDetallePage() {
     return (
       <div className="min-h-screen pt-32 pb-20 flex flex-col items-center justify-center bg-surface-stone text-primary animate-pulse">
         <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="font-body-sm text-xs text-text-muted">Cargando expediente notarial del inmueble...</p>
+        <p className="font-body-sm text-xs text-text-muted">Cargando detalles de la propiedad...</p>
       </div>
     );
   }
@@ -306,7 +306,7 @@ export default function InmuebleDetallePage() {
           {/* Technical Specs Table */}
           <div className="border border-border-hairline rounded-[2px] p-6 bg-surface-canvas space-y-4">
             <h3 className="text-base font-semibold text-primary">
-              Ficha Notarial & Catastral
+              Ficha Técnica & Catastral
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
@@ -412,7 +412,7 @@ export default function InmuebleDetallePage() {
                 <span>Garantía de Cero Riesgo KAIZEN</span>
               </div>
               <p>
-                No realizas ningún anticipo sin previa revisión de folio real y minuta notariada homologada.
+                No realizas ningún anticipo sin previa revisión de folio real y documentación homologada.
               </p>
             </div>
 

@@ -167,17 +167,11 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                   </div>
 
                   <div className="flex items-center gap-2.5">
-                    <Link
-                      href={`/inmueble/${lead.slug}`}
-                      className="px-4 py-2.5 border border-primary text-primary hover:bg-primary hover:text-white transition-colors text-xs font-semibold rounded-[2px]"
-                    >
-                      Ficha Notarial
-                    </Link>
                     <a
                       href={leadWaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2.5 bg-[#E60000] hover:bg-[#C00000] text-white text-xs font-semibold transition-colors rounded-[2px] flex items-center gap-1.5 shadow-sm"
+                      className="px-5 py-2.5 bg-[#E60000] hover:bg-[#C00000] text-white text-xs font-semibold transition-colors rounded-[2px] flex items-center gap-1.5 shadow-sm"
                     >
                       <span className="material-symbols-outlined text-[16px]">calendar_today</span>
                       <span>Agendar Visita</span>
@@ -250,7 +244,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                         href={`/inmueble/${item.slug}`}
                         className="text-xs font-semibold text-primary hover:text-kaizen-red flex items-center gap-1 transition-colors"
                       >
-                        <span>Inspección Privada</span>
+                        <span>Ver Inmueble</span>
                         <span className="material-symbols-outlined text-[16px]">chevron_right</span>
                       </Link>
                     </div>
