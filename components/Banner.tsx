@@ -2,18 +2,22 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function BannerPrincipal() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'venta' | 'alquiler' | 'anticretico' | 'vender'>('venta');
+  const [activeTab, setActiveTab] = useState<'venta' | 'alquiler' | 'anticretico' | 'fincas' | 'vender'>('venta');
   const [ciudad, setCiudad] = useState('Todas');
   const [tipo, setTipo] = useState('Todos');
   const [rangoPrecio, setRangoPrecio] = useState('todos');
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleTabClick = (tab: 'venta' | 'alquiler' | 'anticretico' | 'vender') => {
+  const handleTabClick = (tab: 'venta' | 'alquiler' | 'anticretico' | 'fincas' | 'vender') => {
     if (tab === 'vender') {
       router.push('/vender');
+    } else if (tab === 'fincas') {
+      router.push('/area-rural');
     } else {
       setActiveTab(tab);
     }
@@ -24,193 +28,287 @@ export default function BannerPrincipal() {
     const params = new URLSearchParams();
     if (ciudad !== 'Todas') params.set('ciudad', ciudad);
     if (tipo !== 'Todos') params.set('tipo', tipo);
-    params.set('categoria', activeTab);
+    params.set('categoria', activeTab === 'fincas' ? 'venta' : activeTab);
 
     if (rangoPrecio === '50k') {
       params.set('max', '50000');
-    } else if (rangoPrecio === '50k-150k') {
+    } else if (rangoPrecio === '50k-120k') {
       params.set('min', '50000');
-      params.set('max', '150000');
-    } else if (rangoPrecio === '150k-300k') {
-      params.set('min', '150000');
-      params.set('max', '300000');
-    } else if (rangoPrecio === '300k+') {
-      params.set('min', '300000');
+      params.set('max', '120000');
+    } else if (rangoPrecio === '120k-250k') {
+      params.set('min', '120000');
+      params.set('max', '250000');
+    } else if (rangoPrecio === '250k-450k') {
+      params.set('min', '250000');
+      params.set('max', '450000');
+    } else if (rangoPrecio === '450k+') {
+      params.set('min', '450000');
     }
 
     router.push(`/busqueda?${params.toString()}`);
   };
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-20 overflow-hidden bg-[#1A1A1A]">
-      {/* Background Hero Image */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="bg-cover bg-center w-full h-full transform scale-105 transition-transform duration-1000"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&auto=format&fit=crop&q=80')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[0.5px]" />
-      </div>
-
-      {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-[1360px] mx-auto px-4 sm:px-8 text-center flex flex-col items-center py-20">
+    <section className="relative w-full border-b border-border-hairline bg-surface-stone overflow-hidden">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 pb-14 lg:pt-14 lg:pb-20">
         
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full mb-5 shadow-sm"
-        >
-          <div className="w-2 h-2 rounded-full bg-[#E60000] animate-pulse" />
-          <span className="text-xs uppercase font-bold tracking-widest text-white">
-            KAIZEN Bienes Raíces
-          </span>
-        </motion.div>
+        {/* Asymmetric Editorial Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Column Left: Editorial Narrative & Value Proposition */}
+          <div className="lg:col-span-6 flex flex-col justify-center z-10">
+            
+            {/* Eyebrow Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex flex-wrap items-center gap-2 mb-6"
+            >
+              <span className="px-3 py-1 bg-emerald-subtle text-[#0B4632] border border-[#0B4632]/20 rounded-full text-legal-badge font-legal-badge uppercase tracking-wider font-semibold">
+                Correduría Homologada Tarija
+              </span>
+              <span className="text-legal-badge font-legal-badge text-text-muted tracking-wide">
+                Registro DD.RR. & Notaría N° 4
+              </span>
+            </motion.div>
 
-        {/* H1 Titular con saltos de línea equilibrados */}
-        <motion.h1
+            {/* Editorial Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-display-xl font-bold text-primary tracking-tight leading-[1.08] mb-6"
+            >
+              Tu próximo hogar. <br />
+              Tu mejor inversión. <br />
+              <span className="italic font-normal text-[#E60000]">Cero riesgos.</span>
+            </motion.h1>
+
+            {/* Subtítulo curado */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl mb-8 sm:mb-10 leading-relaxed"
+            >
+              Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
+            </motion.p>
+
+            {/* Metrics Snapshot Row */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="grid grid-cols-3 gap-4 border-t border-border-hairline pt-6 max-w-lg mb-4"
+            >
+              <div>
+                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">100%</span>
+                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
+                  Folio Real Limpio
+                </span>
+              </div>
+              <div>
+                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">0 Bs.</span>
+                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
+                  Gravámenes Ocultos
+                </span>
+              </div>
+              <div>
+                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">15 Días</span>
+                <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
+                  Pre-aprobación VIP
+                </span>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Column Right: Large Editorial Imagery Frame with Preload Shimmer */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-6 relative"
+          >
+            <div className="relative w-full aspect-[4/3] lg:aspect-[16/11] border border-border-hairline bg-surface-canvas overflow-hidden rounded-[2px] group">
+              
+              {/* Skeleton Placeholder while loading */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 skeleton-shimmer bg-surface-warm" />
+              )}
+
+              <Image
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&auto=format&fit=crop&q=85"
+                alt="Arquitectura residencial de lujo en Tarija - KAIZEN Bienes Raíces"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                onLoad={() => setImageLoaded(true)}
+                className={`object-cover transition-all duration-700 group-hover:scale-105 ${
+                  imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                }`}
+              />
+
+              {/* Architectural Framing Badge */}
+              <div className="absolute bottom-4 left-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-1.5 border border-border-hairline text-legal-badge font-legal-badge uppercase tracking-wider text-primary shadow-sm">
+                Villa Los Sauces · Aranjuez, Tarija
+              </div>
+
+              {/* Exclusivity Badge */}
+              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-[2px] text-legal-badge font-legal-badge uppercase tracking-widest shadow-sm">
+                Exclusividad KAIZEN
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+
+        {/* BUSCADOR MODULAR FLOTANTE DE ALTA GAMA */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="font-headline-md text-3xl sm:text-5xl md:text-6xl font-black text-white mb-5 max-w-4xl mx-auto uppercase tracking-tight drop-shadow-lg leading-[1.2]"
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="mt-10 lg:mt-14 w-full bg-surface-stone border border-border-hairline shadow-[0_12px_32px_-8px_rgba(17,17,17,0.06)] p-5 sm:p-7 rounded-[2px]"
         >
-          TU PRÓXIMO HOGAR. <br className="hidden sm:inline" />
-          TU MEJOR INVERSIÓN. <br className="hidden sm:inline" />
-          <span className="text-[#E60000] whitespace-nowrap">CERO RIESGOS.</span>
-        </motion.h1>
-
-        {/* Subtítulo conciso y equilibrado */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="font-body-lg text-sm sm:text-base md:text-lg text-white/90 mb-9 max-w-2xl mx-auto drop-shadow leading-relaxed"
-        >
-          Garantizamos tu tranquilidad en Tarija con verificación rigurosa en Derechos Reales, asesoría crediticia y rentabilidad asegurada.
-        </motion.p>
-
-        {/* Mega Buscador Central */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="bg-white rounded-lg shadow-2xl w-full max-w-4xl mx-auto overflow-hidden border border-gray-100"
-        >
-          {/* Fila Superior: 4 Pestañas */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-gray-200 bg-[#F7F7F7]">
+          {/* Transaction Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 border-b border-border-hairline custom-scrollbar">
             <button
               type="button"
               onClick={() => handleTabClick('venta')}
-              className={`py-3.5 px-3 font-label-md text-xs sm:text-sm font-bold transition-colors border-r border-gray-200 ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
                 activeTab === 'venta'
-                  ? 'bg-[#E60000] text-white'
-                  : 'text-[#1A1A1A] hover:bg-gray-200/80'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Comprar Propiedad
+              Venta Exclusiva
             </button>
+
             <button
               type="button"
               onClick={() => handleTabClick('alquiler')}
-              className={`py-3.5 px-3 font-label-md text-xs sm:text-sm font-bold transition-colors border-r border-gray-200 ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
                 activeTab === 'alquiler'
-                  ? 'bg-[#E60000] text-white'
-                  : 'text-[#1A1A1A] hover:bg-gray-200/80'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Alquilar
+              Alquiler Corporativo
             </button>
+
             <button
               type="button"
               onClick={() => handleTabClick('anticretico')}
-              className={`py-3.5 px-3 font-label-md text-xs sm:text-sm font-bold transition-colors border-r border-gray-200 ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
                 activeTab === 'anticretico'
-                  ? 'bg-[#E60000] text-white'
-                  : 'text-[#1A1A1A] hover:bg-gray-200/80'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Tomar en Anticrético
+              Anticréticos Certificados
             </button>
+
+            <button
+              type="button"
+              onClick={() => handleTabClick('fincas')}
+              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-[#0B4632] hover:bg-emerald-subtle rounded-[2px] transition-all whitespace-nowrap flex items-center gap-1.5"
+            >
+              <span>🌿 Fincas & Viñedos</span>
+            </button>
+
             <button
               type="button"
               onClick={() => handleTabClick('vender')}
-              className="py-3.5 px-3 font-label-md text-xs sm:text-sm font-bold text-[#1A1A1A] hover:bg-gray-200/80 transition-colors"
+              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-text-muted hover:text-kaizen-red hover:bg-surface-canvas rounded-[2px] transition-all whitespace-nowrap ml-auto hidden sm:block"
             >
-              Vender mi Inmueble
+              Vender mi Inmueble →
             </button>
           </div>
 
-          {/* Fila Inferior: Inputs limpios */}
-          <form onSubmit={handleSearch} className="p-4 sm:p-6 bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+          {/* Formulario Estructurado */}
+          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             
-            {/* Select Ciudad / Zona */}
-            <div>
-              <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">
-                Zona o Municipio
+            {/* Filter: Tipo de Inmueble */}
+            <div className="flex flex-col">
+              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
+                Tipo de Propiedad
               </label>
-              <select
-                value={ciudad}
-                onChange={(e) => setCiudad(e.target.value)}
-                className="w-full h-11 px-3 rounded border border-gray-300 font-body-md text-sm text-[#1A1A1A] focus:border-[#E60000] focus:ring-0 bg-white cursor-pointer"
-              >
-                <option value="Todas">Toda Tarija</option>
-                <option value="Tarija">Tarija (Cercado)</option>
-                <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
-                <option value="Uriondo">Uriondo / El Valle</option>
-                <option value="Bermejo">Bermejo</option>
-                <option value="Yacuiba">Yacuiba</option>
-                <option value="Villa Montes">Villa Montes</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                >
+                  <option value="Todos">Cualquier Tipología</option>
+                  <option value="Casa">Residencia Unifamiliar</option>
+                  <option value="Departamento">Departamento</option>
+                  <option value="Terreno">Terreno / Macrolote</option>
+                  <option value="Oficina Comercial">Local / Oficina Comercial</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                  expand_more
+                </span>
+              </div>
             </div>
 
-            {/* Select Tipo de Propiedad */}
-            <div>
-              <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">
-                Tipo de Inmueble
+            {/* Filter: Zona Tarija */}
+            <div className="flex flex-col">
+              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
+                Ubicación / Distrito
               </label>
-              <select
-                value={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-                className="w-full h-11 px-3 rounded border border-gray-300 font-body-md text-sm text-[#1A1A1A] focus:border-[#E60000] focus:ring-0 bg-white cursor-pointer"
-              >
-                <option value="Todos">Todos los tipos</option>
-                <option value="Casa">Casa</option>
-                <option value="Departamento">Departamento</option>
-                <option value="Terreno">Terreno / Lote</option>
-                <option value="Oficina Comercial">Oficina Comercial</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={ciudad}
+                  onChange={(e) => setCiudad(e.target.value)}
+                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                >
+                  <option value="Todas">Todo Tarija & Valle Central</option>
+                  <option value="Tarija">Tarija (Cercado)</option>
+                  <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                  <option value="Uriondo">Uriondo (Valle de la Concepción)</option>
+                  <option value="Padcaya">Padcaya</option>
+                  <option value="Bermejo">Bermejo</option>
+                  <option value="Yacuiba">Yacuiba</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                  location_on
+                </span>
+              </div>
             </div>
 
-            {/* Select Rango de Precio */}
-            <div>
-              <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">
-                Presupuesto ($us)
+            {/* Filter: Rango de Precio */}
+            <div className="flex flex-col">
+              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
+                Presupuesto Estimado ($us)
               </label>
-              <select
-                value={rangoPrecio}
-                onChange={(e) => setRangoPrecio(e.target.value)}
-                className="w-full h-11 px-3 rounded border border-gray-300 font-body-md text-sm text-[#1A1A1A] focus:border-[#E60000] focus:ring-0 bg-white cursor-pointer"
-              >
-                <option value="todos">Presupuesto máximo en $us</option>
-                <option value="50k">Hasta $50,000</option>
-                <option value="50k-150k">$50,000 - $150,000</option>
-                <option value="150k-300k">$150,000 - $300,000</option>
-                <option value="300k+">Más de $300,000</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={rangoPrecio}
+                  onChange={(e) => setRangoPrecio(e.target.value)}
+                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                >
+                  <option value="todos">Sin Restricción de Precio</option>
+                  <option value="50k">Hasta $50,000 USD</option>
+                  <option value="50k-120k">$50,000 – $120,000 USD</option>
+                  <option value="120k-250k">$120,000 – $250,000 USD</option>
+                  <option value="250k-450k">$250,000 – $450,000 USD</option>
+                  <option value="450k+">$450,000+ USD (Portfolio VIP)</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                  payments
+                </span>
+              </div>
             </div>
 
-            {/* Botón Rojo Buscar */}
-            <div className="flex items-end">
+            {/* Surgical Action Trigger */}
+            <div className="flex flex-col justify-end">
               <button
                 type="submit"
-                className="w-full h-11 bg-[#E60000] hover:bg-[#C00000] text-white font-label-md font-bold text-sm rounded transition-colors flex items-center justify-center gap-2 shadow-sm whitespace-nowrap px-4"
+                className="w-full bg-[#E60000] hover:bg-[#C00000] text-white py-3 px-6 font-body-md font-medium tracking-tight rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-sm"
               >
                 <span className="material-symbols-outlined text-[20px]">search</span>
-                <span className="lg:hidden">Encontrar mi Propiedad Ideal</span>
-                <span className="hidden lg:inline">Buscar</span>
+                <span>Explorar Propiedades</span>
               </button>
             </div>
 

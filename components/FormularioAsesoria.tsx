@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { SolicitudAsesoria } from '@/types/database';
 import { createSolicitudAsesoria } from '@/lib/supabase';
-import { CheckCircle2, Loader2, Sparkles, ShieldCheck, MapPin, DollarSign, Home, TreePine, Bell } from 'lucide-react';
+import { CheckCircle2, Loader2, ShieldCheck, MapPin, DollarSign, Home } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function FormularioAsesoria() {
@@ -22,7 +23,7 @@ export default function FormularioAsesoria() {
   const [submitted, setSubmitted] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(true);
 
-  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
+  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,328 +51,256 @@ export default function FormularioAsesoria() {
   };
 
   const whatsappDirectUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `¡Hola equipo KAIZEN! 👋 Acabo de solicitar asesoría en su página web:\n\n*Nombre:* ${formData.nombre}\n*Interés:* ${formData.interes}\n*Zona:* ${formData.zona_interes}\n*Tipo de Inmueble:* ${formData.tipo_inmueble}\n*Presupuesto:* ${formData.presupuesto || 'A convenir'}\n*Mensaje:* ${formData.mensaje || 'Deseo coordinar una llamada o reunión.'}`
+    `¡Hola equipo KAIZEN! 👋 Acabo de solicitar asesoría en su página web:\n\n*Nombre:* ${formData.nombre}\n*Interés:* ${formData.interes}\n*Zona:* ${formData.zona_interes}\n*Tipo:* ${formData.tipo_inmueble}\n*Presupuesto:* ${formData.presupuesto || 'A convenir'}`
   )}`;
 
   return (
-    <section id="asesoria" className="py-20 md:py-28 bg-[#0D0D0D] text-white relative overflow-hidden">
-      
-      {/* Ambient Radial Glows */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#E60000]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-32 w-96 h-96 bg-[#E60000]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10 space-y-10">
+    <section className="bg-surface-stone py-16 sm:py-20 lg:py-24 border-b border-border-hairline" id="asesoria">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 space-y-16">
         
-        {/* Cabecera Central */}
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="w-10 h-10 mx-auto rounded-full bg-red-950/70 border border-red-500/30 text-[#E60000] flex items-center justify-center shadow-lg shadow-red-950/50">
-            <Sparkles className="w-5 h-5" />
+        {/* VIP Captación Section (From Stitch Design) */}
+        <div className="border border-border-hairline bg-surface-warm p-8 md:p-12 lg:p-16 relative overflow-hidden rounded-[2px]">
+          <div className="max-w-2xl relative z-10">
+            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-[#0B4632] block mb-3 font-semibold">
+              Servicio de Captación Exclusiva
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight mb-4">
+              ¿Deseas vender o poner en anticrético tu inmueble en Tarija?
+            </h2>
+            <p className="text-body-md sm:text-body-lg font-body-lg text-text-muted mb-8 leading-relaxed">
+              Realizamos la tasación técnica y saneamiento de carpetas sin costo previo para propietarios calificados. Comercialización discreta y acceso a inversores directos de Tarija, Santa Cruz y La Paz.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                className="bg-[#E60000] hover:bg-[#C00000] text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-all duration-150 hover:-translate-y-0.5 shadow-sm text-sm"
+                href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+                  '¡Hola KAIZEN! Deseo contactar al Broker Principal para evaluar la venta o anticrético de mi propiedad en Tarija.'
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Contactar a Broker Principal
+              </a>
+              <Link
+                href="/vender"
+                className="border border-primary bg-transparent text-primary hover:bg-primary hover:text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-colors text-sm"
+              >
+                Solicitar Tasación Gratuita
+              </Link>
+            </div>
           </div>
-          <h2 className="font-headline-md text-3xl sm:text-4xl font-black text-white tracking-tight">
-            Descubre una nueva forma de vivir e invertir
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-400 max-w-lg mx-auto leading-relaxed">
-            Asesoramiento profesional para comprar, tomar en anticrético o alquilar tu próxima propiedad en la ciudad de Tarija o en el área rural.
-          </p>
+
+          {/* Architectural Watermark Decoration */}
+          <div className="absolute right-0 bottom-0 pointer-events-none opacity-[0.04] translate-x-10 translate-y-10 hidden lg:block">
+            <span className="text-[340px] font-bold font-title-editorial leading-none tracking-tighter">KZ</span>
+          </div>
         </div>
 
-        {/* Notificación Superior / Banner Píldora */}
-        <div className="max-w-2xl mx-auto bg-[#181818] border border-white/10 rounded-2xl p-4 sm:px-6 shadow-xl flex items-center gap-3.5 text-left">
-          <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
-            <Bell className="w-4 h-4" />
-          </div>
-          <p className="text-xs text-gray-300 leading-snug">
-            <strong className="text-white">Atención personalizada sin costo:</strong> Evaluamos opciones reales con verificación en Derechos Reales e INRA.
-          </p>
-        </div>
-
-        {/* Contenedor Principal: 2 Columnas */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Lead Consultation Form Block */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-6">
           
-          {/* Columna Izquierda: Tarjeta de Aspectos Destacados */}
-          <div className="lg:col-span-5 bg-[#161616] rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
-            <div className="space-y-1">
-              <span className="text-[11px] font-bold text-[#E60000] uppercase tracking-wider">
-                Respaldo Integral KAIZEN
+          {/* Left Column: Guarantees */}
+          <div className="lg:col-span-5 bg-surface-canvas border border-border-hairline p-6 sm:p-8 rounded-[2px] space-y-6">
+            <div>
+              <span className="text-legal-badge font-legal-badge uppercase tracking-wider text-kaizen-red font-semibold">
+                Asesoría Notarial & Financiera
               </span>
-              <h3 className="font-extrabold text-xl text-white">
-                Tu inversión en las mejores manos
+              <h3 className="font-headline-sm text-xl sm:text-2xl font-semibold text-primary mt-1">
+                Tu patrimonio en manos expertas
               </h3>
+              <p className="text-body-sm text-text-muted mt-2 leading-relaxed">
+                Respondemos en menos de 2 horas en horario laboral. Analizamos tu caso con verificación preliminar en Derechos Reales.
+              </p>
             </div>
 
-            <div className="space-y-3.5 pt-2">
-              
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#202020] border border-white/5 hover:border-white/10 transition">
-                <div className="w-10 h-10 rounded-xl bg-red-950/60 border border-red-500/30 text-[#E60000] flex items-center justify-center shrink-0">
-                  <DollarSign className="w-5 h-5" />
+            <div className="space-y-4 pt-2">
+              <div className="flex items-start gap-3.5 p-3.5 bg-surface-stone border border-border-hairline rounded-[2px]">
+                <div className="w-8 h-8 rounded-[2px] bg-primary text-white flex items-center justify-center shrink-0">
+                  <DollarSign className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">Opciones para todo presupuesto</h4>
-                  <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                    Desde departamentos y anticréticos accesibles hasta residencias de lujo y viñedos.
+                  <h4 className="text-xs font-semibold text-primary">Precios reales sin especulación</h4>
+                  <p className="text-[11px] text-text-muted mt-0.5">
+                    Tasación comparativa según mercado notarial real en Tarija.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#202020] border border-white/5 hover:border-white/10 transition">
-                <div className="w-10 h-10 rounded-xl bg-red-950/60 border border-red-500/30 text-[#E60000] flex items-center justify-center shrink-0">
-                  <Home className="w-5 h-5" />
+              <div className="flex items-start gap-3.5 p-3.5 bg-surface-stone border border-border-hairline rounded-[2px]">
+                <div className="w-8 h-8 rounded-[2px] bg-primary text-white flex items-center justify-center shrink-0">
+                  <Home className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">Desde 60 m² hasta más de 5,000 m²</h4>
-                  <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                    Casas urbanas, oficinas corporativas, quintas campestres y parcelas productivas.
+                  <h4 className="text-xs font-semibold text-primary">Casas, Dptos y Terrenos en el Valle</h4>
+                  <p className="text-[11px] text-text-muted mt-0.5">
+                    Opciones en Cercado, Aranjuez, Miraflores, San Lorenzo y Uriondo.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#202020] border border-white/5 hover:border-white/10 transition">
-                <div className="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
+              <div className="flex items-start gap-3.5 p-3.5 bg-surface-stone border border-border-hairline rounded-[2px]">
+                <div className="w-8 h-8 rounded-[2px] bg-primary text-white flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">Ciudad de Tarija & Área Rural</h4>
-                  <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                    Miraflores, Aranjuez, Senac, San Lorenzo, Tomatitas, Uriondo y San Andrés.
+                  <h4 className="text-xs font-semibold text-primary">100% Blindaje Jurídico</h4>
+                  <p className="text-[11px] text-text-muted mt-0.5">
+                    Revisión de gravámenes, folio alodial y títulos notariales.
                   </p>
                 </div>
               </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-[#202020] border border-white/5 hover:border-white/10 transition">
-                <div className="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white">100% Seguridad Jurídica</h4>
-                  <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                    Auditoría documental y saneamiento en Derechos Reales Tarija antes de cerrar.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
 
-          {/* Columna Derecha: Formulario Interactivo */}
-          <div className="lg:col-span-7 bg-[#161616] rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
+          {/* Right Column: Form */}
+          <div className="lg:col-span-7 bg-surface-stone border border-border-hairline p-6 sm:p-10 rounded-[2px] shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
             {submitted ? (
-              <div className="text-center py-10 space-y-5 animate-fade-in">
-                <div className="w-16 h-16 bg-emerald-950/70 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-emerald-950/50">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className="text-center py-10 space-y-4">
+                <div className="w-14 h-14 bg-emerald-subtle text-[#0B4632] border border-[#0B4632]/20 rounded-full flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
-                <div className="space-y-2">
-                  <h3 className="font-extrabold text-2xl text-white">
-                    ¡Solicitud Recibida con Éxito!
-                  </h3>
-                  <p className="text-sm text-gray-300 max-w-md mx-auto">
-                    Gracias <strong className="text-white">{formData.nombre}</strong>. Un especialista de KAIZEN se pondrá en contacto contigo a la brevedad.
-                  </p>
-                </div>
-
-                <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <h4 className="text-xl font-headline-sm font-semibold text-primary">
+                  ¡Solicitud Recibida con Éxito!
+                </h4>
+                <p className="text-body-sm text-text-muted max-w-md mx-auto">
+                  Un asesor de KAIZEN se pondrá en contacto contigo a la brevedad. Si deseas atención inmediata, puedes iniciar el chat directo:
+                </p>
+                <div className="pt-2">
                   <a
                     href={whatsappDirectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#10B981] hover:bg-[#059669] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-xl shadow-lg transition hover:scale-105"
+                    className="inline-flex items-center gap-2 bg-[#E60000] text-white px-6 py-3 rounded-[2px] text-xs font-semibold"
                   >
-                    <FaWhatsapp className="text-lg" />
-                    <span>Abrir Chat de WhatsApp Ahora</span>
+                    <FaWhatsapp className="text-base" />
+                    <span>Continuar por WhatsApp</span>
                   </a>
-
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        nombre: '',
-                        telefono: '',
-                        email: '',
-                        interes: 'Comprar',
-                        zona_interes: 'Ciudad de Tarija',
-                        tipo_inmueble: 'Casa',
-                        presupuesto: '',
-                        mensaje: '',
-                      });
-                    }}
-                    className="text-xs text-gray-400 hover:text-white font-semibold underline p-2 transition"
-                  >
-                    Enviar otra consulta
-                  </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                
-                {/* Selector de Interés / Operación */}
-                <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-2">
-                    ¿Qué tipo de asesoría necesitas? *
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['Comprar', 'Anticrético', 'Alquilar'].map((opc) => (
-                      <button
-                        key={opc}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, interes: opc })}
-                        className={`py-2.5 px-3 rounded-xl font-bold text-xs transition border text-center ${
-                          formData.interes === opc
-                            ? 'bg-[#E60000] text-white border-[#E60000] shadow-lg shadow-red-950/50'
-                            : 'bg-[#202020] text-gray-300 border-white/10 hover:bg-[#282828] hover:text-white'
-                        }`}
-                      >
-                        {opc}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Campos de Nombre y Teléfono */}
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-300 block mb-1">
+                    <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
                       Nombre Completo *
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Ej. Rodrigo Barea"
+                      placeholder="Ej: Rodrigo Barea"
                       value={formData.nombre}
                       onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#202020] border border-white/15 text-white placeholder-gray-500 text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none transition"
+                      className="w-full bg-white border border-border-hairline px-3.5 py-2.5 text-sm text-primary rounded-[2px] focus:border-primary focus:ring-0"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-gray-300 block mb-1">
+                    <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
                       Teléfono / WhatsApp *
                     </label>
-                    <div className="flex items-center">
-                      <span className="bg-[#282828] border border-r-0 border-white/15 rounded-l-xl px-3 py-3 text-xs font-bold text-gray-300 flex items-center gap-1">
-                        🇧🇴 +591
-                      </span>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="70000000"
-                        value={formData.telefono}
-                        onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                        className="w-full px-4 py-3 rounded-r-xl bg-[#202020] border border-white/15 text-white placeholder-gray-500 text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none transition"
-                      />
-                    </div>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Ej: +591 70000000"
+                      value={formData.telefono}
+                      onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                      className="w-full bg-white border border-border-hairline px-3.5 py-2.5 text-sm text-primary rounded-[2px] focus:border-primary focus:ring-0"
+                    />
                   </div>
                 </div>
 
-                {/* Correo Electrónico */}
-                <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
-                    Correo Electrónico (Opcional)
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="ejemplo@correo.com"
-                    value={formData.email || ''}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#202020] border border-white/15 text-white placeholder-gray-500 text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none transition"
-                  />
-                </div>
-
-                {/* Zona y Tipo de Inmueble */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-300 block mb-1">
-                      Zona de Preferencia *
+                    <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
+                      Tipo de Interés
+                    </label>
+                    <select
+                      value={formData.interes}
+                      onChange={(e) => setFormData({ ...formData, interes: e.target.value })}
+                      className="w-full bg-white border border-border-hairline px-3 py-2.5 text-xs text-primary rounded-[2px] focus:border-primary focus:ring-0 cursor-pointer"
+                    >
+                      <option value="Comprar">Comprar Inmueble</option>
+                      <option value="Vender">Vender mi Inmueble</option>
+                      <option value="Anticrético">Anticrético</option>
+                      <option value="Alquilar">Alquiler</option>
+                      <option value="Inversión Rural">Finca / Viñedo</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
+                      Zona Preferida
                     </label>
                     <select
                       value={formData.zona_interes}
                       onChange={(e) => setFormData({ ...formData, zona_interes: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#202020] border border-white/15 text-white text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none cursor-pointer"
+                      className="w-full bg-white border border-border-hairline px-3 py-2.5 text-xs text-primary rounded-[2px] focus:border-primary focus:ring-0 cursor-pointer"
                     >
-                      <option value="Ciudad de Tarija" className="bg-[#1A1A1A] text-white">Ciudad de Tarija (Urbano)</option>
-                      <option value="Área Rural / Fincas" className="bg-[#1A1A1A] text-white">Área Rural (Fincas, Viñedos, San Lorenzo)</option>
-                      <option value="Ambas Zonas" className="bg-[#1A1A1A] text-white">Ambas Zonas / Abierto a opciones</option>
+                      <option value="Ciudad de Tarija">Ciudad de Tarija (Cercado)</option>
+                      <option value="Aranjuez / Los Sauces">Aranjuez / Los Sauces</option>
+                      <option value="Miraflores / San Jerónimo">Miraflores / San Jerónimo</option>
+                      <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                      <option value="Uriondo">Valle de la Concepción / Uriondo</option>
+                      <option value="Otra Zona">Otra Zona en Bolivia</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-gray-300 block mb-1">
-                      Tipo de Inmueble *
+                    <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
+                      Presupuesto ($us)
                     </label>
-                    <select
-                      value={formData.tipo_inmueble}
-                      onChange={(e) => setFormData({ ...formData, tipo_inmueble: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#202020] border border-white/15 text-white text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none cursor-pointer"
-                    >
-                      <option value="Casa" className="bg-[#1A1A1A] text-white">Casa / Residencia</option>
-                      <option value="Departamento" className="bg-[#1A1A1A] text-white">Departamento</option>
-                      <option value="Terreno" className="bg-[#1A1A1A] text-white">Terreno / Lote</option>
-                      <option value="Finca / Quinta" className="bg-[#1A1A1A] text-white">Finca / Viñedo / Quinta</option>
-                      <option value="Oficina Comercial" className="bg-[#1A1A1A] text-white">Oficina / Local Comercial</option>
-                    </select>
+                    <input
+                      type="text"
+                      placeholder="Ej: $120,000 USD"
+                      value={formData.presupuesto || ''}
+                      onChange={(e) => setFormData({ ...formData, presupuesto: e.target.value })}
+                      className="w-full bg-white border border-border-hairline px-3.5 py-2.5 text-xs text-primary rounded-[2px] focus:border-primary focus:ring-0"
+                    />
                   </div>
                 </div>
 
-                {/* Presupuesto Estimado */}
                 <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
-                    Presupuesto Estimado ($us)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ej. $us 50,000 - $us 100,000"
-                    value={formData.presupuesto || ''}
-                    onChange={(e) => setFormData({ ...formData, presupuesto: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#202020] border border-white/15 text-white placeholder-gray-500 text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none transition"
-                  />
-                </div>
-
-                {/* Mensaje / Detalles */}
-                <div>
-                  <label className="text-xs font-bold text-gray-300 block mb-1">
-                    Detalles o requerimientos adicionales (Opcional)
+                  <label className="block text-legal-badge font-legal-badge uppercase text-text-muted mb-1 font-semibold">
+                    Mensaje o Requerimientos Específicos
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Cuéntanos qué características buscas (ej. con jardín, agua de riego, número de dormitorios, etc.)"
+                    placeholder="Detalles sobre el inmueble que buscas o deseas comercializar..."
                     value={formData.mensaje || ''}
                     onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#202020] border border-white/15 text-white placeholder-gray-500 text-sm focus:ring-2 focus:ring-[#E60000]/50 focus:border-[#E60000] outline-none transition"
+                    className="w-full bg-white border border-border-hairline px-3.5 py-2 text-xs text-primary rounded-[2px] focus:border-primary focus:ring-0 resize-none"
                   />
                 </div>
 
-                {/* Checkbox Aceptación */}
                 <div className="flex items-center gap-2 pt-1">
                   <input
-                    id="terms"
                     type="checkbox"
+                    id="terms"
                     checked={acceptedTerms}
                     onChange={(e) => setAcceptedTerms(e.target.checked)}
-                    className="w-4 h-4 text-[#E60000] bg-[#202020] border-white/20 rounded focus:ring-[#E60000]"
+                    className="rounded-[2px] border-border-hairline text-primary focus:ring-0 cursor-pointer"
                   />
-                  <label htmlFor="terms" className="text-xs text-gray-400 cursor-pointer">
-                    Acepto ser contactado por un asesor inmobiliario de KAIZEN para recibir propuestas personalizadas.
+                  <label htmlFor="terms" className="text-[11px] text-text-muted cursor-pointer">
+                    Acepto ser contactado por un asesor inmobiliario certificado de KAIZEN.
                   </label>
                 </div>
 
-                {/* Botón de Envío */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-[#E60000] hover:bg-[#FF1A1A] text-white font-black text-xs uppercase tracking-wider py-4 rounded-xl shadow-xl shadow-red-950/60 transition-all flex items-center justify-center gap-2 disabled:opacity-50 hover:scale-[1.01]"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Enviando solicitud...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" />
-                      <span>Solicitar Asesoría Inmobiliaria Gratuita</span>
-                    </>
-                  )}
-                </button>
-
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-primary hover:bg-black text-white py-3 px-6 rounded-[2px] text-xs font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-50"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Enviando Solicitud...</span>
+                      </>
+                    ) : (
+                      <span>Enviar Consulta Confidencial</span>
+                    )}
+                  </button>
+                </div>
               </form>
             )}
           </div>

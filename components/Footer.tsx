@@ -10,37 +10,49 @@ export default function Footer() {
   const isAdmin = pathname.startsWith('/admin');
   if (isAdmin) return null;
 
-  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
+  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
-  const waMsg = encodeURIComponent('Hola KAIZEN, deseo consultar información sobre sus servicios inmobiliarios.');
+  const waMsg = encodeURIComponent(
+    'Hola equipo KAIZEN, deseo consultar información sobre sus servicios inmobiliarios en Tarija.'
+  );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
   return (
-    <footer className="bg-[#1A1A1A] text-white border-t border-gray-800">
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 py-16">
+    <footer className="w-full bg-surface-canvas border-t border-border-hairline text-primary transition-colors">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-14 sm:py-16 max-w-[1500px] mx-auto">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-border-hairline">
           
-          {/* Col 1: Brand & Philosophy */}
-          <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <Image
-                src="/logos/blanco-png-alta-calidad.png"
-                alt="KAIZEN Bienes Raíces"
-                width={160}
-                height={48}
-                className="h-10 w-auto object-contain"
-              />
+          {/* Brand Identity Info (2 Columns) */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="inline-block group">
+              <div className="relative h-10 w-auto flex items-center">
+                <Image
+                  src="/logos/negro-png-alta-calidad.png"
+                  alt="KAIZEN Bienes Raíces"
+                  width={200}
+                  height={50}
+                  className="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+                />
+              </div>
             </Link>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Agencia Inmobiliaria basada en el principio de la mejora continua. Transparencia, asesoramiento legal especializado y tecnología para tus inversiones inmobiliarias en Tarija.
+
+            <p className="text-body-sm font-body-sm text-text-muted max-w-sm leading-relaxed">
+              Correduría y asesoramiento inmobiliario de alto estándar en Tarija, Bolivia. Especialistas en residencias de autor, fincas vinícolas y blindaje jurídico notarial.
             </p>
-            <div className="flex items-center space-x-3 pt-2">
+
+            <div className="flex items-center gap-2 text-legal-badge font-legal-badge uppercase text-[#0B4632] font-semibold">
+              <span className="material-symbols-outlined text-[16px]">verified</span>
+              <span>Matrícula SEPREC Certificada · Tarija</span>
+            </div>
+
+            <div className="flex items-center space-x-2.5 pt-1">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-[#E60000] hover:text-white transition-colors"
+                className="w-8 h-8 rounded-[2px] bg-surface-warm border border-border-hairline flex items-center justify-center text-primary hover:bg-[#E60000] hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <FaFacebookF className="text-xs" />
@@ -49,7 +61,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-[#E60000] hover:text-white transition-colors"
+                className="w-8 h-8 rounded-[2px] bg-surface-warm border border-border-hairline flex items-center justify-center text-primary hover:bg-[#E60000] hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <FaInstagram className="text-xs" />
@@ -58,7 +70,7 @@ export default function Footer() {
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-[#E60000] hover:text-white transition-colors"
+                className="w-8 h-8 rounded-[2px] bg-surface-warm border border-border-hairline flex items-center justify-center text-primary hover:bg-[#E60000] hover:text-white transition-colors"
                 aria-label="TikTok"
               >
                 <FaTiktok className="text-xs" />
@@ -67,129 +79,111 @@ export default function Footer() {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-[#10B981] hover:text-white transition-colors"
+                className="w-8 h-8 rounded-[2px] bg-[#E7EFEA] border border-[#0B4632]/20 flex items-center justify-center text-[#0B4632] hover:bg-[#0B4632] hover:text-white transition-colors"
                 aria-label="WhatsApp"
               >
-                <FaWhatsapp className="text-xs" />
+                <FaWhatsapp className="text-sm" />
               </a>
             </div>
           </div>
 
-          {/* Col 2: Inmuebles */}
-          <div className="space-y-3">
-            <h4 className="text-xs uppercase font-bold tracking-widest text-gray-300 border-b border-gray-800 pb-2">
-              Inmuebles
-            </h4>
-            <ul className="space-y-2 text-xs text-gray-400">
+          {/* Links Column 1: Portafolio */}
+          <div>
+            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-primary font-semibold block mb-4">
+              Portafolio Tarija
+            </span>
+            <ul className="space-y-2.5 text-body-sm font-body-sm">
               <li>
-                <Link href="/compra/page/1" className="hover:text-white hover:underline transition">
-                  Inmuebles en Venta
+                <Link href="/compra/page/1" className="text-text-muted hover:text-primary transition-colors">
+                  Cartera Residencial
                 </Link>
               </li>
               <li>
-                <Link href="/alquiler/page/1" className="hover:text-white hover:underline transition">
-                  Inmuebles en Alquiler
+                <Link href="/area-rural" className="text-text-muted hover:text-[#0B4632] transition-colors flex items-center gap-1 font-medium">
+                  <span>Viñedos & Terruños</span>
+                  <span className="text-[9px] bg-[#E7EFEA] text-[#0B4632] px-1 rounded">Valle</span>
                 </Link>
               </li>
               <li>
-                <Link href="/anticretico/page/1" className="hover:text-white hover:underline transition">
-                  Inmuebles en Anticrético
+                <Link href="/alquiler/page/1" className="text-text-muted hover:text-primary transition-colors">
+                  Alquiler Corporativo
                 </Link>
               </li>
               <li>
-                <Link href="/destacados/page/1" className="hover:text-white hover:underline transition">
-                  Propiedades Destacadas
+                <Link href="/anticretico/page/1" className="text-text-muted hover:text-primary transition-colors">
+                  Anticréticos Certificados
                 </Link>
               </li>
               <li>
-                <Link href="/area-rural" className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition flex items-center gap-1">
-                  <span>🌿 Área Rural / Fincas</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/busqueda" className="hover:text-white hover:underline transition">
-                  Búsqueda con Mapa
+                <Link href="/vender" className="text-text-muted hover:text-kaizen-red transition-colors">
+                  Vender con KAIZEN
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Enlaces */}
-          <div className="space-y-3">
-            <h4 className="text-xs uppercase font-bold tracking-widest text-gray-300 border-b border-gray-800 pb-2">
-              Empresa & Guías
-            </h4>
-            <ul className="space-y-2 text-xs text-gray-400">
+          {/* Links Column 2: Marco Jurídico & Guías */}
+          <div>
+            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-primary font-semibold block mb-4">
+              Marco Jurídico
+            </span>
+            <ul className="space-y-2.5 text-body-sm font-body-sm">
               <li>
-                <Link href="/sobre-nosotros" className="hover:text-white hover:underline transition">
-                  Sobre Nosotros
-                </Link>
-              </li>
-              <li>
-                <Link href="/vender" className="hover:text-white hover:underline transition">
-                  Publicar Propiedad
-                </Link>
-              </li>
-              <li>
-                <Link href="/guia-comprador" className="hover:text-white hover:underline transition">
+                <Link href="/guia-comprador" className="text-text-muted hover:text-primary transition-colors">
                   Guía del Comprador
                 </Link>
               </li>
               <li>
-                <Link href="/guia-vendedor" className="hover:text-white hover:underline transition">
-                  Guía del Vendedor
+                <Link href="/guia-vendedor" className="text-text-muted hover:text-primary transition-colors">
+                  Guía del Propietario
                 </Link>
               </li>
               <li>
-                <Link href="/blog/page/1" className="hover:text-white hover:underline transition">
-                  Blog Inmobiliario
+                <Link href="/blog/page/1" className="text-text-muted hover:text-primary transition-colors">
+                  Publicaciones & Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/sobre-nosotros" className="text-text-muted hover:text-primary transition-colors">
+                  Manifiesto & Ética
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Contacto */}
-          <div className="space-y-3">
-            <h4 className="text-xs uppercase font-bold tracking-widest text-gray-300 border-b border-gray-800 pb-2">
-              Contacto Directo
-            </h4>
-            <div className="space-y-2.5 text-xs text-gray-400">
-              <p className="flex items-start gap-2">
-                <span className="material-symbols-outlined text-[16px] text-[#E60000] shrink-0">location_on</span>
-                <span>Tarija, Bolivia</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-[#10B981] shrink-0">phone</span>
-                <span>+591 70000000</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-gray-400 shrink-0">mail</span>
-                <span>contacto@inmobiliariakaizen.com</span>
-              </p>
-              <div className="pt-2">
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#10B981] hover:bg-[#059669] text-white px-4 py-2 rounded text-xs font-bold transition shadow-sm"
-                >
-                  <FaWhatsapp className="text-sm" />
-                  <span>Chat en WhatsApp</span>
-                </a>
-              </div>
+          {/* Regional Office */}
+          <div>
+            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-primary font-semibold block mb-4">
+              Oficina Central
+            </span>
+            <p className="text-body-sm font-body-sm text-text-muted mb-1">
+              Tarija · Valle Central de Bolivia
+            </p>
+            <p className="text-body-sm font-body-sm text-text-muted mb-3">
+              Atención presencial y virtual previa cita.
+            </p>
+            <div className="text-body-sm font-body-sm font-medium text-primary">
+              <a href={waUrl} target="_blank" rel="noopener noreferrer" className="hover:text-kaizen-red transition-colors block">
+                WhatsApp: +{cleanPhone}
+              </a>
+              <span className="text-xs text-text-muted block mt-0.5">
+                vip@kaizeninmobiliaria.bo
+              </span>
             </div>
           </div>
 
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-          <p>© {new Date().getFullYear()} KAIZEN Bienes Raíces. Todos los derechos reservados.</p>
-          <div className="flex space-x-6">
-            <Link href="/sobre-nosotros" className="hover:text-gray-300 transition">
-              Políticas de Privacidad
-            </Link>
-            <Link href="/admin" className="hover:text-gray-300 transition">
-              Acceso Gestor CMS
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-legal-badge font-legal-badge text-text-muted gap-4">
+          <div>
+            © {new Date().getFullYear()} KAIZEN Bienes Raíces. Tarija, Bolivia. Matrícula de Comercio & Derechos Reales Homologados.
+          </div>
+          <div className="flex items-center space-x-4 text-[10px]">
+            <span>Valores expresados en USD y BOB oficial</span>
+            <span>•</span>
+            <Link href="/admin" className="hover:text-primary underline">
+              Gestor CMS
             </Link>
           </div>
         </div>

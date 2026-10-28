@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Inmueble } from '@/types/database';
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default function InmuebleCard({ inmueble }: Props) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const {
     inmueble_name,
     slug,
@@ -19,9 +22,11 @@ export default function InmuebleCard({ inmueble }: Props) {
     dormitorios,
     banos,
     terreno,
+    construccion,
     categoria,
     imagenes,
     is_featured,
+    is_rural,
     descripcion,
   } = inmueble;
 
@@ -32,98 +37,123 @@ export default function InmuebleCard({ inmueble }: Props) {
 
   const categoriaNombre = categoria?.nombre_categoria || 'Venta';
   const isAlquiler = categoriaNombre.toLowerCase().includes('alquiler');
+  const numPrecio = Number(precio) || 0;
+  const precioBOB = Math.round(numPrecio * 6.96);
 
   return (
     <Link href={`/inmueble/${slug}`} className="block h-full group">
-      <div className="bg-white rounded-lg border border-[#E2E8F0] overflow-hidden hover-lift flex flex-col h-full shadow-sm hover:shadow-md transition-all">
+      <article className="bg-surface-stone border border-border-hairline rounded-[2px] overflow-hidden hover-lift flex flex-col h-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary transition-all duration-300">
         
-        {/* Imagen 16/9 con zoom en hover */}
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-100">
+        {/* Aspect 16/9 Image Container with Preload Shimmer */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-warm">
+          {!imageLoaded && (
+            <div className="absolute inset-0 skeleton-shimmer bg-surface-warm z-0" />
+          )}
+
           <Image
             src={mainImage}
             alt={inmueble_name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
           />
 
           {/* Badges UI KAIZEN */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 max-w-[80%]">
+          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 max-w-[85%]">
             {is_featured && (
-              <div className="bg-[#E60000] text-white text-[10px] uppercase px-2.5 py-1 rounded font-bold tracking-wider shadow-sm flex items-center gap-1">
-                <span>⭐ Destacado KAIZEN</span>
-              </div>
+              <span className="bg-[#E60000] text-white text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge font-bold tracking-wider shadow-sm">
+                Exclusivo KAIZEN
+              </span>
             )}
-            {inmueble.is_rural && (
-              <div className="bg-emerald-700 text-white text-[10px] uppercase px-2.5 py-1 rounded font-bold tracking-wider shadow-sm flex items-center gap-1">
-                <span>🌿 Área Rural</span>
-              </div>
+            {is_rural && (
+              <span className="bg-[#002115] text-[#b6efd3] text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge tracking-wider border border-[#19503b]">
+                🌿 Terruño / Campo
+              </span>
             )}
-            <div className="bg-white/95 backdrop-blur text-[#1A1A1A] text-[10px] uppercase px-2.5 py-1 rounded font-bold tracking-wider border border-gray-200 shadow-sm flex items-center gap-1">
-              <span>{categoriaNombre}</span>
-            </div>
+            <span className="bg-surface-stone/90 backdrop-blur-md text-primary text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge font-semibold tracking-wider border border-border-hairline">
+              {categoriaNombre}
+            </span>
           </div>
 
-          <div className="absolute top-3 right-3 bg-black/60 backdrop-blur text-white px-2 py-0.5 rounded text-[10px] font-semibold">
+          <div className="absolute top-3 right-3 bg-primary/80 backdrop-blur-md text-white px-2 py-0.5 rounded-[2px] text-[10px] font-legal-badge uppercase tracking-wider">
             {tipo}
+          </div>
+
+          <div className="absolute bottom-2 left-2 bg-[#E7EFEA] border border-[#0B4632]/20 text-[#0B4632] px-2 py-0.5 text-[9px] font-legal-badge uppercase tracking-wider font-semibold">
+            DD.RR. Saneado
           </div>
         </div>
 
         {/* Card Body */}
-        <div className="p-5 flex flex-col flex-grow">
-          {/* Precio prominente en Negro Ónix */}
-          <div className="mb-2">
-            <span className="font-headline-md text-xl sm:text-2xl font-black text-[#1A1A1A]">
-              $us {Number(precio).toLocaleString()}
-            </span>
-            {isAlquiler && (
-              <span className="text-xs font-normal text-gray-500 ml-1">/mes</span>
-            )}
+        <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between">
+          <div>
+            <div className="flex items-center justify-between text-legal-badge font-legal-badge uppercase tracking-widest text-text-muted mb-1.5">
+              <span className="truncate">{ciudad}</span>
+              <span className="text-[10px] text-text-muted">Tarija</span>
+            </div>
+
+            <h3 className="font-headline-sm text-base sm:text-lg font-semibold text-primary mb-2 line-clamp-1 group-hover:text-kaizen-red transition-colors">
+              {inmueble_name}
+            </h3>
+
+            <p className="text-xs text-text-muted flex items-center gap-1 mb-3 truncate">
+              <span className="material-symbols-outlined text-[15px] text-text-muted">location_on</span>
+              <span className="truncate">{direccion || ciudad}</span>
+            </p>
+
+            <p className="font-body-md text-xs text-text-muted mb-4 line-clamp-2 leading-relaxed">
+              {descripcion || 'Inmueble auditado bajo rigurosa inspección legal y técnica en Tarija.'}
+            </p>
           </div>
 
-          <h3 className="font-headline-sm text-base font-bold text-[#1A1A1A] line-clamp-1 group-hover:text-[#E60000] transition-colors mb-1">
-            {inmueble_name}
-          </h3>
-
-          <p className="text-xs text-gray-500 flex items-center gap-1 mb-2.5 truncate">
-            <span className="material-symbols-outlined text-[15px] text-[#E60000]">location_on</span>
-            <span>{direccion}, {ciudad}</span>
-          </p>
-
-          <p className="font-body-md text-xs text-gray-600 mb-4 line-clamp-2 leading-relaxed">
-            {descripcion || 'Propiedad verificada bajo los más altos estándares de calidad KAIZEN.'}
-          </p>
-
-          {/* Features footer */}
-          <div className="mt-auto border-t border-gray-100 pt-3 flex items-center justify-between text-gray-600 text-xs font-semibold">
-            <div className="flex items-center gap-3">
+          <div>
+            {/* Specs Row */}
+            <div className="border-t border-border-hairline pt-3 mb-4 flex items-center gap-3 text-text-muted text-xs">
               {dormitorios > 0 && (
-                <div className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[16px] text-gray-500">bed</span>
+                <div className="flex items-center gap-1 font-medium">
+                  <span className="material-symbols-outlined text-[15px]">bed</span>
                   <span>{dormitorios} hab.</span>
                 </div>
               )}
               {banos > 0 && (
-                <div className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[16px] text-gray-500">shower</span>
+                <div className="flex items-center gap-1 font-medium">
+                  <span className="material-symbols-outlined text-[15px]">shower</span>
                   <span>{banos} bñ.</span>
                 </div>
               )}
-              {terreno > 0 && (
-                <div className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[16px] text-gray-500">square_foot</span>
-                  <span>{terreno} m²</span>
+              {(construccion || terreno) > 0 && (
+                <div className="flex items-center gap-1 font-medium">
+                  <span className="material-symbols-outlined text-[15px]">square_foot</span>
+                  <span>{construccion || terreno} m²</span>
                 </div>
               )}
             </div>
 
-            <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-              ✅ Verificado
-            </span>
+            {/* Price Footer */}
+            <div className="pt-2 border-t border-border-hairline flex items-baseline justify-between">
+              <div>
+                <span className="text-lg sm:text-xl font-metric-price font-bold text-primary">
+                  ${numPrecio.toLocaleString()} USD
+                </span>
+                {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
+                <span className="block text-[10px] font-legal-badge text-text-muted">
+                  ≈ Bs. {precioBOB.toLocaleString()}
+                </span>
+              </div>
+
+              <span className="text-xs font-medium text-primary group-hover:text-kaizen-red flex items-center gap-0.5 transition-colors">
+                <span>Inspección</span>
+                <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+              </span>
+            </div>
           </div>
 
         </div>
-      </div>
+
+      </article>
     </Link>
   );
 }

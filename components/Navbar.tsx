@@ -10,15 +10,16 @@ import { FaWhatsapp } from 'react-icons/fa';
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [inmueblesDropdown, setInmueblesDropdown] = useState(false);
+  const [currencyUSD, setCurrencyUSD] = useState(true);
   const pathname = usePathname();
 
   const isAdmin = pathname.startsWith('/admin');
   if (isAdmin) return null;
 
-  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
+  const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria en Tarija y quiero conversar con un especialista para conocer mis opciones. ¿Me ayudan?'
+    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria VIP en Tarija y quiero consultar opciones disponibles con un especialista. ¿Me ayudan?'
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
@@ -26,40 +27,39 @@ export default function Navbar() {
     pathname.startsWith('/compra') ||
     pathname.startsWith('/alquiler') ||
     pathname.startsWith('/anticretico') ||
-    pathname.startsWith('/area-rural');
+    pathname.startsWith('/destacados') ||
+    pathname.startsWith('/inmueble');
 
   return (
-    <header className="bg-white/95 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-200 shadow-sm transition-all duration-300 h-20 shrink-0">
-      <div className="flex justify-between items-center px-4 sm:px-8 h-20 w-full max-w-[1360px] mx-auto">
+    <header className="sticky top-0 z-50 bg-surface-stone/95 backdrop-blur-md border-b border-border-hairline transition-all duration-300">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex justify-between items-center max-w-[1500px] mx-auto">
         
-        {/* Logo Oficial KAIZEN */}
-        <Link href="/" className="flex items-center group shrink-0 py-1">
-          <div className="relative h-14 sm:h-16 w-auto flex items-center">
+        {/* Brand Logo & Geolocation Mark */}
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <div className="relative h-11 sm:h-12 w-auto flex items-center">
             <Image
               src="/logos/negro-png-alta-calidad.png"
               alt="KAIZEN Bienes Raíces"
-              width={240}
-              height={64}
+              width={220}
+              height={55}
               priority
-              className="h-12 sm:h-14 md:h-[58px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+              className="h-10 sm:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
             />
+          </div>
+          <div className="hidden xl:flex flex-col border-l border-border-hairline pl-3">
+            <span className="text-[10px] font-legal-badge uppercase tracking-widest text-text-muted font-semibold">
+              Tarija · Valle Central de Bolivia
+            </span>
+            <span className="text-[9px] text-[#0B4632] font-semibold tracking-wider uppercase">
+              DD.RR. & Notaría Homologada
+            </span>
           </div>
         </Link>
 
-        {/* Menú Central */}
-        <nav className="hidden lg:flex items-center space-x-2 xl:space-x-4 h-full">
-          <Link
-            href="/"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
-              pathname === '/'
-                ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
-                : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
-            }`}
-          >
-            Inicio
-          </Link>
-
-          {/* Desplegable Inmuebles */}
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          
+          {/* Dropdown Inmuebles */}
           <div
             className="relative h-full flex items-center"
             onMouseEnter={() => setInmueblesDropdown(true)}
@@ -67,13 +67,13 @@ export default function Navbar() {
           >
             <button
               type="button"
-              className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors flex items-center gap-1 ${
+              className={`font-body-sm text-[13px] font-medium tracking-tight flex items-center gap-1 py-1 transition-colors ${
                 isInmueblesActive
-                  ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
-                  : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
+                  ? 'text-primary font-semibold border-b-2 border-primary'
+                  : 'text-text-muted hover:text-primary'
               }`}
             >
-              <span>Inmuebles</span>
+              <span>Propiedades</span>
               <span className="material-symbols-outlined text-[18px]">
                 {inmueblesDropdown ? 'expand_less' : 'expand_more'}
               </span>
@@ -82,40 +82,48 @@ export default function Navbar() {
             <AnimatePresence>
               {inmueblesDropdown && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
+                  exit={{ opacity: 0, y: 6 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute top-16 left-0 w-52 bg-white border border-gray-200 rounded-lg shadow-xl py-2 z-50"
+                  className="absolute top-8 left-0 w-56 bg-surface-stone border border-border-hairline rounded-[2px] shadow-xl py-2 z-50"
                 >
                   <Link
                     href="/compra/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Comprar
+                    Venta Exclusiva
                   </Link>
                   <Link
                     href="/alquiler/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Alquilar
+                    Alquiler Corporativo & Residencial
                   </Link>
                   <Link
                     href="/anticretico/page/1"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-gray-50 hover:text-[#E60000] font-semibold transition-colors"
+                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Anticrético
+                    Anticréticos Certificados
                   </Link>
-                  <div className="border-t border-gray-100 my-1"></div>
+                  <Link
+                    href="/destacados/page/1"
+                    onClick={() => setInmueblesDropdown(false)}
+                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                  >
+                    Colección Destacada
+                  </Link>
+                  <div className="border-t border-border-hairline my-1" />
                   <Link
                     href="/area-rural"
                     onClick={() => setInmueblesDropdown(false)}
-                    className="block px-4 py-2.5 text-sm text-[#1A1A1A] hover:bg-emerald-50 hover:text-emerald-700 font-semibold transition-colors flex items-center gap-1.5"
+                    className="block px-4 py-2 text-xs font-semibold text-[#0B4632] hover:bg-emerald-subtle transition-colors flex items-center justify-between"
                   >
-                    <span>Área Rural / Fincas</span>
+                    <span>Terrenos & Viñedos</span>
+                    <span className="text-[10px] bg-[#E7EFEA] text-[#0B4632] px-1.5 py-0.5 rounded">Valle</span>
                   </Link>
                 </motion.div>
               )}
@@ -123,75 +131,111 @@ export default function Navbar() {
           </div>
 
           <Link
-            href="/sobre-nosotros"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
-              pathname === '/sobre-nosotros'
-                ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
-                : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
+            href="/area-rural"
+            className={`font-body-sm text-[13px] font-medium tracking-tight py-1 transition-colors ${
+              pathname === '/area-rural'
+                ? 'text-primary font-semibold border-b-2 border-primary'
+                : 'text-text-muted hover:text-primary'
             }`}
           >
-            Sobre Nosotros
+            Terrenos & Viñedos
           </Link>
 
           <Link
-            href="/blog/page/1"
-            className={`font-label-md text-sm px-3.5 py-2 rounded transition-colors ${
-              pathname.startsWith('/blog')
-                ? 'text-[#E60000] font-bold border-b-2 border-[#E60000]'
-                : 'text-[#1A1A1A] hover:text-[#E60000] hover:bg-gray-50'
+            href="/anticretico/page/1"
+            className={`font-body-sm text-[13px] font-medium tracking-tight py-1 transition-colors ${
+              pathname.startsWith('/anticretico')
+                ? 'text-primary font-semibold border-b-2 border-primary'
+                : 'text-text-muted hover:text-primary'
             }`}
           >
-            Blog
+            Anticréticos
+          </Link>
+
+          <Link
+            href="/vender"
+            className={`font-body-sm text-[13px] font-medium tracking-tight py-1 transition-colors ${
+              pathname === '/vender'
+                ? 'text-primary font-semibold border-b-2 border-primary'
+                : 'text-text-muted hover:text-primary'
+            }`}
+          >
+            Vender
+          </Link>
+
+          <Link
+            href="/guia-comprador"
+            className={`font-body-sm text-[13px] font-medium tracking-tight py-1 transition-colors ${
+              pathname === '/guia-comprador' || pathname === '/guia-vendedor'
+                ? 'text-primary font-semibold border-b-2 border-primary'
+                : 'text-text-muted hover:text-primary'
+            }`}
+          >
+            Asesoría Legal
+          </Link>
+
+          <Link
+            href="/sobre-nosotros"
+            className={`font-body-sm text-[13px] font-medium tracking-tight py-1 transition-colors ${
+              pathname === '/sobre-nosotros'
+                ? 'text-primary font-semibold border-b-2 border-primary'
+                : 'text-text-muted hover:text-primary'
+            }`}
+          >
+            Nosotros
           </Link>
         </nav>
 
-        {/* Botones de Acción (Derecha) */}
-        <div className="hidden lg:flex items-center space-x-3">
-          <Link
-            href="/vender"
-            className="bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-xs uppercase tracking-wider font-bold py-3 px-5 rounded shadow transition-colors flex items-center gap-1.5"
+        {/* Trailing Action Cluster */}
+        <div className="flex items-center space-x-3 sm:space-x-4">
+          
+          {/* Currency Toggle Badge */}
+          <button
+            type="button"
+            onClick={() => setCurrencyUSD(!currencyUSD)}
+            className="hidden sm:flex border border-border-hairline px-2.5 py-1.5 text-[11px] font-legal-badge uppercase tracking-wider text-primary hover:bg-surface-warm transition-colors items-center gap-1.5 rounded-[2px]"
+            title="Moneda de referencia para inmuebles en Tarija"
           >
-            <span className="material-symbols-outlined text-sm">add_home</span>
-            <span>Vender mi Inmueble</span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#0B4632]" />
+            <span>{currencyUSD ? 'USD / BOB' : 'BOB / USD'}</span>
+          </button>
+
+          {/* Quick Search Action */}
+          <Link
+            href="/busqueda"
+            aria-label="Buscar propiedad en Tarija"
+            className="p-1.5 text-primary hover:text-kaizen-red transition-colors"
+          >
+            <span className="material-symbols-outlined text-[20px]">search</span>
           </Link>
 
+          {/* Direct VIP WhatsApp CTA */}
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#10B981] hover:bg-[#059669] text-white p-3 rounded shadow transition-colors flex items-center justify-center"
-            aria-label="Hablar por WhatsApp"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white px-4 py-2 rounded-[2px] text-xs font-semibold tracking-tight shadow-sm transition-all duration-150 hover:-translate-y-0.5"
           >
-            <FaWhatsapp className="text-xl" />
-          </a>
-        </div>
-
-        {/* Botón Menú Móvil */}
-        <div className="flex lg:hidden items-center space-x-2">
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#10B981] text-white p-2.5 rounded shadow"
-            aria-label="WhatsApp"
-          >
-            <FaWhatsapp className="text-lg" />
+            <FaWhatsapp className="text-sm" />
+            <span>Consulta VIP</span>
           </a>
 
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#1A1A1A] hover:text-[#E60000] rounded focus:outline-none"
-            aria-label="Abrir menú de navegación"
+            aria-label="Abrir menú"
+            className="lg:hidden p-1.5 text-primary hover:text-kaizen-red transition-colors focus:outline-none"
           >
-            <span className="material-symbols-outlined text-3xl">
+            <span className="material-symbols-outlined text-[24px]">
               {mobileMenuOpen ? 'close' : 'menu'}
             </span>
           </button>
+
         </div>
 
       </div>
 
-      {/* Menú Móvil Desplegable */}
+      {/* Mobile Drawer Navigation */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -199,89 +243,78 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden bg-white border-b border-gray-200 shadow-xl overflow-hidden"
+            className="lg:hidden bg-surface-stone border-b border-border-hairline px-6 py-6 space-y-4"
           >
-            <div className="px-6 py-4 space-y-3 font-body-md text-left">
+            <div className="flex flex-col space-y-3 font-body-sm text-sm">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-[#1A1A1A] font-semibold border-b border-gray-100 text-sm"
+                className="py-1 text-primary font-semibold border-b border-border-hairline"
               >
                 Inicio
               </Link>
-
-              <div className="py-1 border-b border-gray-100">
-                <span className="block text-xs uppercase font-bold text-gray-400 mb-1 tracking-wider">
-                  Inmuebles
-                </span>
-                <div className="pl-3 space-y-1.5">
-                  <Link
-                    href="/compra/page/1"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-sm font-semibold text-[#1A1A1A] hover:text-[#E60000]"
-                  >
-                    Comprar
-                  </Link>
-                  <Link
-                    href="/alquiler/page/1"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-sm font-semibold text-[#1A1A1A] hover:text-[#E60000]"
-                  >
-                    Alquilar
-                  </Link>
-                  <Link
-                    href="/anticretico/page/1"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-sm font-semibold text-[#1A1A1A] hover:text-[#E60000]"
-                  >
-                    Anticrético
-                  </Link>
-                  <Link
-                    href="/area-rural"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block py-1 text-sm font-semibold text-[#1A1A1A] hover:text-[#E60000]"
-                  >
-                    Área Rural / Fincas
-                  </Link>
-                </div>
-              </div>
-
+              <Link
+                href="/compra/page/1"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-text-muted hover:text-primary"
+              >
+                Comprar en Tarija
+              </Link>
+              <Link
+                href="/alquiler/page/1"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-text-muted hover:text-primary"
+              >
+                Alquileres
+              </Link>
+              <Link
+                href="/anticretico/page/1"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-text-muted hover:text-primary"
+              >
+                Anticréticos Certificados
+              </Link>
+              <Link
+                href="/area-rural"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-[#0B4632] font-semibold flex items-center justify-between"
+              >
+                <span>Terrenos & Viñedos</span>
+                <span className="text-[10px] bg-[#E7EFEA] px-2 py-0.5 rounded">Valle de Tarija</span>
+              </Link>
+              <Link
+                href="/vender"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-text-muted hover:text-primary"
+              >
+                Vender mi Propiedad
+              </Link>
+              <Link
+                href="/guia-comprador"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1 text-text-muted hover:text-primary"
+              >
+                Guías & Asesoría Legal
+              </Link>
               <Link
                 href="/sobre-nosotros"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-[#1A1A1A] font-semibold border-b border-gray-100 text-sm"
+                className="py-1 text-text-muted hover:text-primary"
               >
                 Sobre Nosotros
               </Link>
+            </div>
 
-              <Link
-                href="/blog/page/1"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 text-[#1A1A1A] font-semibold border-b border-gray-100 text-sm"
+            <div className="pt-4 border-t border-border-hairline flex flex-col gap-3">
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-[#E60000] text-white py-3 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2"
               >
-                Blog
-              </Link>
-
-              <div className="pt-3 flex flex-col gap-2.5">
-                <Link
-                  href="/vender"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full bg-[#E60000] text-white py-2.5 rounded font-bold text-center flex items-center justify-center gap-1.5 text-xs"
-                >
-                  <span className="material-symbols-outlined text-sm">add_home</span>
-                  <span>Publicar Propiedad</span>
-                </Link>
-
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-[#10B981] text-white py-2.5 rounded font-bold text-center flex items-center justify-center gap-1.5 text-xs"
-                >
-                  <FaWhatsapp className="text-base" />
-                  <span>Contactar por WhatsApp</span>
-                </a>
-              </div>
+                <FaWhatsapp className="text-base" />
+                <span>Hablar con un Broker VIP en Tarija</span>
+              </a>
             </div>
           </motion.div>
         )}

@@ -4,73 +4,87 @@ import Link from 'next/link';
 
 export default function GuiasInmobiliarias() {
   return (
-    <section className="py-20 md:py-28 bg-white px-4 sm:px-8">
-      <div className="max-w-[1360px] mx-auto">
+    <section className="py-16 sm:py-20 lg:py-24 bg-surface-canvas border-b border-border-hairline">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#E60000] bg-red-50 border border-red-100 px-3 py-1 rounded-full mb-3 inline-block">
-            Recursos Inmobiliarios Estratégicos
-          </span>
-          <h2 className="font-headline-md text-3xl sm:text-4xl font-black text-[#1A1A1A]">
-            Empodera tus Decisiones Financieras
-          </h2>
-          <p className="font-body-md text-sm sm:text-base text-gray-600 max-w-2xl mx-auto mt-2">
-            Información de alto valor para que des el siguiente paso inmobiliario con la certeza de un experto.
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-12 border-b border-border-hairline pb-6">
+          <div>
+            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-text-muted block mb-2 font-semibold">
+              Publicaciones Técnicas KAIZEN
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight">
+              Biblioteca de Conocimiento Inmobiliario
+            </h2>
+          </div>
+          <p className="text-body-sm font-body-sm text-text-muted max-w-md mt-4 md:mt-0 leading-relaxed">
+            Consulta y descarga sin costo nuestras guías redactadas por abogados inmobiliarios y tasadores colegiados en Tarija.
           </p>
         </div>
 
-        {/* 2 Cards */}
+        {/* 2 Editorial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          {/* Card 1 - Guía del Comprador */}
-          <Link href="/guia-comprador" className="group block">
-            <div className="bg-[#F7F7F7] rounded-xl border border-[#E2E8F0] hover-lift p-8 flex flex-col sm:flex-row gap-6 items-start h-full shadow-sm hover:shadow-md transition">
-              <div className="w-14 h-14 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center shrink-0 group-hover:bg-[#E60000] transition-colors">
-                <span className="material-symbols-outlined text-[28px]">key</span>
-              </div>
-              <div className="space-y-2.5 flex-1">
-                <span className="text-[11px] uppercase tracking-widest text-[#E60000] font-bold">
-                  Para Compradores
-                </span>
-                <h3 className="font-headline-md text-xl font-bold text-[#1A1A1A] group-hover:text-[#E60000] transition-colors">
-                  Guía Definitiva del Comprador Inteligente
-                </h3>
-                <p className="font-body-md text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Domina el mercado, asegura tu crédito y evita las trampas legales al adquirir tu nuevo hogar.
-                </p>
-                <div className="pt-2">
-                  <span className="inline-flex items-center gap-1.5 font-label-md text-xs font-bold text-[#E60000] group-hover:underline">
-                    <span>Ver Guía Gratuita</span>
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          {/* Guide 1: Buyer's Guide */}
+          <Link href="/guia-comprador" className="block group">
+            <div className="bg-surface-stone border border-border-hairline p-7 sm:p-8 flex flex-col justify-between h-full rounded-[2px] group-hover:border-primary transition-colors shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="bg-[#F5F4F0] text-primary border border-border-hairline px-3 py-1 text-legal-badge font-legal-badge uppercase tracking-widest font-semibold rounded-[2px]">
+                    Manual Jurídico 2025 · PDF
+                  </span>
+                  <span className="text-legal-badge font-legal-badge text-text-muted font-medium">
+                    Edición Especial
                   </span>
                 </div>
+
+                <h3 className="text-xl sm:text-2xl font-headline-md font-semibold text-primary mb-3 group-hover:text-kaizen-red transition-colors">
+                  Guía del Comprador Inteligente: Cómo comprar en Bolivia sin contingencias
+                </h3>
+
+                <p className="text-body-md font-body-md text-text-muted mb-6 leading-relaxed">
+                  Checklist paso a paso para verificar Folios Reales, certificados alodiales, impuestos anuales pagados, planos aprobados por el Gobierno Municipal de Tarija y cómo evitar anticipos de dinero sin respaldo judicial.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-border-hairline flex items-center justify-between">
+                <span className="text-xs text-text-muted">34 Páginas · Formato Ejecutivo</span>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary group-hover:text-kaizen-red group-hover:translate-x-1 transition-all">
+                  <span>Ver Guía Gratuita</span>
+                  <span className="material-symbols-outlined text-[18px]">download</span>
+                </span>
               </div>
             </div>
           </Link>
 
-          {/* Card 2 - Guía del Vendedor */}
-          <Link href="/guia-vendedor" className="group block">
-            <div className="bg-[#F7F7F7] rounded-xl border border-[#E2E8F0] hover-lift p-8 flex flex-col sm:flex-row gap-6 items-start h-full shadow-sm hover:shadow-md transition">
-              <div className="w-14 h-14 rounded-lg bg-[#1A1A1A] text-white flex items-center justify-center shrink-0 group-hover:bg-[#E60000] transition-colors">
-                <span className="material-symbols-outlined text-[28px]">real_estate_agent</span>
-              </div>
-              <div className="space-y-2.5 flex-1">
-                <span className="text-[11px] uppercase tracking-widest text-[#E60000] font-bold">
-                  Para Propietarios
-                </span>
-                <h3 className="font-headline-md text-xl font-bold text-[#1A1A1A] group-hover:text-[#E60000] transition-colors">
-                  El Método KAIZEN para Vender Rápido
-                </h3>
-                <p className="font-body-md text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  Descubre cómo tasar correctamente tu inmueble y atraer compradores calificados sin desgastar su valor.
-                </p>
-                <div className="pt-2">
-                  <span className="inline-flex items-center gap-1.5 font-label-md text-xs font-bold text-[#E60000] group-hover:underline">
-                    <span>Conocer el Método</span>
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          {/* Guide 2: Seller's Guide */}
+          <Link href="/guia-vendedor" className="block group">
+            <div className="bg-surface-stone border border-border-hairline p-7 sm:p-8 flex flex-col justify-between h-full rounded-[2px] group-hover:border-primary transition-colors shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="bg-[#F5F4F0] text-primary border border-border-hairline px-3 py-1 text-legal-badge font-legal-badge uppercase tracking-widest font-semibold rounded-[2px]">
+                    Estrategia Financiera · PDF
+                  </span>
+                  <span className="text-legal-badge font-legal-badge text-text-muted font-medium">
+                    Valuación Real
                   </span>
                 </div>
+
+                <h3 className="text-xl sm:text-2xl font-headline-md font-semibold text-primary mb-3 group-hover:text-kaizen-red transition-colors">
+                  Guía del Propietario: Estrategia de Fijación de Precio en Tarija
+                </h3>
+
+                <p className="text-body-md font-body-md text-text-muted mb-6 leading-relaxed">
+                  Aprende cómo evitar que tu inmueble permanezca estancado durante años en el mercado. Criterios de comparabilidad, amortización de mejoras y negociación con compradores respaldados por la banca.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-border-hairline flex items-center justify-between">
+                <span className="text-xs text-text-muted">28 Páginas · Plantilla de Tasación</span>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary group-hover:text-kaizen-red group-hover:translate-x-1 transition-all">
+                  <span>Ver Guía Gratuita</span>
+                  <span className="material-symbols-outlined text-[18px]">download</span>
+                </span>
               </div>
             </div>
           </Link>

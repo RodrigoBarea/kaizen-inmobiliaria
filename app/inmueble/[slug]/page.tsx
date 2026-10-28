@@ -14,8 +14,8 @@ import { FaWhatsapp } from 'react-icons/fa';
 const MapaDetalle = dynamic(() => import('@/components/MapaDetalle'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full min-h-[320px] flex items-center justify-center bg-gray-100 text-gray-500 font-bold text-sm">
-      Cargando ubicación...
+    <div className="w-full h-full min-h-[320px] flex items-center justify-center bg-surface-canvas text-text-muted font-medium text-xs">
+      Cargando mapa de ubicación...
     </div>
   ),
 });
@@ -43,34 +43,30 @@ export default function InmuebleDetallePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-32 flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-3 text-secondary">
-          <span className="material-symbols-outlined animate-spin text-4xl text-primary">
-            progress_activity
-          </span>
-          <p className="font-label-md text-label-md">Cargando detalles de la propiedad...</p>
-        </div>
+      <div className="min-h-screen pt-32 pb-20 flex flex-col items-center justify-center bg-surface-stone text-primary animate-pulse">
+        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="font-body-sm text-xs text-text-muted">Cargando expediente notarial del inmueble...</p>
       </div>
     );
   }
 
   if (!inmueble) {
     return (
-      <div className="min-h-screen pt-32 flex flex-col items-center justify-center bg-background px-4">
-        <span className="material-symbols-outlined text-6xl text-secondary mb-3">
+      <div className="min-h-screen pt-32 pb-20 flex flex-col items-center justify-center bg-surface-stone px-4 text-center">
+        <span className="material-symbols-outlined text-6xl text-text-muted mb-3">
           domain_disabled
         </span>
-        <h1 className="font-headline-md text-headline-md text-on-surface mb-2">
+        <h1 className="font-headline-md text-2xl font-semibold text-primary mb-2">
           Propiedad no encontrada
         </h1>
-        <p className="font-body-md text-secondary mb-6">
-          La propiedad que buscas no está disponible o ha sido retirada.
+        <p className="font-body-md text-sm text-text-muted mb-6 max-w-md">
+          El inmueble que buscas ha sido vendido o retirado temporalmente de cartera.
         </p>
         <Link
-          href="/busqueda"
-          className="bg-primary text-white font-label-md text-label-md px-6 py-3 rounded hover:bg-on-primary-fixed-variant transition"
+          href="/compra/page/1"
+          className="bg-primary text-white font-body-sm text-xs font-semibold px-6 py-3 rounded-[2px] hover:bg-black transition"
         >
-          Explorar otras propiedades
+          Explorar otras propiedades en Tarija
         </Link>
       </div>
     );
@@ -102,13 +98,15 @@ export default function InmuebleDetallePage() {
   const validImages = imagenes && imagenes.length > 0 ? imagenes : [defaultImg];
   const slides = validImages.map((src) => ({ src }));
 
-  // Dynamic WhatsApp Link
+  const numPrecio = Number(precio) || 0;
+  const precioBOB = Math.round(numPrecio * 6.96);
+
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
   const agentPhone =
-    agente?.telefono || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
+    agente?.telefono || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = agentPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    `¡Hola! 👋 Vi esta propiedad: "${inmueble_name}" ($us ${Number(precio).toLocaleString()}). Quisiera agendar una visita y confirmar si la documentación está apta para financiamiento bancario.`
+    `¡Hola! 👋 Vi la propiedad "${inmueble_name}" ($${numPrecio.toLocaleString()} USD) en Tarija. Deseo agendar una visita y confirmar los antecedentes en Derechos Reales.`
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
@@ -126,62 +124,70 @@ export default function InmuebleDetallePage() {
   };
 
   return (
-    <div className="pt-28 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto bg-background">
+    <div className="pt-24 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto bg-surface-stone">
       
       {/* Top Breadcrumb & Share */}
       <div className="flex justify-between items-center mb-6">
         <Link
-          href="/busqueda"
-          className="inline-flex items-center gap-1 font-label-md text-label-md text-secondary hover:text-on-surface transition"
+          href="/compra/page/1"
+          className="inline-flex items-center gap-1 font-body-sm text-xs font-semibold text-text-muted hover:text-primary transition"
         >
           <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-          <span>Volver al catálogo</span>
+          <span>Volver al catálogo Tarija</span>
         </Link>
         <button
           type="button"
           onClick={handleShare}
-          className="inline-flex items-center gap-1.5 font-label-md text-label-md text-secondary hover:text-primary transition bg-surface-container-low px-3 py-1.5 rounded"
+          className="inline-flex items-center gap-1.5 font-body-sm text-xs font-semibold text-primary hover:text-kaizen-red transition bg-surface-canvas border border-border-hairline px-3 py-1.5 rounded-[2px]"
         >
           <span className="material-symbols-outlined text-[18px]">share</span>
           <span>Compartir</span>
         </button>
       </div>
 
-      {/* Gallery Asymmetric Grid (Stitch Style) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-unit mb-8 relative">
+      {/* Gallery Asymmetric Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
         {/* Main large image */}
         <div
           onClick={() => {
             setPhotoIndex(0);
             setLightboxOpen(true);
           }}
-          className="md:col-span-2 aspect-video md:aspect-auto h-64 md:h-[500px] relative overflow-hidden rounded-lg group cursor-pointer bg-surface-container"
+          className="md:col-span-2 aspect-[16/10] md:h-[480px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
         >
           <Image
             src={validImages[0]}
             alt={inmueble_name}
             fill
-            sizes="(max-width: 768px) 100vw, 66vw"
+            sizes="(max-width: 1024px) 100vw, 66vw"
             priority
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+            <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
+              Título Saneado DD.RR.
+            </span>
+            <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
+              Apto Crédito Bancario
+            </span>
+          </div>
         </div>
 
         {/* 2 stacked side images */}
-        <div className="hidden md:flex flex-col gap-unit h-[500px]">
+        <div className="hidden md:flex flex-col gap-3 h-[480px]">
           <div
             onClick={() => {
               setPhotoIndex(1 < validImages.length ? 1 : 0);
               setLightboxOpen(true);
             }}
-            className="h-1/2 relative overflow-hidden rounded-lg group cursor-pointer bg-surface-container"
+            className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
               src={validImages[1] || validImages[0]}
               alt="Vista 2"
               fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
           <div
@@ -189,14 +195,14 @@ export default function InmuebleDetallePage() {
               setPhotoIndex(2 < validImages.length ? 2 : 0);
               setLightboxOpen(true);
             }}
-            className="h-1/2 relative overflow-hidden rounded-lg group cursor-pointer bg-surface-container"
+            className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
               src={validImages[2] || validImages[0]}
               alt="Vista 3"
               fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         </div>
@@ -205,7 +211,7 @@ export default function InmuebleDetallePage() {
         <button
           type="button"
           onClick={() => setLightboxOpen(true)}
-          className="absolute bottom-4 right-4 bg-white/95 backdrop-blur px-4 py-2 rounded shadow-sm font-label-md text-label-md text-on-surface hover:bg-white flex items-center gap-2 transition-colors border border-surface-variant z-10"
+          className="absolute bottom-4 right-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-2 rounded-[2px] shadow-sm font-body-sm text-xs font-semibold text-primary hover:bg-white flex items-center gap-2 transition-colors border border-border-hairline z-10"
         >
           <span className="material-symbols-outlined text-[18px]">photo_library</span>
           <span>Ver todas las fotos ({validImages.length})</span>
@@ -213,120 +219,129 @@ export default function InmuebleDetallePage() {
       </div>
 
       {/* Main Grid: Content + Sticky Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         
-        {/* Left 2 Columns: Details */}
-        <div className="lg:col-span-2 flex flex-col gap-10">
+        {/* Left 8 Columns: Details */}
+        <div className="lg:col-span-8 space-y-8">
           
           {/* Header Info */}
-          <div className="flex flex-col gap-4 border-b border-surface-variant pb-8">
-            <div className="flex justify-between items-start flex-wrap gap-4">
+          <div className="border-b border-border-hairline pb-6 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div>
-                <span className="inline-block px-3 py-1 bg-surface-variant text-on-surface font-caption text-caption rounded-full uppercase tracking-wider mb-2 font-semibold">
-                  {categoria?.nombre_categoria || 'En Venta'}
+                <span className="inline-block px-2.5 py-0.5 bg-surface-canvas border border-border-hairline text-primary text-legal-badge font-legal-badge uppercase tracking-wider mb-2 font-semibold rounded-[2px]">
+                  {categoria?.nombre_categoria || 'En Venta'} · Ref: KZ-{inmueble.id.slice(0, 4).toUpperCase()}
                 </span>
-                <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-tight">
+                <h1 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-bold text-primary leading-tight">
                   {inmueble_name}
                 </h1>
-                <div className="flex items-center gap-2 mt-2 text-secondary">
-                  <span className="material-symbols-outlined text-primary text-[20px]">location_on</span>
-                  <span className="font-body-md text-body-md">{direccion}, {ciudad}</span>
+                <div className="flex items-center gap-2 mt-2 text-text-muted text-sm">
+                  <span className="material-symbols-outlined text-[18px]">location_on</span>
+                  <span>{direccion}, {ciudad} · Tarija</span>
                 </div>
               </div>
 
-              <div className="text-left sm:text-right">
-                <div className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary font-bold">
-                  $us {Number(precio).toLocaleString()}
+              <div className="text-left sm:text-right pt-2 sm:pt-0">
+                <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
+                  ${numPrecio.toLocaleString()} USD
                 </div>
-                <span className="font-caption text-caption text-secondary">Precio de mercado</span>
+                <span className="text-xs text-text-muted block mt-0.5">
+                  ≈ Bs. {precioBOB.toLocaleString()} (Tipo de Cambio Oficial)
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Quick Features Bento Grid (Stitch 4-Cards) */}
+          {/* Quick Specs Bento Row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-lg flex flex-col items-center justify-center gap-2 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-secondary">bed</span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                {dormitorios || '-'}
-              </span>
-              <span className="font-caption text-caption text-secondary uppercase">Dormitorios</span>
+            <div className="bg-surface-canvas border border-border-hairline p-5 rounded-[2px] flex flex-col items-center justify-center text-center">
+              <span className="material-symbols-outlined text-2xl text-primary mb-1">bed</span>
+              <span className="text-lg font-semibold text-primary">{dormitorios || '-'}</span>
+              <span className="text-[10px] font-legal-badge text-text-muted uppercase">Dormitorios</span>
             </div>
 
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-lg flex flex-col items-center justify-center gap-2 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-secondary">shower</span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                {banos || '-'}
-              </span>
-              <span className="font-caption text-caption text-secondary uppercase">Baños</span>
+            <div className="bg-surface-canvas border border-border-hairline p-5 rounded-[2px] flex flex-col items-center justify-center text-center">
+              <span className="material-symbols-outlined text-2xl text-primary mb-1">shower</span>
+              <span className="text-lg font-semibold text-primary">{banos || '-'}</span>
+              <span className="text-[10px] font-legal-badge text-text-muted uppercase">Baños</span>
             </div>
 
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-lg flex flex-col items-center justify-center gap-2 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-secondary">square_foot</span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                {terreno || construccion || '-'}
-              </span>
-              <span className="font-caption text-caption text-secondary uppercase">M² Totales</span>
+            <div className="bg-surface-canvas border border-border-hairline p-5 rounded-[2px] flex flex-col items-center justify-center text-center">
+              <span className="material-symbols-outlined text-2xl text-primary mb-1">square_foot</span>
+              <span className="text-lg font-semibold text-primary">{construccion || terreno || '-'}</span>
+              <span className="text-[10px] font-legal-badge text-text-muted uppercase">M² Totales</span>
             </div>
 
-            <div className="bg-surface-container-lowest border border-surface-variant p-6 rounded-lg flex flex-col items-center justify-center gap-2 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-secondary">directions_car</span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                {estacionamientos || '-'}
-              </span>
-              <span className="font-caption text-caption text-secondary uppercase">Garajes</span>
+            <div className="bg-surface-canvas border border-border-hairline p-5 rounded-[2px] flex flex-col items-center justify-center text-center">
+              <span className="material-symbols-outlined text-2xl text-primary mb-1">directions_car</span>
+              <span className="text-lg font-semibold text-primary">{estacionamientos || '-'}</span>
+              <span className="text-[10px] font-legal-badge text-text-muted uppercase">Garajes</span>
+            </div>
+          </div>
+
+          {/* Legal Warranty Box */}
+          <div className="p-5 border border-[#0B4632]/20 bg-[#E7EFEA] rounded-[2px] flex items-start gap-4">
+            <div className="w-10 h-10 rounded-full bg-[#0B4632] text-white flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-xl">verified</span>
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold text-[#0B4632]">
+                Inmueble Auditado y Homologado por KAIZEN
+              </h4>
+              <p className="text-xs text-[#0B4632]/80 leading-relaxed">
+                Este activo cuenta con Folio Real depurado, tradición dominial comprobada, certificado alodial vigente y aptitud legal para crédito bancario en entidades supervisadas por ASFI.
+              </p>
             </div>
           </div>
 
           {/* Description */}
-          <div className="flex flex-col gap-4">
-            <h2 className="font-headline-md text-headline-md text-on-surface font-bold">
+          <div className="space-y-3">
+            <h2 className="text-xl font-headline-sm font-semibold text-primary">
               Descripción del Inmueble
             </h2>
-            <div className="font-body-lg text-body-lg text-secondary leading-relaxed space-y-4">
-              <p className="whitespace-pre-line">{descripcion}</p>
+            <div className="text-body-md text-text-muted leading-relaxed whitespace-pre-line">
+              {descripcion}
             </div>
           </div>
 
           {/* Technical Specs Table */}
-          <div className="border border-surface-variant rounded-lg p-6 bg-surface-container-lowest">
-            <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold mb-4">
-              Ficha Técnica
+          <div className="border border-border-hairline rounded-[2px] p-6 bg-surface-canvas space-y-4">
+            <h3 className="text-base font-semibold text-primary">
+              Ficha Notarial & Catastral
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <span className="text-secondary block font-caption">Tipo:</span>
-                <span className="font-semibold text-on-surface">{tipo}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Tipo:</span>
+                <span className="font-semibold text-primary text-sm">{tipo}</span>
               </div>
               <div>
-                <span className="text-secondary block font-caption">Operación:</span>
-                <span className="font-semibold text-on-surface">{categoria?.nombre_categoria || 'Venta'}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Operación:</span>
+                <span className="font-semibold text-primary text-sm">{categoria?.nombre_categoria || 'Venta'}</span>
               </div>
               <div>
-                <span className="text-secondary block font-caption">Ciudad:</span>
-                <span className="font-semibold text-on-surface">{ciudad}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Jurisdicción:</span>
+                <span className="font-semibold text-primary text-sm">{ciudad} (Tarija)</span>
               </div>
               <div>
-                <span className="text-secondary block font-caption">Construcción:</span>
-                <span className="font-semibold text-on-surface">{construccion ? `${construccion} m²` : 'No especificado'}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Construcción:</span>
+                <span className="font-semibold text-primary text-sm">{construccion ? `${construccion} m²` : 'No especificado'}</span>
               </div>
               <div>
-                <span className="text-secondary block font-caption">Terreno:</span>
-                <span className="font-semibold text-on-surface">{terreno ? `${terreno} m²` : 'No especificado'}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Terreno:</span>
+                <span className="font-semibold text-primary text-sm">{terreno ? `${terreno} m²` : 'No especificado'}</span>
               </div>
               <div>
-                <span className="text-secondary block font-caption">Frente:</span>
-                <span className="font-semibold text-on-surface">{frente ? `${frente} m` : 'No especificado'}</span>
+                <span className="text-text-muted block uppercase font-legal-badge">Frente:</span>
+                <span className="font-semibold text-primary text-sm">{frente ? `${frente} m` : 'No especificado'}</span>
               </div>
             </div>
           </div>
 
           {/* Location Map */}
-          <div>
-            <h2 className="font-headline-md text-headline-md text-on-surface font-bold mb-4">
-              Ubicación
+          <div className="space-y-3">
+            <h2 className="text-xl font-headline-sm font-semibold text-primary">
+              Ubicación en el Mapa
             </h2>
-            <div className="w-full h-80 bg-surface-container rounded-lg overflow-hidden border border-surface-variant">
+            <div className="w-full h-80 rounded-[2px] overflow-hidden border border-border-hairline bg-surface-canvas">
               <MapaDetalle
                 lat={lat || -21.5355}
                 lng={lng || -64.7296}
@@ -337,13 +352,13 @@ export default function InmuebleDetallePage() {
 
         </div>
 
-        {/* Right 1 Column: Sticky Agent Sidebar */}
-        <div className="lg:col-span-1">
-          <div className="sticky top-28 bg-surface-container-lowest border border-surface-variant rounded-lg p-6 shadow-[0px_15px_45px_rgba(0,0,0,0.08)] flex flex-col gap-6">
+        {/* Right 4 Columns: Sticky Agent Sidebar */}
+        <div className="lg:col-span-4">
+          <div className="sticky top-24 bg-surface-canvas border border-border-hairline rounded-[2px] p-6 space-y-6 shadow-sm">
             
             {/* Agent Info */}
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden bg-surface-container relative shrink-0">
+            <div className="flex items-center gap-4 border-b border-border-hairline pb-5">
+              <div className="w-14 h-14 rounded-full overflow-hidden bg-surface-warm relative shrink-0 border border-border-hairline">
                 <Image
                   src={
                     agente?.foto_principal ||
@@ -351,57 +366,54 @@ export default function InmuebleDetallePage() {
                   }
                   alt={agente?.agent_name || 'Asesor Kaizen'}
                   fill
-                  sizes="64px"
+                  sizes="56px"
                   className="object-cover"
                 />
               </div>
               <div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
-                  {agente?.agent_name || 'Asesor KAIZEN'}
+                <h3 className="font-headline-sm text-base font-bold text-primary">
+                  {agente?.agent_name || 'Broker Asignado KAIZEN'}
                 </h3>
-                <p className="font-caption text-caption text-secondary">
-                  {agente?.cargo || 'Asesor Inmobiliario Senior'}
+                <p className="text-xs text-text-muted">
+                  {agente?.cargo || 'Especialista Residencial Tarija'}
                 </p>
+                <span className="inline-flex items-center gap-1 text-[10px] text-[#0B4632] font-semibold mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0B4632]" />
+                  <span>Disponible ahora</span>
+                </span>
               </div>
             </div>
 
-            {/* Philosophy quote */}
-            <div className="bg-[#F7F7F7] p-4 rounded-lg border border-gray-200 text-center">
-              <p className="text-xs text-gray-700 italic leading-relaxed">
-                "Mi objetivo es asegurarme de que hagas la inversión más segura de tu vida con total tranquilidad."
-              </p>
-              <p className="text-[11px] font-bold text-[#E60000] mt-1.5">
-                – {agente?.agent_name || 'Asesor KAIZEN'}
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col gap-3">
+            {/* Direct WhatsApp Action Button */}
+            <div className="space-y-3">
               <a
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-12 bg-[#E60000] hover:bg-[#C00000] text-white font-label-md text-sm font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="w-full bg-[#E60000] hover:bg-[#C00000] text-white py-3.5 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-sm transition-all duration-150 hover:-translate-y-0.5"
               >
-                <span className="material-symbols-outlined text-[20px] text-white">calendar_month</span>
-                <span>Agendar Visita Exclusiva</span>
+                <FaWhatsapp className="text-lg" />
+                <span>Agendar Visita por WhatsApp</span>
               </a>
 
               <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full h-12 bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-sm font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
+                href={`tel:${cleanPhone}`}
+                className="w-full border border-primary text-primary hover:bg-primary hover:text-white py-3 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 transition-colors"
               >
-                <FaWhatsapp className="text-xl text-white" />
-                <span>Consultar Condiciones (WhatsApp)</span>
+                <span className="material-symbols-outlined text-[18px]">phone</span>
+                <span>Llamar al Asesor</span>
               </a>
             </div>
 
-            {/* Safety badge */}
-            <div className="flex items-center gap-2 text-xs text-gray-700 font-semibold justify-center pt-2 border-t border-gray-200">
-              <span className="text-[#1A1A1A]">🛡️</span>
-              <span>Propiedad con Revisión Legal KAIZEN</span>
+            {/* Kaizen Guarantee note */}
+            <div className="border-t border-border-hairline pt-4 text-[11px] text-text-muted space-y-1.5">
+              <div className="flex items-center gap-1.5 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[16px] text-[#0B4632]">shield</span>
+                <span>Garantía de Cero Riesgo KAIZEN</span>
+              </div>
+              <p>
+                No realizas ningún anticipo sin previa revisión de folio real y minuta notariada homologada.
+              </p>
             </div>
 
           </div>
@@ -409,12 +421,12 @@ export default function InmuebleDetallePage() {
 
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox for Gallery */}
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
-        index={photoIndex}
         slides={slides}
+        index={photoIndex}
       />
     </div>
   );
