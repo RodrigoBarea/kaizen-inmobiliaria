@@ -41,9 +41,8 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
       : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&auto=format&fit=crop&q=80';
 
   const leadPrice = Number(lead.precio) || 0;
-  const leadPriceBOB = Math.round(leadPrice * 6.96);
   const leadWaUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `¡Hola equipo KAIZEN! 👋 Deseo agendar una visita privada para la propiedad "${lead.inmueble_name}" ($${leadPrice.toLocaleString()} USD) en Tarija. ¿Podrían informarme la disponibilidad?`
+    `¡Hola equipo KAIZEN! 👋 Deseo agendar una visita privada para la propiedad "${lead.inmueble_name}" ($${leadPrice.toLocaleString('en-US')} USD) en Tarija. ¿Podrían informarme la disponibilidad?`
   )}`;
 
   return (
@@ -159,10 +158,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <span className="block text-2xl sm:text-[26px] font-metric-price font-bold text-primary">
-                      ${leadPrice.toLocaleString()} USD
-                    </span>
-                    <span className="text-xs text-text-muted block">
-                      ≈ Bs. {leadPriceBOB.toLocaleString()} (Tipo de Cambio Oficial)
+                      ${leadPrice.toLocaleString('en-US')} USD
                     </span>
                   </div>
 
@@ -186,7 +182,6 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
           <div className="lg:col-span-5 flex flex-col gap-8">
             {sideCards.map((item) => {
               const itemPrice = Number(item.precio) || 0;
-              const itemPriceBOB = Math.round(itemPrice * 6.96);
               const itemImg =
                 item.imagenes && item.imagenes.length > 0
                   ? item.imagenes[0]
@@ -234,10 +229,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                     <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
                       <div>
                         <span className="text-lg font-headline-sm font-bold text-primary">
-                          ${itemPrice.toLocaleString()} USD
-                        </span>
-                        <span className="block text-[10px] font-legal-badge text-text-muted">
-                          Bs. {itemPriceBOB.toLocaleString()}
+                          ${itemPrice.toLocaleString('en-US')} USD
                         </span>
                       </div>
                       <Link

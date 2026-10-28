@@ -10,7 +10,6 @@ import { FaWhatsapp } from 'react-icons/fa';
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [inmueblesDropdown, setInmueblesDropdown] = useState(false);
-  const [currencyUSD, setCurrencyUSD] = useState(true);
   const pathname = usePathname();
 
   const isAdmin = pathname.startsWith('/admin');
@@ -181,17 +180,6 @@ export default function Navbar() {
         {/* Trailing Action Cluster */}
         <div className="flex items-center space-x-3 sm:space-x-4">
           
-          {/* Currency Toggle Badge */}
-          <button
-            type="button"
-            onClick={() => setCurrencyUSD(!currencyUSD)}
-            className="hidden sm:flex border border-border-hairline px-2.5 py-1.5 text-[11px] font-legal-badge uppercase tracking-wider text-primary hover:bg-surface-warm transition-colors items-center gap-1.5 rounded-[2px]"
-            title="Moneda de referencia para inmuebles en Tarija"
-          >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#0B4632]" />
-            <span>{currencyUSD ? 'USD / BOB' : 'BOB / USD'}</span>
-          </button>
-
           {/* Quick Search Action */}
           <Link
             href="/busqueda"

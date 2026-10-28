@@ -99,14 +99,13 @@ export default function InmuebleDetallePage() {
   const slides = validImages.map((src) => ({ src }));
 
   const numPrecio = Number(precio) || 0;
-  const precioBOB = Math.round(numPrecio * 6.96);
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
   const agentPhone =
     agente?.telefono || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = agentPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    `¡Hola! 👋 Vi la propiedad "${inmueble_name}" ($${numPrecio.toLocaleString()} USD) en Tarija. Deseo agendar una visita y confirmar los antecedentes en Derechos Reales.`
+    `¡Hola! 👋 Vi la propiedad "${inmueble_name}" ($${numPrecio.toLocaleString('en-US')} USD) en Tarija. Deseo agendar una visita y consultar más detalles.`
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
@@ -124,10 +123,10 @@ export default function InmuebleDetallePage() {
   };
 
   return (
-    <div className="pt-24 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto bg-surface-stone">
+    <div className="pt-6 sm:pt-8 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto bg-surface-stone">
       
       {/* Top Breadcrumb & Share */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-5 sm:mb-6">
         <Link
           href="/compra/page/1"
           className="inline-flex items-center gap-1 font-body-sm text-xs font-semibold text-text-muted hover:text-primary transition"
@@ -145,21 +144,20 @@ export default function InmuebleDetallePage() {
         </button>
       </div>
 
-      {/* Gallery Asymmetric Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
-        {/* Main large image */}
+      {/* Gallery Section */}
+      {validImages.length === 1 ? (
         <div
           onClick={() => {
             setPhotoIndex(0);
             setLightboxOpen(true);
           }}
-          className="md:col-span-2 aspect-[16/10] md:h-[480px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+          className="relative aspect-[16/9] md:h-[480px] w-full overflow-hidden rounded-[2px] mb-8 cursor-pointer group bg-surface-warm border border-border-hairline"
         >
           <Image
             src={validImages[0]}
             alt={inmueble_name}
             fill
-            sizes="(max-width: 1024px) 100vw, 66vw"
+            sizes="100vw"
             priority
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
@@ -172,51 +170,128 @@ export default function InmuebleDetallePage() {
             </span>
           </div>
         </div>
-
-        {/* 2 stacked side images */}
-        <div className="hidden md:flex flex-col gap-3 h-[480px]">
+      ) : validImages.length === 2 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
           <div
             onClick={() => {
-              setPhotoIndex(1 < validImages.length ? 1 : 0);
+              setPhotoIndex(0);
               setLightboxOpen(true);
             }}
-            className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            className="aspect-[16/10] md:h-[460px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
-              src={validImages[1] || validImages[0]}
-              alt="Vista 2"
+              src={validImages[0]}
+              alt={inmueble_name}
               fill
-              sizes="(max-width: 1024px) 100vw, 33vw"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+              <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
+                Título Saneado DD.RR.
+              </span>
+              <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
+                Apto Crédito Bancario
+              </span>
+            </div>
           </div>
           <div
             onClick={() => {
-              setPhotoIndex(2 < validImages.length ? 2 : 0);
+              setPhotoIndex(1);
               setLightboxOpen(true);
             }}
-            className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            className="aspect-[16/10] md:h-[460px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
-              src={validImages[2] || validImages[0]}
-              alt="Vista 3"
+              src={validImages[1]}
+              alt={`${inmueble_name} - 2`}
               fill
-              sizes="(max-width: 1024px) 100vw, 33vw"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            className="absolute bottom-4 right-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-2 rounded-[2px] shadow-sm font-body-sm text-xs font-semibold text-primary hover:bg-white flex items-center gap-2 transition-colors border border-border-hairline z-10"
+          >
+            <span className="material-symbols-outlined text-[18px]">photo_library</span>
+            <span>Ver todas las fotos (2)</span>
+          </button>
         </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
+          {/* Main large image */}
+          <div
+            onClick={() => {
+              setPhotoIndex(0);
+              setLightboxOpen(true);
+            }}
+            className="md:col-span-2 aspect-[16/10] md:h-[480px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+          >
+            <Image
+              src={validImages[0]}
+              alt={inmueble_name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              priority
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+              <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
+                Título Saneado DD.RR.
+              </span>
+              <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
+                Apto Crédito Bancario
+              </span>
+            </div>
+          </div>
 
-        {/* Ver todas las fotos button */}
-        <button
-          type="button"
-          onClick={() => setLightboxOpen(true)}
-          className="absolute bottom-4 right-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-2 rounded-[2px] shadow-sm font-body-sm text-xs font-semibold text-primary hover:bg-white flex items-center gap-2 transition-colors border border-border-hairline z-10"
-        >
-          <span className="material-symbols-outlined text-[18px]">photo_library</span>
-          <span>Ver todas las fotos ({validImages.length})</span>
-        </button>
-      </div>
+          {/* 2 stacked side images */}
+          <div className="hidden md:flex flex-col gap-3 h-[480px]">
+            <div
+              onClick={() => {
+                setPhotoIndex(1);
+                setLightboxOpen(true);
+              }}
+              className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            >
+              <Image
+                src={validImages[1]}
+                alt="Vista 2"
+                fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div
+              onClick={() => {
+                setPhotoIndex(2);
+                setLightboxOpen(true);
+              }}
+              className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            >
+              <Image
+                src={validImages[2]}
+                alt="Vista 3"
+                fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            className="absolute bottom-4 right-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-2 rounded-[2px] shadow-sm font-body-sm text-xs font-semibold text-primary hover:bg-white flex items-center gap-2 transition-colors border border-border-hairline z-10"
+          >
+            <span className="material-symbols-outlined text-[18px]">photo_library</span>
+            <span>Ver todas las fotos ({validImages.length})</span>
+          </button>
+        </div>
+      )}
 
       {/* Main Grid: Content + Sticky Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -242,11 +317,8 @@ export default function InmuebleDetallePage() {
 
               <div className="text-left sm:text-right pt-2 sm:pt-0">
                 <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
-                  ${numPrecio.toLocaleString()} USD
+                  ${numPrecio.toLocaleString('en-US')} USD
                 </div>
-                <span className="text-xs text-text-muted block mt-0.5">
-                  ≈ Bs. {precioBOB.toLocaleString()} (Tipo de Cambio Oficial)
-                </span>
               </div>
             </div>
           </div>

@@ -109,7 +109,7 @@ export default function BannerPrincipal() {
                 </span>
               </div>
               <div>
-                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">0 Bs.</span>
+                <span className="block text-xl sm:text-2xl font-headline-sm font-semibold text-primary">0</span>
                 <span className="text-legal-badge font-legal-badge uppercase text-text-muted tracking-wider block mt-0.5">
                   Gravámenes Ocultos
                 </span>

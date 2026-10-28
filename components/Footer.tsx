@@ -180,7 +180,7 @@ export default function Footer() {
             © {new Date().getFullYear()} KAIZEN Bienes Raíces. Tarija, Bolivia. Matrícula de Comercio & Derechos Reales Homologados.
           </div>
           <div className="flex items-center space-x-4 text-[10px]">
-            <span>Valores expresados en USD y BOB oficial</span>
+            <span>Valores expresados en USD ($us)</span>
             <span>•</span>
             <Link href="/admin" className="hover:text-primary underline">
               Gestor CMS

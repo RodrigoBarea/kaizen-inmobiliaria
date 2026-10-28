@@ -38,7 +38,6 @@ export default function InmuebleCard({ inmueble }: Props) {
   const categoriaNombre = categoria?.nombre_categoria || 'Venta';
   const isAlquiler = categoriaNombre.toLowerCase().includes('alquiler');
   const numPrecio = Number(precio) || 0;
-  const precioBOB = Math.round(numPrecio * 6.96);
 
   return (
     <Link href={`/inmueble/${slug}`} className="block h-full group">
@@ -136,12 +135,9 @@ export default function InmuebleCard({ inmueble }: Props) {
             <div className="pt-2 border-t border-border-hairline flex items-baseline justify-between">
               <div>
                 <span className="text-lg sm:text-xl font-metric-price font-bold text-primary">
-                  ${numPrecio.toLocaleString()} USD
+                  ${numPrecio.toLocaleString('en-US')} USD
                 </span>
                 {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
-                <span className="block text-[10px] font-legal-badge text-text-muted">
-                  ≈ Bs. {precioBOB.toLocaleString()}
-                </span>
               </div>
 
               <span className="text-xs font-medium text-primary group-hover:text-kaizen-red flex items-center gap-0.5 transition-colors">

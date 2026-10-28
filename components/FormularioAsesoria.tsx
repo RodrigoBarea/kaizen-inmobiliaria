@@ -74,12 +74,12 @@ export default function FormularioAsesoria() {
               <a
                 className="bg-[#E60000] hover:bg-[#C00000] text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-all duration-150 hover:-translate-y-0.5 shadow-sm text-sm"
                 href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-                  '¡Hola KAIZEN! Deseo contactar al Broker Principal para evaluar la venta o anticrético de mi propiedad en Tarija.'
+                  '¡Hola KAIZEN! Deseo contactar a un agente inmobiliario para evaluar la venta o anticrético de mi propiedad en Tarija.'
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Contactar a Broker Principal
+                Contactar agente inmobiliario
               </a>
               <Link
                 href="/vender"
