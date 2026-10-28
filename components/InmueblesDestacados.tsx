@@ -42,7 +42,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
 
   const leadPrice = Number(lead.precio) || 0;
   const leadWaUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `¡Hola equipo KAIZEN! 👋 Deseo agendar una visita privada para la propiedad "${lead.inmueble_name}" ($${leadPrice.toLocaleString('en-US')} USD) en Tarija. ¿Podrían informarme la disponibilidad?`
+    `¡Hola equipo KAIZEN! 👋 Deseo agendar una visita privada para la propiedad "${lead.inmueble_name}" ($${leadPrice.toLocaleString('es-BO')} USD) en Tarija. ¿Podrían informarme la disponibilidad?`
   )}`;
 
   return (
@@ -158,7 +158,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <span className="block text-2xl sm:text-[26px] font-metric-price font-bold text-primary">
-                      ${leadPrice.toLocaleString('en-US')} USD
+                      ${leadPrice.toLocaleString('es-BO')} USD
                     </span>
                   </div>
 
@@ -229,7 +229,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                     <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
                       <div>
                         <span className="text-lg font-headline-sm font-bold text-primary">
-                          ${itemPrice.toLocaleString('en-US')} USD
+                          ${itemPrice.toLocaleString('es-BO')} USD
                         </span>
                       </div>
                       <Link

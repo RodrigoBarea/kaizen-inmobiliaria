@@ -137,7 +137,7 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                     <div className="pt-4 border-t border-[#19503b]">
                       <div className="flex items-baseline justify-between mb-4">
                         <span className="text-legal-badge font-legal-badge uppercase text-[#858383]">Inversión</span>
-                        <span className="text-xl font-metric-price font-bold text-white">${p.toLocaleString()} USD</span>
+                        <span className="text-xl font-metric-price font-bold text-white">${p.toLocaleString('es-BO')} USD</span>
                       </div>
                       <Link
                         href={`/inmueble/${item.slug}`}

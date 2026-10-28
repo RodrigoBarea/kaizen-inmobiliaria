@@ -135,7 +135,7 @@ export default function InmuebleCard({ inmueble }: Props) {
             <div className="pt-2 border-t border-border-hairline flex items-baseline justify-between">
               <div>
                 <span className="text-lg sm:text-xl font-metric-price font-bold text-primary">
-                  ${numPrecio.toLocaleString('en-US')} USD
+                  ${numPrecio.toLocaleString('es-BO')} USD
                 </span>
                 {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
               </div>

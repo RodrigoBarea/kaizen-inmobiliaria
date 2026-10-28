@@ -99,13 +99,15 @@ export default function InmuebleDetallePage() {
   const slides = validImages.map((src) => ({ src }));
 
   const numPrecio = Number(precio) || 0;
+  const categoriaNombre = categoria?.nombre_categoria || 'Venta';
+  const isAlquiler = categoriaNombre.toLowerCase().includes('alquiler');
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
   const agentPhone =
     agente?.telefono || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = agentPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    `¡Hola! 👋 Vi la propiedad "${inmueble_name}" ($${numPrecio.toLocaleString('en-US')} USD) en Tarija. Deseo agendar una visita y consultar más detalles.`
+    `¡Hola! 👋 Vi la propiedad "${inmueble_name}" ($${numPrecio.toLocaleString('es-BO')} USD) en Tarija. Deseo agendar una visita y consultar más detalles.`
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
@@ -151,7 +153,7 @@ export default function InmuebleDetallePage() {
             setPhotoIndex(0);
             setLightboxOpen(true);
           }}
-          className="relative aspect-[16/9] md:h-[480px] w-full overflow-hidden rounded-[2px] mb-8 cursor-pointer group bg-surface-warm border border-border-hairline"
+          className="relative h-[320px] sm:h-[420px] md:h-[480px] w-full overflow-hidden rounded-[2px] mb-6 cursor-pointer group bg-surface-warm border border-border-hairline"
         >
           <Image
             src={validImages[0]}
@@ -171,13 +173,13 @@ export default function InmuebleDetallePage() {
           </div>
         </div>
       ) : validImages.length === 2 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 relative rounded-[2px] overflow-hidden md:h-[480px] w-full">
           <div
             onClick={() => {
               setPhotoIndex(0);
               setLightboxOpen(true);
             }}
-            className="aspect-[16/10] md:h-[460px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            className="h-[300px] md:h-full w-full relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
               src={validImages[0]}
@@ -201,7 +203,7 @@ export default function InmuebleDetallePage() {
               setPhotoIndex(1);
               setLightboxOpen(true);
             }}
-            className="aspect-[16/10] md:h-[460px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            className="h-[300px] md:h-full w-full relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
               src={validImages[1]}
@@ -221,14 +223,14 @@ export default function InmuebleDetallePage() {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 relative rounded-[2px] overflow-hidden">
-          {/* Main large image */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 relative rounded-[2px] overflow-hidden md:h-[480px] w-full">
+          {/* Main large image (fills 2 columns completely, no aspect-ratio conflict) */}
           <div
             onClick={() => {
               setPhotoIndex(0);
               setLightboxOpen(true);
             }}
-            className="md:col-span-2 aspect-[16/10] md:h-[480px] relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+            className="md:col-span-2 h-[320px] md:h-full w-full relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
           >
             <Image
               src={validImages[0]}
@@ -248,14 +250,14 @@ export default function InmuebleDetallePage() {
             </div>
           </div>
 
-          {/* 2 stacked side images */}
-          <div className="hidden md:flex flex-col gap-3 h-[480px]">
+          {/* 2 stacked side images (fills 1 column in 2 equal rows) */}
+          <div className="hidden md:grid grid-rows-2 gap-3 h-full w-full">
             <div
               onClick={() => {
                 setPhotoIndex(1);
                 setLightboxOpen(true);
               }}
-              className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+              className="h-full w-full relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
             >
               <Image
                 src={validImages[1]}
@@ -270,7 +272,7 @@ export default function InmuebleDetallePage() {
                 setPhotoIndex(2);
                 setLightboxOpen(true);
               }}
-              className="h-1/2 relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
+              className="h-full w-full relative overflow-hidden rounded-[2px] group cursor-pointer bg-surface-warm"
             >
               <Image
                 src={validImages[2]}
@@ -301,24 +303,25 @@ export default function InmuebleDetallePage() {
           
           {/* Header Info */}
           <div className="border-b border-border-hairline pb-6 space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-              <div>
-                <span className="inline-block px-2.5 py-0.5 bg-surface-canvas border border-border-hairline text-primary text-legal-badge font-legal-badge uppercase tracking-wider mb-2 font-semibold rounded-[2px]">
-                  {categoria?.nombre_categoria || 'En Venta'} · Ref: KZ-{inmueble.id.slice(0, 4).toUpperCase()}
-                </span>
-                <h1 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-bold text-primary leading-tight">
-                  {inmueble_name}
-                </h1>
-                <div className="flex items-center gap-2 mt-2 text-text-muted text-sm">
-                  <span className="material-symbols-outlined text-[18px]">location_on</span>
-                  <span>{direccion}, {ciudad} · Tarija</span>
-                </div>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 bg-surface-canvas border border-border-hairline text-primary text-legal-badge font-legal-badge uppercase tracking-wider mb-2 font-semibold rounded-[2px]">
+                {categoria?.nombre_categoria || 'En Venta'} · Ref: KZ-{inmueble.id.slice(0, 4).toUpperCase()}
+              </span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-bold text-primary leading-tight">
+              {inmueble_name}
+            </h1>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+              <div className="flex items-center gap-2 text-text-muted text-sm">
+                <span className="material-symbols-outlined text-[18px] text-primary">location_on</span>
+                <span>{direccion}, {ciudad} · Tarija</span>
               </div>
 
-              <div className="text-left sm:text-right pt-2 sm:pt-0">
-                <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
-                  ${numPrecio.toLocaleString('en-US')} USD
-                </div>
+              <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
+                ${numPrecio.toLocaleString('es-BO')} USD
+                {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
               </div>
             </div>
           </div>
@@ -428,6 +431,17 @@ export default function InmuebleDetallePage() {
         <div className="lg:col-span-4">
           <div className="sticky top-24 bg-surface-canvas border border-border-hairline rounded-[2px] p-6 space-y-6 shadow-sm">
             
+            {/* Price Header in Sidebar */}
+            <div className="border-b border-border-hairline pb-4">
+              <span className="text-[10px] font-legal-badge uppercase tracking-wider text-text-muted block mb-1">
+                Precio de {categoria?.nombre_categoria || 'Venta'}
+              </span>
+              <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
+                ${numPrecio.toLocaleString('es-BO')} USD
+                {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
+              </div>
+            </div>
+
             {/* Agent Info */}
             <div className="flex items-center gap-4 border-b border-border-hairline pb-5">
               <div className="w-14 h-14 rounded-full overflow-hidden bg-surface-warm relative shrink-0 border border-border-hairline">
