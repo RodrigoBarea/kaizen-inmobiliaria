@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Inmueble } from '@/types/database';
+import { formatOperacion } from '@/lib/format';
 
 interface Props {
   inmueble: Inmueble;
@@ -60,14 +61,11 @@ export default function InmuebleCard({ inmueble }: Props) {
             }`}
           />
 
-          {/* Badges: Operación y Tipo de Inmueble únicamente */}
-          <div className="absolute top-3 left-3 z-10">
+          {/* Badges: Operación y Tipo juntos */}
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
             <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-              {categoriaNombre}
+              {formatOperacion(categoriaNombre)}
             </span>
-          </div>
-
-          <div className="absolute top-3 right-3 z-10">
             <span className="bg-primary/90 backdrop-blur-md text-white px-2.5 py-1 rounded-[2px] text-[10px] font-semibold uppercase tracking-wider shadow-sm">
               {tipo}
             </span>

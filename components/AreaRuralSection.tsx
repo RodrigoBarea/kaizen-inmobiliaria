@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Inmueble } from '@/types/database';
+import { formatOperacion } from '@/lib/format';
 
 interface Props {
   inmuebles?: Inmueble[];
@@ -113,13 +114,11 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                           sizes="(max-width: 768px) 100vw, 33vw"
                           className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                         />
-                        {/* Badges: Operación y Tipo únicamente */}
-                        <div className="absolute top-3 left-3 z-10">
+                        {/* Badges: Operación y Tipo juntos */}
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
                           <span className="bg-[#00170e]/95 backdrop-blur-md text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b] shadow-sm">
-                            {item.categoria?.nombre_categoria || 'Venta'}
+                            {formatOperacion(item.categoria?.nombre_categoria)}
                           </span>
-                        </div>
-                        <div className="absolute top-3 right-3 z-10">
                           <span className="bg-[#0B4632] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                             {item.tipo}
                           </span>
@@ -171,13 +170,11 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                       />
-                      {/* Badges: Operación y Tipo únicamente */}
-                      <div className="absolute top-3 left-3 z-10">
+                      {/* Badges: Operación y Tipo juntos */}
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
                         <span className="bg-[#00170e]/95 backdrop-blur-md text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b] shadow-sm">
-                          Venta
+                          En Venta
                         </span>
-                      </div>
-                      <div className="absolute top-3 right-3 z-10">
                         <span className="bg-[#0B4632] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                           {item.type}
                         </span>

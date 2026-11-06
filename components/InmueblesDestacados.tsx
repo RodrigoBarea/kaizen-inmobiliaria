@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Inmueble } from '@/types/database';
 import InmuebleCard from './InmuebleCard';
+import { formatOperacion } from '@/lib/format';
 
 interface Props {
   inmuebles?: Inmueble[];
@@ -92,14 +93,11 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 }`}
               />
 
-              {/* Badges: Operación y Tipo únicamente */}
-              <div className="absolute top-4 left-4 z-10">
+              {/* Badges: Operación y Tipo juntos */}
+              <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
                 <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-                  {lead.categoria?.nombre_categoria || 'Venta'}
+                  {formatOperacion(lead.categoria?.nombre_categoria)}
                 </span>
-              </div>
-
-              <div className="absolute top-4 right-4 z-10">
                 <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                   {lead.tipo}
                 </span>
@@ -195,14 +193,11 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                     />
-                    {/* Badges: Operación y Tipo únicamente */}
-                    <div className="absolute top-3 left-3 z-10">
+                    {/* Badges: Operación y Tipo juntos */}
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
                       <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-                        {item.categoria?.nombre_categoria || 'Venta'}
+                        {formatOperacion(item.categoria?.nombre_categoria)}
                       </span>
-                    </div>
-
-                    <div className="absolute top-3 right-3 z-10">
                       <span className="bg-primary/90 backdrop-blur-md text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                         {item.tipo}
                       </span>

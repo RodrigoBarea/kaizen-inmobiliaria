@@ -7,6 +7,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { getInmuebleBySlug } from '@/lib/supabase';
 import { Inmueble } from '@/types/database';
+import { formatOperacion } from '@/lib/format';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -165,7 +166,7 @@ export default function InmuebleDetallePage() {
           />
           <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
             <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-              {categoria?.nombre_categoria || 'Venta'}
+              {formatOperacion(categoria?.nombre_categoria)}
             </span>
             <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
               {tipo}
@@ -191,7 +192,7 @@ export default function InmuebleDetallePage() {
             />
             <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
               <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-                {categoria?.nombre_categoria || 'Venta'}
+                {formatOperacion(categoria?.nombre_categoria)}
               </span>
               <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                 {tipo}
@@ -242,7 +243,7 @@ export default function InmuebleDetallePage() {
             />
             <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
               <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
-                {categoria?.nombre_categoria || 'Venta'}
+                {formatOperacion(categoria?.nombre_categoria)}
               </span>
               <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                 {tipo}
