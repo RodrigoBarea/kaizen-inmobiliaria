@@ -67,7 +67,7 @@ export default function BannerPrincipal() {
             >
               Tu próximo hogar. <br />
               Tu mejor inversión. <br />
-              <span className="italic font-normal text-[#E60000]">Con seguridad jurídica.</span>
+              <span className="italic font-normal text-[#E60000]">Cero riesgos.</span>
             </motion.h1>
 
             {/* Subtítulo curado */}
@@ -77,7 +77,7 @@ export default function BannerPrincipal() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl leading-relaxed"
             >
-              Propiedades residenciales, fincas y terrenos en el Valle Central de Tarija con títulos al día, Folio Real verificado y aptas para crédito hipotecario.
+              Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
             </motion.p>
 
           </div>
