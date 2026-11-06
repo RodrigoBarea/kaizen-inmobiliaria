@@ -163,12 +163,12 @@ export default function InmuebleDetallePage() {
             priority
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-            <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
-              Título Saneado DD.RR.
+          <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+            <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+              {categoria?.nombre_categoria || 'Venta'}
             </span>
-            <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
-              Apto Crédito Bancario
+            <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+              {tipo}
             </span>
           </div>
         </div>
@@ -189,12 +189,12 @@ export default function InmuebleDetallePage() {
               priority
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-              <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
-                Título Saneado DD.RR.
+            <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+              <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                {categoria?.nombre_categoria || 'Venta'}
               </span>
-              <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
-                Apto Crédito Bancario
+              <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                {tipo}
               </span>
             </div>
           </div>
@@ -240,12 +240,12 @@ export default function InmuebleDetallePage() {
               priority
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-              <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
-                Título Saneado DD.RR.
+            <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+              <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                {categoria?.nombre_categoria || 'Venta'}
               </span>
-              <span className="bg-surface-stone/95 backdrop-blur border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
-                Apto Crédito Bancario
+              <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                {tipo}
               </span>
             </div>
           </div>

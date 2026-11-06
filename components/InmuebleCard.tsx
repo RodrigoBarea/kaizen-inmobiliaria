@@ -60,29 +60,17 @@ export default function InmuebleCard({ inmueble }: Props) {
             }`}
           />
 
-          {/* Badges UI KAIZEN */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 max-w-[85%]">
-            {is_featured && (
-              <span className="bg-[#E60000] text-white text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge font-bold tracking-wider shadow-sm">
-                Exclusivo KAIZEN
-              </span>
-            )}
-            {is_rural && (
-              <span className="bg-[#002115] text-[#b6efd3] text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge tracking-wider border border-[#19503b]">
-                🌿 Terruño / Campo
-              </span>
-            )}
-            <span className="bg-surface-stone/90 backdrop-blur-md text-primary text-[10px] uppercase px-2 py-0.5 rounded-[2px] font-legal-badge font-semibold tracking-wider border border-border-hairline">
+          {/* Badges: Operación y Tipo de Inmueble únicamente */}
+          <div className="absolute top-3 left-3 z-10">
+            <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
               {categoriaNombre}
             </span>
           </div>
 
-          <div className="absolute top-3 right-3 bg-primary/80 backdrop-blur-md text-white px-2 py-0.5 rounded-[2px] text-[10px] font-legal-badge uppercase tracking-wider">
-            {tipo}
-          </div>
-
-          <div className="absolute bottom-2 left-2 bg-[#E7EFEA] border border-[#0B4632]/20 text-[#0B4632] px-2 py-0.5 text-[9px] font-legal-badge uppercase tracking-wider font-semibold">
-            DD.RR. Saneado
+          <div className="absolute top-3 right-3 z-10">
+            <span className="bg-primary/90 backdrop-blur-md text-white px-2.5 py-1 rounded-[2px] text-[10px] font-semibold uppercase tracking-wider shadow-sm">
+              {tipo}
+            </span>
           </div>
         </div>
 

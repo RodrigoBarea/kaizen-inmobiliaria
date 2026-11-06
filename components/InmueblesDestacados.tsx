@@ -22,9 +22,9 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
       <section className="py-16 sm:py-24 bg-surface-canvas border-b border-border-hairline" id="propiedades">
         <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center py-12">
           <span className="material-symbols-outlined text-4xl text-text-muted mb-2">home_work</span>
-          <h3 className="text-headline-sm font-semibold text-primary">Colección en Auditoría</h3>
+          <h3 className="text-headline-sm font-semibold text-primary">Propiedades en preparación</h3>
           <p className="text-body-sm text-text-muted mt-1">
-            Nuevas propiedades están siendo homologadas con Derechos Reales para su publicación.
+            Nuevas propiedades en proceso de revisión de títulos para su publicación.
           </p>
         </div>
       </section>
@@ -53,22 +53,19 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-12 border-b border-border-hairline pb-6">
           <div>
             <span className="text-legal-badge font-legal-badge uppercase tracking-[0.14em] text-text-muted block mb-2 font-semibold">
-              Selección de Autor 2025
+              Propiedades en Tarija
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight">
-              Colección Residencial Destacada
+              Propiedades destacadas
             </h2>
           </div>
           
           <div className="mt-4 md:mt-0 flex items-center gap-6">
-            <span className="text-body-sm font-body-sm text-text-muted hidden sm:inline">
-              Filtro Jurídico: 100% DD.RR. Homologado
-            </span>
             <Link
               href="/compra/page/1"
               className="text-body-sm font-body-sm font-medium text-primary hover:text-kaizen-red flex items-center gap-1 transition-colors"
             >
-              <span>Ver Catálogo Completo</span>
+              <span>Ver catálogo completo</span>
               <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
             </Link>
           </div>
@@ -90,24 +87,22 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
                 onLoad={() => setLeadImgLoaded(true)}
-                className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ${
+                className={`w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out ${
                   leadImgLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
               />
 
-              {/* Tags Over Image */}
-              <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold flex items-center gap-1 shadow-sm">
-                  <span className="material-symbols-outlined text-[14px]">verified_user</span>
-                  <span>Título Saneado en DD.RR.</span>
-                </span>
-                <span className="bg-surface-stone/90 backdrop-blur-md border border-border-hairline text-primary px-3 py-1 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold shadow-sm">
-                  Apto Crédito Bancario
+              {/* Badges: Operación y Tipo únicamente */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                  {lead.categoria?.nombre_categoria || 'Venta'}
                 </span>
               </div>
 
-              <div className="absolute bottom-3 right-3 bg-primary text-white text-[10px] font-legal-badge uppercase px-2.5 py-1 rounded-[2px]">
-                {lead.categoria?.nombre_categoria || 'Venta'}
+              <div className="absolute top-4 right-4 z-10">
+                <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                  {lead.tipo}
+                </span>
               </div>
             </Link>
 
@@ -190,7 +185,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
               return (
                 <article
                   key={item.id}
-                  className="bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group flex-1 overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary transition-all duration-300"
+                  className="bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group flex-1 overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary transition-[border-color,box-shadow,transform] duration-200 ease-out"
                 >
                   <Link href={`/inmueble/${item.slug}`} className="relative aspect-[16/9] overflow-hidden bg-surface-warm block">
                     <Image
@@ -198,11 +193,18 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                       alt={item.inmueble_name}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                     />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-[#E7EFEA] border border-[#0B4632] text-[#0B4632] px-2.5 py-0.5 text-legal-badge font-legal-badge tracking-wider uppercase font-semibold">
-                        DD.RR. Al Día
+                    {/* Badges: Operación y Tipo únicamente */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                        {item.categoria?.nombre_categoria || 'Venta'}
+                      </span>
+                    </div>
+
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="bg-primary/90 backdrop-blur-md text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                        {item.tipo}
                       </span>
                     </div>
                   </Link>
