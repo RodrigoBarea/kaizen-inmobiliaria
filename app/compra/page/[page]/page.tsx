@@ -51,13 +51,13 @@ export default function CompraPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
           <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Catálogo Oficial KAIZEN
+            Venta de propiedades
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Inmuebles en Venta
+            Inmuebles en venta
           </h1>
           <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Propiedades residenciales, comerciales y terrenos con títulos de propiedad verificados.
+            Casas, departamentos y terrenos en Tarija con títulos de propiedad verificados.
           </p>
         </div>
       </div>

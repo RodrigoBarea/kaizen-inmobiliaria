@@ -19,13 +19,13 @@ export default function GuiaVendedorPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
           <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Para Propietarios en Tarija
+            Para propietarios en Tarija
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            El Método KAIZEN para Vender Rápido
+            Guía para vender tu inmueble en Tarija
           </h1>
           <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Descubre cómo tasar correctamente tu inmueble y atraer compradores calificados en Tarija sin desgastar su valor.
+            Criterios para tasar a precio de mercado, organizar los documentos legales y coordinar visitas con compradores calificados.
           </p>
         </div>
       </div>
@@ -41,10 +41,10 @@ export default function GuiaVendedorPage() {
 
         <div className="space-y-4">
           <h2 className="font-headline-md text-2xl sm:text-3xl font-black text-[#1A1A1A]">
-            Estrategia de Comercialización en 5 Pasos
+            Cinco pasos para la venta de una propiedad
           </h2>
           <p className="font-body-md text-sm text-gray-600 leading-relaxed">
-            Vender al precio correcto requiere estrategia, documentación al día y exposición masiva ante compradores serios. En KAIZEN nos encargamos de todo el proceso en Tarija.
+            Fijar un precio acorde a la zona y tener la documentación saneada son indispensables para cerrar una venta sin demoras. En KAIZEN apoyamos en la valoración comercial y en la verificación previa ante notaría.
           </p>
         </div>
 
@@ -53,28 +53,28 @@ export default function GuiaVendedorPage() {
           {[
             {
               n: '1',
-              title: 'Tasación Basada en Datos',
-              desc: 'Fijación del precio comercial óptimo para competir en el mercado inmobiliario de Tarija.',
+              title: 'Tasación comercial comparativa',
+              desc: 'Fijación del precio por metro cuadrado tomando como referencia transacciones recientes en la misma zona de Tarija.',
             },
             {
               n: '2',
-              title: 'Saneamiento Documental',
-              desc: 'Preparación de la carpeta legal completa para evitar que la venta se caiga en Derechos Reales.',
+              title: 'Revisión y saneamiento de documentos',
+              desc: 'Revisión del Folio Real, plano de lote o construcción e impuestos municipales para subsanar observaciones con anticipación.',
             },
             {
               n: '3',
-              title: 'Home Staging & Fotografía',
-              desc: 'Acondicionamiento estético y fotografía profesional para enamorar al comprador.',
+              title: 'Preparación y fotografía del inmueble',
+              desc: 'Organización del espacio y fotos claras que muestren la distribución, iluminación y estado general de la propiedad.',
             },
             {
               n: '4',
-              title: 'Exposición Multicanal',
-              desc: 'Campañas de marketing digital segmentadas a los compradores más activos de la región.',
+              title: 'Publicación y filtro de interesados',
+              desc: 'Difusión en canales inmobiliarios y coordinación de visitas únicamente con personas con presupuesto o crédito preaprobado.',
             },
             {
               n: '5',
-              title: 'Cierre Seguro',
-              desc: 'Blindaje legal de la transacción hasta que el dinero esté en tu cuenta bancaria.',
+              title: 'Minuta de compraventa y pago',
+              desc: 'Firma del contrato de transferencia ante notario de fe pública y seguimiento del desembolso en cuenta bancaria.',
             },
           ].map((paso) => (
             <div
@@ -95,9 +95,9 @@ export default function GuiaVendedorPage() {
         {/* CTA */}
         <div className="bg-[#1A1A1A] text-white p-8 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <h3 className="font-headline-sm text-lg font-bold">¿Listo para maximizar el valor de tu inmueble en Tarija?</h3>
+            <h3 className="font-headline-sm text-lg font-bold">¿Quieres conocer el valor comercial de tu inmueble en Tarija?</h3>
             <p className="text-xs text-gray-300">
-              Registra los datos de tu propiedad y prepararemos un estudio comercial sin costo.
+              Completa los datos de tu propiedad y te orientamos con una tasación de referencia.
             </p>
           </div>
           <Link
@@ -105,7 +105,7 @@ export default function GuiaVendedorPage() {
             className="bg-[#E60000] hover:bg-[#C00000] text-white font-bold py-3.5 px-6 rounded text-xs shrink-0 transition shadow flex items-center gap-1.5"
           >
             <span className="material-symbols-outlined text-sm">calculate</span>
-            <span>Solicitar tasación gratuita y vender sin estrés</span>
+            <span>Solicitar tasación de referencia</span>
           </Link>
         </div>
       </div>

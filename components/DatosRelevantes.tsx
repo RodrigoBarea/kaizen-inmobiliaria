@@ -77,13 +77,13 @@ export default function DatosRelevantes({ metricas }: Props) {
         {/* Header */}
         <div className="max-w-3xl mb-12 lg:mb-16">
           <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-text-muted block mb-3 font-semibold">
-            El Estándar Notarial KAIZEN
+            Verificación notarial y documental
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight">
-            Transacciones Inmobiliarias con Rigor Jurídico Absoluto.
+            Revisión documental antes de publicar cada propiedad
           </h2>
           <p className="text-body-md sm:text-body-lg font-body-lg text-text-muted mt-4 leading-relaxed">
-            En Tarija, un porcentaje significativo de transacciones sufren demoras por herencias no declaradas, doble folio o afectaciones municipales. En KAIZEN intervenimos con auditoría previa antes de publicar cualquier activo.
+            En Tarija, muchas operaciones se demoran por sucesiones pendientes, observaciones en Folio Real o impuestos municipales sin regularizar. En KAIZEN revisamos estos antecedentes antes de iniciar la comercialización.
           </p>
         </div>
 
@@ -97,15 +97,15 @@ export default function DatosRelevantes({ metricas }: Props) {
                 <span className="material-symbols-outlined text-[22px]">gavel</span>
               </div>
               <h3 className="text-lg font-headline-sm font-semibold text-primary mb-3">
-                1. Auditoría en Derechos Reales
+                1. Verificación en Derechos Reales
               </h3>
               <p className="text-body-sm font-body-sm text-text-muted leading-relaxed">
-                Verificación de tradición dominial de 30 años, levantamiento de gravámenes, hipotecas previas y certificado alodial en mano antes de la reserva.
+                Revisión de tradición propietaria, certificado alodial actualizado y confirmación de que el Folio Real no registre gravámenes ni anotaciones preventivas.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-border-hairline">
               <span className="text-legal-badge font-legal-badge uppercase text-primary font-semibold">
-                Protocolo Preventivo
+                Revisión preventiva
               </span>
             </div>
           </div>
@@ -117,15 +117,15 @@ export default function DatosRelevantes({ metricas }: Props) {
                 <span className="material-symbols-outlined text-[22px]">analytics</span>
               </div>
               <h3 className="text-lg font-headline-sm font-semibold text-primary mb-3">
-                2. Tasación Científica de Mercado
+                2. Tasación comparativa de mercado
               </h3>
               <p className="text-body-sm font-body-sm text-text-muted leading-relaxed">
-                Determinamos el valor justo basado en m² homologado, ubicación geoespacial y transacciones notariales cerradas, erradicando especulaciones infundadas.
+                Fijamos el valor por metro cuadrado tomando transacciones efectivas y oferta real en cada zona de Tarija, evitando sobreprecios que prolonguen los plazos.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-border-hairline">
               <span className="text-legal-badge font-legal-badge uppercase text-primary font-semibold">
-                Cero Sobreprecio
+                Valor de mercado
               </span>
             </div>
           </div>
@@ -137,15 +137,15 @@ export default function DatosRelevantes({ metricas }: Props) {
                 <span className="material-symbols-outlined text-[22px]">description</span>
               </div>
               <h3 className="text-lg font-headline-sm font-semibold text-primary mb-3">
-                3. Minutas Notariadas Blindadas
+                3. Redacción de minutas y contratos
               </h3>
               <p className="text-body-sm font-body-sm text-text-muted leading-relaxed">
-                Redacción de contratos con cláusulas de arras precisas, plazos resolutivos estrictos y homologación notarial directa para salvaguardar tu patrimonio.
+                Elaboramos minutas con cláusulas formales de arras, plazos de entrega y condiciones de desembolso para protocolización ante notario de fe pública.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-border-hairline">
               <span className="text-legal-badge font-legal-badge uppercase text-primary font-semibold">
-                Seguridad Patrimonial
+                Seguridad contractual
               </span>
             </div>
           </div>
@@ -157,15 +157,15 @@ export default function DatosRelevantes({ metricas }: Props) {
                 <span className="material-symbols-outlined text-[22px]">account_balance</span>
               </div>
               <h3 className="text-lg font-headline-sm font-semibold text-primary mb-3">
-                4. Gestión de Crédito Bancario
+                4. Coordinación de crédito bancario
               </h3>
               <p className="text-body-sm font-body-sm text-text-muted leading-relaxed">
-                Canalización directa con gerencias de banca privada (Bisa, BNB, Mercantil Santa Cruz, BCP) para agilizar avalúos bancarios y desembolsos sin fricción.
+                Seguimiento directo con entidades financieras locales (Bisa, BNB, Mercantil Santa Cruz, BCP) para la presentación de carpetas y avance del avalúo.
               </p>
             </div>
             <div className="mt-8 pt-4 border-t border-border-hairline">
               <span className="text-legal-badge font-legal-badge uppercase text-primary font-semibold">
-                Tramitación Ágil
+                Gestión crediticia
               </span>
             </div>
           </div>
@@ -179,7 +179,7 @@ export default function DatosRelevantes({ metricas }: Props) {
               +{inView ? countProps : 0}
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
-              Inmuebles Auditados & Homologados
+              Inmuebles con revisión documental
             </span>
             <span className="text-[11px] font-legal-badge uppercase text-text-muted">
               En Tarija, San Lorenzo y Uriondo
@@ -191,10 +191,10 @@ export default function DatosRelevantes({ metricas }: Props) {
               {inView ? countSeg : 0}%
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
-              Títulos con Cero Contingencias
+              Operaciones concluidas sin litigios
             </span>
             <span className="text-[11px] font-legal-badge uppercase text-text-muted">
-              Garantía Registral Notarial
+              Registro en Derechos Reales
             </span>
           </div>
 
@@ -203,7 +203,7 @@ export default function DatosRelevantes({ metricas }: Props) {
               {inView ? countDias : 0} Días
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
-              Tiempo Promedio de Cierre Notarial
+              Tiempo promedio hasta la firma notarial
             </span>
             <span className="text-[11px] font-legal-badge uppercase text-text-muted">
               Desde captación a minuta definitiva

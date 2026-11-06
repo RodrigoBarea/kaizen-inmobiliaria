@@ -67,7 +67,7 @@ export default function BannerPrincipal() {
             >
               Tu próximo hogar. <br />
               Tu mejor inversión. <br />
-              <span className="italic font-normal text-[#E60000]">Cero riesgos.</span>
+              <span className="italic font-normal text-[#E60000]">Con seguridad jurídica.</span>
             </motion.h1>
 
             {/* Subtítulo curado */}
@@ -77,7 +77,7 @@ export default function BannerPrincipal() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl leading-relaxed"
             >
-              Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
+              Propiedades residenciales, fincas y terrenos en el Valle Central de Tarija con títulos al día, Folio Real verificado y aptas para crédito hipotecario.
             </motion.p>
 
           </div>
@@ -115,7 +115,7 @@ export default function BannerPrincipal() {
 
               {/* Exclusivity Badge */}
               <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-[2px] text-legal-badge font-legal-badge uppercase tracking-widest shadow-sm">
-                Exclusividad KAIZEN
+                Cartera KAIZEN
               </div>
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ export default function BannerPrincipal() {
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Venta Exclusiva
+              Venta
             </button>
 
             <button
@@ -152,7 +152,7 @@ export default function BannerPrincipal() {
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Alquiler Corporativo
+              Alquiler
             </button>
 
             <button
@@ -164,7 +164,7 @@ export default function BannerPrincipal() {
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
               }`}
             >
-              Anticréticos Certificados
+              Anticrético
             </button>
 
             <button
@@ -172,7 +172,7 @@ export default function BannerPrincipal() {
               onClick={() => handleTabClick('fincas')}
               className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-[#0B4632] hover:bg-emerald-subtle rounded-[2px] transition-all whitespace-nowrap flex items-center gap-1.5"
             >
-              <span>🌿 Fincas & Viñedos</span>
+              <span>Fincas y viñedos</span>
             </button>
 
             <button

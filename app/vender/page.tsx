@@ -73,13 +73,13 @@ export default function VenderPage() {
         />
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto space-y-4 py-16">
           <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Método Kaizen de Comercialización
+            Venta y anticrético de propiedades
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase tracking-tight leading-tight">
-            MAXIMIZA EL VALOR DE TU PROPIEDAD Y CIERRA LA VENTA EN TIEMPO RÉCORD.
+            VENDE O COLOCA EN ANTICRÉTICO TU PROPIEDAD EN TARIJA
           </h1>
           <p className="text-sm sm:text-base text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Conoce el Método Kaizen de Comercialización: Filtramos interesados, aplicamos marketing de alto impacto y blindamos el aspecto legal hasta que recibes tu dinero.
+            Te orientamos con la tasación de mercado, verificamos los antecedentes legales de la propiedad y coordinamos visitas con personas con capacidad de compra demostrada.
           </p>
         </div>
       </div>
@@ -91,10 +91,10 @@ export default function VenderPage() {
           <div className="lg:col-span-6 space-y-8">
             <div>
               <span className="text-xs font-bold text-[#E60000] uppercase tracking-wider">
-                Propuesta de Valor KAIZEN
+                Servicio para propietarios
               </span>
               <h2 className="font-headline-md text-2xl sm:text-3xl font-black text-[#1A1A1A] mt-1">
-                La experiencia de comercializar sin estrés ni riesgos
+                Gestión completa para la venta de tu inmueble
               </h2>
             </div>
 
@@ -107,10 +107,10 @@ export default function VenderPage() {
                 </div>
                 <div>
                   <h3 className="font-headline-sm font-bold text-base text-[#1A1A1A]">
-                    Perfilación Financiera Rigurosa
+                    Filtro previo de interesados
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Decimos adiós a las visitas improductivas. Solo llevamos a tu propiedad clientes con capacidad de pago comprobada o pre-aprobación bancaria.
+                    Coordinamos visitas únicamente con personas que cuentan con fondos disponibles o con trámite de crédito hipotecario en curso.
                   </p>
                 </div>
               </div>
@@ -122,10 +122,10 @@ export default function VenderPage() {
                 </div>
                 <div>
                   <h3 className="font-headline-sm font-bold text-base text-[#1A1A1A]">
-                    Marketing Inmobiliario Premium
+                    Fotografía y difusión enfocada
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Posicionamos tu inmueble con fotografía profesional, video recorridos y pauta digital segmentada para atraer a los mejores compradores e inversionistas de Tarija.
+                    Preparamos fotografías claras, ficha técnica con datos comprobados y difusión en portales y redes dirigidas a compradores en Tarija.
                   </p>
                 </div>
               </div>
@@ -137,10 +137,10 @@ export default function VenderPage() {
                 </div>
                 <div>
                   <h3 className="font-headline-sm font-bold text-base text-[#1A1A1A]">
-                    Tasación Técnica y Comercial
+                    Tasación comercial objetiva
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Determinamos el precio justo de mercado basándonos en transacciones reales y recientes en Tarija, asegurando competitividad y alta rentabilidad.
+                    Calculamos el precio por metro cuadrado comparando transacciones cerradas en la misma zona para evitar fijar precios que demoren la venta.
                   </p>
                 </div>
               </div>
@@ -152,10 +152,10 @@ export default function VenderPage() {
                 </div>
                 <div>
                   <h3 className="font-headline-sm font-bold text-base text-[#1A1A1A]">
-                    Acompañamiento Legal Total
+                    Acompañamiento legal y notarial
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-1">
-                    Gestionamos la redacción de contratos, saneamiento si es requerido y acompañamiento notarial hasta la transferencia efectiva de los fondos.
+                    Redactamos la minuta de compraventa con cláusulas claras, revisamos el estado en Derechos Reales y acompañamos la firma hasta el cobro definitivo.
                   </p>
                 </div>
               </div>
@@ -166,10 +166,10 @@ export default function VenderPage() {
             <div className="p-6 rounded-xl bg-emerald-50 border border-emerald-200 space-y-3">
               <h4 className="font-bold text-sm text-emerald-950 flex items-center gap-2">
                 <FaWhatsapp className="text-emerald-600 text-lg" />
-                <span>¿Prefieres una atención inmediata?</span>
+                <span>¿Prefieres consultar directamente?</span>
               </h4>
               <p className="text-xs text-emerald-800 leading-relaxed">
-                ¿Prefieres saltarte los formularios y hablar directamente con un asesor especialista en Tarija?
+                Si prefieres hablar directamente con un asesor sobre tu propiedad en Tarija, escríbenos por WhatsApp.
               </p>
               <a
                 href={waUrl}

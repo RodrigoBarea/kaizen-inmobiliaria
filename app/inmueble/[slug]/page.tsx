@@ -360,10 +360,10 @@ export default function InmuebleDetallePage() {
             </div>
             <div className="space-y-1">
               <h4 className="text-sm font-semibold text-[#0B4632]">
-                Inmueble Auditado y Homologado por KAIZEN
+                Verificación documental KAIZEN
               </h4>
               <p className="text-xs text-[#0B4632]/80 leading-relaxed">
-                Este activo cuenta con Folio Real depurado, tradición dominial comprobada, certificado alodial vigente y aptitud legal para crédito bancario en entidades supervisadas por ASFI.
+                Inmueble con Folio Real revisado, certificado alodial vigente y condiciones legales para trámite de crédito hipotecario ante entidades bancarias.
               </p>
             </div>
           </div>
@@ -371,7 +371,7 @@ export default function InmuebleDetallePage() {
           {/* Description */}
           <div className="space-y-3">
             <h2 className="text-xl font-headline-sm font-semibold text-primary">
-              Descripción del Inmueble
+              Descripción de la propiedad
             </h2>
             <div className="text-body-md text-text-muted leading-relaxed whitespace-pre-line">
               {descripcion}
@@ -381,7 +381,7 @@ export default function InmuebleDetallePage() {
           {/* Technical Specs Table */}
           <div className="border border-border-hairline rounded-[2px] p-6 bg-surface-canvas space-y-4">
             <h3 className="text-base font-semibold text-primary">
-              Ficha Técnica & Catastral
+              Ficha técnica y catastral
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
@@ -414,7 +414,7 @@ export default function InmuebleDetallePage() {
           {/* Location Map */}
           <div className="space-y-3">
             <h2 className="text-xl font-headline-sm font-semibold text-primary">
-              Ubicación en el Mapa
+              Ubicación
             </h2>
             <div className="w-full h-80 rounded-[2px] overflow-hidden border border-border-hairline bg-surface-canvas">
               <MapaDetalle

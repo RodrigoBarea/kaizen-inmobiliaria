@@ -253,7 +253,7 @@ function BusquedaContent() {
                 className="flex items-center gap-1 text-on-surface hover:text-primary transition-colors font-label-md text-label-md"
               >
                 <span className="material-symbols-outlined text-sm">tune</span>
-                <span>{showAdvanced ? 'Ocultar Filtros' : 'Filtros Avanzados'}</span>
+                <span>{showAdvanced ? 'Ocultar filtros' : 'Filtros avanzados'}</span>
               </button>
             </div>
 

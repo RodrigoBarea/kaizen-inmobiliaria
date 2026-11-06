@@ -61,29 +61,29 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#b6efd3] animate-pulse" />
               <span className="text-legal-badge font-legal-badge tracking-widest uppercase text-[#b6efd3] font-semibold">
-                Terruños de Altura & Oportunidades Agro-Residenciales
+                Propiedades de campo y viñedos
               </span>
             </div>
             
             <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-[#FDFCFA] tracking-tight">
-              Terrenos, Fincas & Viñedos en el Valle de Tarija
+              Terrenos, fincas y viñedos en el Valle de Tarija
             </h2>
             
             <p className="text-body-md sm:text-body-lg font-body-lg text-[#b6efd3]/80 mt-4 max-w-2xl leading-relaxed">
-              El Valle Central de Tarija concentra la mayor valorización de tierra productiva y de descanso en Bolivia. Parcelas seleccionadas con derecho de agua perpetuo, viñedos en producción y folios saneados.
+              Propiedades en Uriondo, San Lorenzo y Padcaya aptas para descanso o producción agrícola. Parcelas con derecho de agua registrado, acceso vial y títulos saneados en Derechos Reales.
             </p>
           </div>
 
           <div className="lg:col-span-4 lg:text-right">
             <div className="inline-flex flex-col text-left lg:text-right p-4 border border-[#19503b] bg-[#00170e] rounded-[2px]">
               <span className="text-legal-badge font-legal-badge text-[#b6efd3] uppercase font-semibold">
-                Plusvalía Agrícola Proyectada
+                Rendimiento estimado de la zona
               </span>
               <span className="text-2xl font-headline-sm font-bold text-white mt-1">
-                +14.2% Anual
+                +14.2% anual
               </span>
               <span className="text-xs text-[#858383]">
-                Valle de la Concepción & Uriondo
+                Valle de la Concepción y Uriondo
               </span>
             </div>
           </div>

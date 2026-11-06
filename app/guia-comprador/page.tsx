@@ -26,13 +26,13 @@ export default function GuiaCompradorPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
           <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Para Compradores en Tarija
+            Para compradores en Tarija
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Guía Definitiva del Comprador Inteligente
+            Guía para comprar un inmueble en Tarija
           </h1>
           <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Domina el mercado, asegura tu crédito y evita las trampas legales al adquirir tu nuevo hogar en Tarija.
+            Pasos clave para revisar la documentación, gestionar tu crédito y formalizar la compraventa con respaldo notarial.
           </p>
         </div>
       </div>
@@ -48,10 +48,10 @@ export default function GuiaCompradorPage() {
 
         <div className="space-y-4">
           <h2 className="font-headline-md text-2xl sm:text-3xl font-black text-[#1A1A1A]">
-            La Ruta Segura para Comprar tu Inmueble en Tarija
+            Etapas para una compraventa segura en Tarija
           </h2>
           <p className="font-body-md text-sm text-gray-600 leading-relaxed">
-            Comprar un inmueble en Tarija es una de las decisiones financieras más trascendentales. En KAIZEN te acompañamos paso a paso para garantizar que cada documento esté en regla y tu capital protegido.
+            Comprar una casa, departamento o terreno requiere confirmar que los títulos estén saneados antes de entregar anticipos. En KAIZEN verificamos los antecedentes del inmueble y coordinamos cada paso hasta el registro definitivo.
           </p>
         </div>
 
@@ -60,28 +60,28 @@ export default function GuiaCompradorPage() {
           {[
             {
               n: '1',
-              title: 'Tu Realidad Financiera',
-              desc: 'Evaluación de presupuesto y estructuración de tu crédito (vivienda social o regular en entidades bancarias).',
+              title: 'Presupuesto y opciones de crédito',
+              desc: 'Definición del monto disponible para la cuota inicial y evaluación de requisitos para crédito de vivienda social o comercial.',
             },
             {
               n: '2',
-              title: 'La Búsqueda Estratégica',
-              desc: 'Identificación de propiedades verificadas con alto potencial de plusvalía en los mejores barrios de Tarija.',
+              title: 'Búsqueda y comparación de propiedades',
+              desc: 'Comparación de precios por metro cuadrado, accesos y servicios básicos en las distintas zonas de Tarija.',
             },
             {
               n: '3',
-              title: 'Auditoría Legal en DDRR Tarija',
-              desc: 'Revisión técnica del Folio Real, gravámenes y estado impositivo en la Alcaldía de Tarija.',
+              title: 'Verificación en Derechos Reales y Alcaldía',
+              desc: 'Revisión del Folio Real, certificado alodial actualizado, impuestos municipales al día y planos aprobados.',
             },
             {
               n: '4',
-              title: 'Minuta y Desembolso',
-              desc: 'Redacción segura del documento de transferencia y coordinación con la entidad bancaria y notaría.',
+              title: 'Minuta de compraventa y desembolso',
+              desc: 'Redacción de la minuta con términos claros de pago y entrega, coordinando con la notaría y la entidad financiera.',
             },
             {
               n: '5',
-              title: 'Registro Final',
-              desc: 'Consolidación de tu derecho propietario ante Derechos Reales Tarija y Catastro Municipal.',
+              title: 'Inscripción en Derechos Reales',
+              desc: 'Registro del derecho propietario ante Derechos Reales y actualización del registro en Catastro Municipal.',
             },
           ].map((paso) => (
             <div
@@ -104,7 +104,7 @@ export default function GuiaCompradorPage() {
           <div className="space-y-1 text-center sm:text-left">
             <h3 className="font-headline-sm text-lg font-bold">¿Tienes dudas sobre una propiedad en Tarija?</h3>
             <p className="text-xs text-gray-300">
-              Revisamos los papeles de tu futuro hogar sin compromiso.
+              Podemos orientarte en la revisión preliminar de los documentos antes de realizar una oferta.
             </p>
           </div>
           <a
@@ -114,7 +114,7 @@ export default function GuiaCompradorPage() {
             className="bg-[#10B981] hover:bg-[#059669] text-white font-bold py-3.5 px-6 rounded text-xs flex items-center gap-2 shrink-0 transition shadow"
           >
             <FaWhatsapp className="text-base" />
-            <span>Revisamos los papeles sin compromiso</span>
+            <span>Consultar con un asesor</span>
           </a>
         </div>
       </div>

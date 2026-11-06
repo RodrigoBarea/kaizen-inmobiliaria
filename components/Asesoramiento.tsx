@@ -19,13 +19,13 @@ export default function Asesoramiento() {
         <div className="lg:col-span-7 space-y-8">
           <div>
             <span className="text-xs uppercase font-bold tracking-widest text-[#E60000] bg-red-50 border border-red-100 px-3 py-1 rounded-full mb-3 inline-block">
-              Filosofía de Mejora Continua
+              Servicios KAIZEN
             </span>
             <h2 className="font-headline-md text-3xl sm:text-4xl md:text-5xl font-black text-[#1A1A1A] tracking-tight">
-              El Estándar KAIZEN: <span className="text-[#E60000]">Evolucionando el Mercado Inmobiliario en Tarija</span>
+              Asesoramiento legal y financiero <span className="text-[#E60000]">para operaciones inmobiliarias en Tarija</span>
             </h2>
             <p className="font-body-md text-sm sm:text-base text-gray-600 mt-4 leading-relaxed max-w-2xl">
-              <strong>"Kaizen"</strong> significa mejora continua. Redefinimos la gestión inmobiliaria en Tarija eliminando la improvisación, protegiendo tu capital y asegurando que cada paso te acerque a tus metas financieras con total transparencia.
+              "Kaizen" significa mejora continua. En Tarija, trabajamos con un enfoque preventivo: verificamos la situación jurídica de cada inmueble antes de la oferta y te orientamos sobre las opciones de financiamiento para que tomes decisiones informadas.
             </p>
           </div>
 
@@ -38,10 +38,10 @@ export default function Asesoramiento() {
               </div>
               <div className="space-y-1">
                 <h3 className="font-headline-sm text-base sm:text-lg font-bold text-[#1A1A1A]">
-                  Asesoramiento Legal Integral
+                  Asesoramiento legal y documental
                 </h3>
                 <p className="font-body-md text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  <strong>Seguridad Jurídica Blindada.</strong> Nuestro equipo legal audita cada Folio Real, verifica el estado en Derechos Reales (DDRR), impuestos al día y planos aprobados. Cero sorpresas, cero riesgos de estafas.
+                  Revisamos el Folio Real, certificados alodiales, planos aprobados por el municipio y el pago de impuestos para asegurar que el inmueble pueda transferirse sin contratiempos.
                 </p>
               </div>
             </div>
@@ -52,10 +52,10 @@ export default function Asesoramiento() {
               </div>
               <div className="space-y-1">
                 <h3 className="font-headline-sm text-base sm:text-lg font-bold text-[#1A1A1A]">
-                  Estrategia Financiera
+                  Orientación financiera
                 </h3>
                 <p className="font-body-md text-xs sm:text-sm text-gray-600 leading-relaxed">
-                  <strong>Inversión Inteligente.</strong> Te guiamos en la obtención de créditos de vivienda social, analizamos tasas bancarias y proyectamos la plusvalía de tu inmueble para maximizar tu Retorno de Inversión (ROI).
+                  Te orientamos en la gestión de créditos bancarios de vivienda, cálculo de cuotas y evaluación de precios por metro cuadrado en las distintas zonas de Tarija.
                 </p>
               </div>
             </div>
@@ -71,14 +71,14 @@ export default function Asesoramiento() {
               className="bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-all shadow-sm hover:shadow flex items-center gap-2"
             >
               <FaWhatsapp className="text-lg" />
-              <span>Hablar con un Asesor</span>
+              <span>Hablar con un asesor</span>
             </a>
             <Link
               href="/vender"
               className="bg-[#1A1A1A] hover:bg-[#E60000] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-colors shadow-sm flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">shield_person</span>
-              <span>Quiero Vender de Forma Segura</span>
+              <span>Publicar una propiedad</span>
             </Link>
           </div>
 

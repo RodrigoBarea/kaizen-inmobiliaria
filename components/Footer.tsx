@@ -39,7 +39,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-body-sm font-body-sm text-text-muted max-w-sm leading-relaxed">
-              Correduría y asesoramiento inmobiliario de alto estándar en Tarija, Bolivia. Especialistas en residencias de autor, fincas vinícolas y blindaje jurídico notarial.
+              Intermediación y asesoría inmobiliaria en Tarija, Bolivia. Propiedades urbanas, fincas viñeras y verificación documental ante notaría y Derechos Reales.
             </p>
 
             <div className="flex items-center gap-2 text-legal-badge font-legal-badge uppercase text-[#0B4632] font-semibold">

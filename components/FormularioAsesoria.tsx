@@ -62,13 +62,13 @@ export default function FormularioAsesoria() {
         <div className="border border-border-hairline bg-surface-warm p-8 md:p-12 lg:p-16 relative overflow-hidden rounded-[2px]">
           <div className="max-w-2xl relative z-10">
             <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-[#0B4632] block mb-3 font-semibold">
-              Servicio de Captación Exclusiva
+              Servicio para propietarios
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight mb-4">
               ¿Deseas vender o poner en anticrético tu inmueble en Tarija?
             </h2>
             <p className="text-body-md sm:text-body-lg font-body-lg text-text-muted mb-8 leading-relaxed">
-              Realizamos la tasación técnica y saneamiento de carpetas sin costo previo para propietarios calificados. Comercialización discreta y acceso a inversores directos de Tarija, Santa Cruz y La Paz.
+              Tasamos tu propiedad y revisamos los documentos antes de publicarla. Gestionamos la promoción y el contacto con compradores directos en Tarija y el resto del país.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -85,7 +85,7 @@ export default function FormularioAsesoria() {
                 href="/vender"
                 className="border border-primary bg-transparent text-primary hover:bg-primary hover:text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-colors text-sm"
               >
-                Solicitar Tasación Gratuita
+                Solicitar tasación de referencia
               </Link>
             </div>
           </div>
@@ -103,13 +103,13 @@ export default function FormularioAsesoria() {
           <div className="lg:col-span-5 bg-surface-canvas border border-border-hairline p-6 sm:p-8 rounded-[2px] space-y-6">
             <div>
               <span className="text-legal-badge font-legal-badge uppercase tracking-wider text-kaizen-red font-semibold">
-                Asesoría Notarial & Financiera
+                Asesoría legal y comercial
               </span>
               <h3 className="font-headline-sm text-xl sm:text-2xl font-semibold text-primary mt-1">
-                Tu patrimonio en manos expertas
+                Acompañamiento en cada paso
               </h3>
               <p className="text-body-sm text-text-muted mt-2 leading-relaxed">
-                Respondemos en menos de 2 horas en horario laboral. Analizamos tu caso con verificación preliminar en Derechos Reales.
+                Te contactamos durante la jornada para conocer los detalles del inmueble y orientarte sobre los documentos necesarios.
               </p>
             </div>
 

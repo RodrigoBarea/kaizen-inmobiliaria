@@ -33,8 +33,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'KAIZEN Bienes Raíces | Propiedades Exclusivas & Viñedos en Tarija, Bolivia',
-  description: 'Correduría y asesoramiento inmobiliario de alto estándar en Tarija, Bolivia. Residencias de autor, quintas vinícolas y propiedades con folio real saneado.',
+  title: 'KAIZEN Bienes Raíces | Propiedades & Fincas en Tarija, Bolivia',
+  description: 'Asesoramiento inmobiliario y gestión de compraventa en Tarija, Bolivia. Casas, terrenos y fincas con Folio Real verificado.',
 };
 
 export default function RootLayout({
