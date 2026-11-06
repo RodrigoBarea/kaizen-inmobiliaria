@@ -72,7 +72,7 @@ export default function FormularioAsesoria() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                className="bg-[#E60000] hover:bg-[#C00000] text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-all duration-150 hover:-translate-y-0.5 shadow-sm text-sm"
+                className="bg-[#E60000] hover:bg-[#C00000] active:scale-[0.98] text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-[transform,background-color] duration-150 hover:-translate-y-0.5 shadow-sm text-sm"
                 href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
                   '¡Hola KAIZEN! Deseo contactar a un agente inmobiliario para evaluar la venta o anticrético de mi propiedad en Tarija.'
                 )}`}
@@ -83,7 +83,7 @@ export default function FormularioAsesoria() {
               </a>
               <Link
                 href="/vender"
-                className="border border-primary bg-transparent text-primary hover:bg-primary hover:text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-colors text-sm"
+                className="border border-primary bg-transparent text-primary hover:bg-primary hover:text-white active:scale-[0.98] px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-[transform,background-color,color] duration-150 text-sm"
               >
                 Solicitar tasación de referencia
               </Link>
@@ -289,15 +289,15 @@ export default function FormularioAsesoria() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary hover:bg-black text-white py-3 px-6 rounded-[2px] text-xs font-semibold tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-50"
+                    className="w-full bg-primary hover:bg-black active:scale-[0.98] text-white py-3 px-6 rounded-[2px] text-xs font-semibold tracking-wider uppercase transition-[transform,background-color] duration-150 flex items-center justify-center gap-2 shadow-sm disabled:opacity-50"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Enviando Solicitud...</span>
+                        <span>Enviando solicitud...</span>
                       </>
                     ) : (
-                      <span>Enviar Consulta Confidencial</span>
+                      <span>Enviar consulta</span>
                     )}
                   </button>
                 </div>

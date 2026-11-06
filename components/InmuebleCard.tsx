@@ -40,8 +40,8 @@ export default function InmuebleCard({ inmueble }: Props) {
   const numPrecio = Number(precio) || 0;
 
   return (
-    <Link href={`/inmueble/${slug}`} className="block h-full group">
-      <article className="bg-surface-stone border border-border-hairline rounded-[2px] overflow-hidden hover-lift flex flex-col h-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary transition-all duration-300">
+    <Link href={`/inmueble/${slug}`} className="block h-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
+      <article className="bg-surface-stone border border-border-hairline rounded-[2px] overflow-hidden hover-lift flex flex-col h-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary">
         
         {/* Aspect 16/9 Image Container with Preload Shimmer */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-warm">
@@ -55,7 +55,7 @@ export default function InmuebleCard({ inmueble }: Props) {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ${
+            className={`w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
           />
@@ -134,15 +134,15 @@ export default function InmuebleCard({ inmueble }: Props) {
             {/* Price Footer */}
             <div className="pt-2 border-t border-border-hairline flex items-baseline justify-between">
               <div>
-                <span className="text-lg sm:text-xl font-metric-price font-bold text-primary">
+                <span className="text-lg sm:text-xl font-metric-price font-bold text-primary tabular-nums tracking-tight">
                   ${numPrecio.toLocaleString('es-BO')} USD
                 </span>
                 {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
               </div>
 
               <span className="text-xs font-medium text-primary group-hover:text-kaizen-red flex items-center gap-0.5 transition-colors">
-                <span>Ver Inmueble</span>
-                <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+                <span>Ver detalle</span>
+                <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform duration-150 ease-out">chevron_right</span>
               </span>
             </div>
           </div>

@@ -51,13 +51,13 @@ export default function DestacadosPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
           <span className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-widest text-amber-400 bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-full">
-            <Sparkles className="w-3.5 h-3.5" /> Selección KAIZEN Premium
+            <Sparkles className="w-3.5 h-3.5" /> Selección KAIZEN
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Propiedades Destacadas
+            Propiedades destacadas
           </h1>
           <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Inmuebles que destacan por ubicación estratégica, finos acabados y alta plusvalía.
+            Inmuebles seleccionados por su ubicación en Tarija, calidad constructiva y estado de conservación.
           </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function DestacadosPage() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
           <div>
             <h2 className="font-headline-md text-xl font-bold text-[#1A1A1A]">
-              Colección Destacada ({inmuebles.length})
+              Propiedades seleccionadas ({inmuebles.length})
             </h2>
             <p className="text-xs text-gray-500">Página {currentPage} de {totalPages}</p>
           </div>

@@ -134,7 +134,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('venta')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
                 activeTab === 'venta'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -146,7 +146,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('alquiler')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
                 activeTab === 'alquiler'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -158,7 +158,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('anticretico')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
                 activeTab === 'anticretico'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -170,7 +170,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('fincas')}
-              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-[#0B4632] hover:bg-emerald-subtle rounded-[2px] transition-all whitespace-nowrap flex items-center gap-1.5"
+              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-[#0B4632] hover:bg-emerald-subtle active:scale-[0.97] rounded-[2px] transition-transform duration-100 whitespace-nowrap flex items-center gap-1.5"
             >
               <span>Fincas y viñedos</span>
             </button>
@@ -178,9 +178,10 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('vender')}
-              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-text-muted hover:text-kaizen-red hover:bg-surface-canvas rounded-[2px] transition-all whitespace-nowrap ml-auto hidden sm:block"
+              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-text-muted hover:text-kaizen-red active:scale-[0.97] rounded-[2px] transition-transform duration-100 whitespace-nowrap flex items-center gap-1.5 ml-auto"
             >
-              Vender mi Inmueble →
+              <span className="material-symbols-outlined text-[16px]">real_estate_agent</span>
+              <span>Quiero vender</span>
             </button>
           </div>
 
@@ -246,12 +247,12 @@ export default function BannerPrincipal() {
                   onChange={(e) => setRangoPrecio(e.target.value)}
                   className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
                 >
-                  <option value="todos">Sin Restricción de Precio</option>
+                  <option value="todos">Sin restricción de precio</option>
                   <option value="50k">Hasta $50,000 USD</option>
-                  <option value="50k-120k">$50,000 – $120,000 USD</option>
-                  <option value="120k-250k">$120,000 – $250,000 USD</option>
-                  <option value="250k-450k">$250,000 – $450,000 USD</option>
-                  <option value="450k+">$450,000+ USD (Portfolio VIP)</option>
+                  <option value="50k-120k">$50,000 a $120,000 USD</option>
+                  <option value="120k-250k">$120,000 a $250,000 USD</option>
+                  <option value="250k-450k">$250,000 a $450,000 USD</option>
+                  <option value="450k+">Más de $450,000 USD</option>
                 </select>
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
                   payments
@@ -263,10 +264,10 @@ export default function BannerPrincipal() {
             <div className="flex flex-col justify-end">
               <button
                 type="submit"
-                className="w-full bg-[#E60000] hover:bg-[#C00000] text-white py-3 px-6 font-body-md font-medium tracking-tight rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-sm"
+                className="w-full bg-[#E60000] hover:bg-[#C00000] active:scale-[0.98] text-white py-3 px-6 font-body-md font-medium tracking-tight rounded-[2px] transition-[transform,background-color,box-shadow] duration-150 flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-sm"
               >
                 <span className="material-symbols-outlined text-[20px]">search</span>
-                <span>Explorar Propiedades</span>
+                <span>Buscar propiedades</span>
               </button>
             </div>
 

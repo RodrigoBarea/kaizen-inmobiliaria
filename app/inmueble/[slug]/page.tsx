@@ -436,7 +436,7 @@ export default function InmuebleDetallePage() {
               <span className="text-[10px] font-legal-badge uppercase tracking-wider text-text-muted block mb-1">
                 Precio de {categoria?.nombre_categoria || 'Venta'}
               </span>
-              <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary">
+              <div className="text-2xl sm:text-3xl font-metric-price font-bold text-primary tabular-nums tracking-tight">
                 ${numPrecio.toLocaleString('es-BO')} USD
                 {isAlquiler && <span className="text-xs font-normal text-text-muted ml-1">/mes</span>}
               </div>
@@ -458,14 +458,14 @@ export default function InmuebleDetallePage() {
               </div>
               <div>
                 <h3 className="font-headline-sm text-base font-bold text-primary">
-                  {agente?.agent_name || 'Broker Asignado KAIZEN'}
+                  {agente?.agent_name || 'Asesor inmobiliario'}
                 </h3>
                 <p className="text-xs text-text-muted">
-                  {agente?.cargo || 'Especialista Residencial Tarija'}
+                  {agente?.cargo || 'Asesor en Tarija'}
                 </p>
                 <span className="inline-flex items-center gap-1 text-[10px] text-[#0B4632] font-semibold mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B4632]" />
-                  <span>Disponible ahora</span>
+                  <span>Disponible</span>
                 </span>
               </div>
             </div>
@@ -476,18 +476,18 @@ export default function InmuebleDetallePage() {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#E60000] hover:bg-[#C00000] text-white py-3.5 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-sm transition-all duration-150 hover:-translate-y-0.5"
+                className="w-full bg-[#E60000] hover:bg-[#C00000] active:scale-[0.98] text-white py-3.5 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-sm transition-[transform,background-color] duration-150 hover:-translate-y-0.5"
               >
                 <FaWhatsapp className="text-lg" />
-                <span>Agendar Visita por WhatsApp</span>
+                <span>Agendar visita por WhatsApp</span>
               </a>
 
               <a
                 href={`tel:${cleanPhone}`}
-                className="w-full border border-primary text-primary hover:bg-primary hover:text-white py-3 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 transition-colors"
+                className="w-full border border-primary text-primary hover:bg-primary hover:text-white active:scale-[0.98] py-3 px-4 rounded-[2px] font-semibold text-xs text-center flex items-center justify-center gap-2 transition-[transform,background-color,color] duration-150"
               >
                 <span className="material-symbols-outlined text-[18px]">phone</span>
-                <span>Llamar al Asesor</span>
+                <span>Llamar al asesor</span>
               </a>
             </div>
 
@@ -495,7 +495,7 @@ export default function InmuebleDetallePage() {
             <div className="border-t border-border-hairline pt-4 text-[11px] text-text-muted space-y-1.5">
               <div className="flex items-center gap-1.5 text-primary font-semibold">
                 <span className="material-symbols-outlined text-[16px] text-[#0B4632]">shield</span>
-                <span>Garantía de Cero Riesgo KAIZEN</span>
+                <span>Revisión legal KAIZEN</span>
               </div>
               <p>
                 No realizas ningún anticipo sin previa revisión de folio real y documentación homologada.

@@ -68,14 +68,14 @@ export default function Asesoramiento() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#10B981] hover:bg-[#059669] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-all shadow-sm hover:shadow flex items-center gap-2"
+              className="bg-[#10B981] hover:bg-[#059669] active:scale-[0.98] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-[transform,background-color,box-shadow] duration-150 shadow-sm hover:shadow flex items-center gap-2"
             >
               <FaWhatsapp className="text-lg" />
               <span>Hablar con un asesor</span>
             </a>
             <Link
               href="/vender"
-              className="bg-[#1A1A1A] hover:bg-[#E60000] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-colors shadow-sm flex items-center gap-2"
+              className="bg-[#1A1A1A] hover:bg-[#E60000] active:scale-[0.98] text-white font-label-md text-sm font-bold px-6 py-3.5 rounded transition-[transform,background-color] duration-150 shadow-sm flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">shield_person</span>
               <span>Publicar una propiedad</span>

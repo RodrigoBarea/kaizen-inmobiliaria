@@ -18,7 +18,7 @@ export default function Navbar() {
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   const waMsg = encodeURIComponent(
-    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria VIP en Tarija y quiero consultar opciones disponibles con un especialista. ¿Me ayudan?'
+    '¡Hola equipo KAIZEN! 👋 Busco asesoría inmobiliaria en Tarija y quiero consultar opciones disponibles. ¿Me ayudan?'
   );
   const waUrl = `https://wa.me/${cleanPhone}?text=${waMsg}`;
 
@@ -73,39 +73,39 @@ export default function Navbar() {
             <AnimatePresence>
               {inmueblesDropdown && (
                 <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute top-8 left-0 w-56 bg-surface-stone border border-border-hairline rounded-[2px] shadow-xl py-2 z-50"
+                  initial={{ opacity: 0, scale: 0.97, y: 4 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.97, y: 4 }}
+                  transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute top-8 left-0 w-56 origin-top bg-surface-stone border border-border-hairline rounded-[2px] shadow-xl py-2 z-50"
                 >
                   <Link
                     href="/compra/page/1"
                     onClick={() => setInmueblesDropdown(false)}
                     className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Venta Exclusiva
+                    Venta
                   </Link>
                   <Link
                     href="/alquiler/page/1"
                     onClick={() => setInmueblesDropdown(false)}
                     className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Alquiler Corporativo & Residencial
+                    Alquiler
                   </Link>
                   <Link
                     href="/anticretico/page/1"
                     onClick={() => setInmueblesDropdown(false)}
                     className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Anticréticos Certificados
+                    Anticrético
                   </Link>
                   <Link
                     href="/destacados/page/1"
                     onClick={() => setInmueblesDropdown(false)}
                     className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
                   >
-                    Colección Destacada
+                    Destacados
                   </Link>
                   <div className="border-t border-border-hairline my-1" />
                   <Link
@@ -113,7 +113,7 @@ export default function Navbar() {
                     onClick={() => setInmueblesDropdown(false)}
                     className="block px-4 py-2 text-xs font-semibold text-[#0B4632] hover:bg-emerald-subtle transition-colors flex items-center justify-between"
                   >
-                    <span>Terrenos & Viñedos</span>
+                    <span>Fincas y viñedos</span>
                     <span className="text-[10px] bg-[#E7EFEA] text-[#0B4632] px-1.5 py-0.5 rounded">Valle</span>
                   </Link>
                 </motion.div>
@@ -129,7 +129,7 @@ export default function Navbar() {
                 : 'text-text-muted hover:text-primary'
             }`}
           >
-            Terrenos & Viñedos
+            Fincas y viñedos
           </Link>
 
           <Link
@@ -184,7 +184,7 @@ export default function Navbar() {
           <Link
             href="/busqueda"
             aria-label="Buscar propiedad en Tarija"
-            className="p-1.5 text-primary hover:text-kaizen-red transition-colors"
+            className="p-1.5 text-primary hover:text-kaizen-red active:scale-[0.92] transition-transform duration-100"
           >
             <span className="material-symbols-outlined text-[20px]">search</span>
           </Link>
@@ -194,10 +194,10 @@ export default function Navbar() {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] text-white px-4 py-2 rounded-[2px] text-xs font-semibold tracking-tight shadow-sm transition-all duration-150 hover:-translate-y-0.5"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#E60000] hover:bg-[#C00000] active:scale-[0.97] text-white px-4 py-2 rounded-[2px] text-xs font-semibold tracking-tight shadow-sm transition-all duration-150 hover:-translate-y-0.5"
           >
             <FaWhatsapp className="text-sm" />
-            <span>Agenda tu visita</span>
+            <span>Agendar visita</span>
           </a>
 
           {/* Mobile Menu Toggle Button */}

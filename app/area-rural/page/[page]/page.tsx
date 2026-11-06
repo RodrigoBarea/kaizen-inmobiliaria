@@ -63,13 +63,13 @@ export default function AreaRuralPage() {
         />
         <div className="relative z-10 text-center text-white px-4 space-y-3 py-16 max-w-4xl mx-auto">
           <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-widest text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-3.5 py-1 rounded-full">
-            <TreePine className="w-3.5 h-3.5" /> Fincas, Viñedos & Terrenos Campestres
+            <TreePine className="w-3.5 h-3.5" /> Fincas, viñedos y campo
           </span>
           <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase tracking-tight">
-            Área Rural & Tierras Productivas en Tarija
+            Área rural y fincas en Tarija
           </h1>
           <p className="text-xs sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Invierte en la tierra de mayor plusvalía y encanto natural de Bolivia. Propiedades saneadas con acceso a agua de riego permanente en Uriondo, San Lorenzo, Tomatitas, Tolomosa y San Andrés.
+            Propiedades en Uriondo, San Lorenzo, Tomatitas, Tolomosa y San Andrés. Terrenos y fincas con acceso a agua de riego, vía transitable y documentación saneada en Derechos Reales.
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function AreaRuralPage() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
           <div>
             <h2 className="font-headline-md text-xl font-bold text-[#1A1A1A]">
-              Propiedades Rurales Disponibles ({filteredInmuebles.length})
+              Propiedades disponibles ({filteredInmuebles.length})
             </h2>
             <p className="text-xs text-gray-500 mt-0.5">
               Fincas rústicas, casas de campo y parcelas con potencial agrícola o turístico

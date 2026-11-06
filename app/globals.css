@@ -50,11 +50,21 @@
 }
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease-out;
 }
 .hover-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
+}
+.hover-lift:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.btn-tactile {
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.btn-tactile:active {
+  transform: scale(0.975);
 }
 
 /* Custom scrollbars */
@@ -79,7 +89,7 @@
 
 /* Map Markers */
 .map-marker {
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.18s ease-out;
 }
 .map-marker:hover {
   transform: scale(1.1) translateY(-2px);

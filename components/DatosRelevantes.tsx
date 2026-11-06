@@ -175,7 +175,7 @@ export default function DatosRelevantes({ metricas }: Props) {
         {/* Big Display Metric Banners */}
         <div className="mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-3 border border-border-hairline bg-surface-warm/50 divide-y md:divide-y-0 md:divide-x divide-border-hairline text-center py-6 sm:py-8 rounded-[2px]">
           <div className="p-4 sm:p-6">
-            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-primary font-bold">
+            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-primary font-bold tabular-nums">
               +{inView ? countProps : 0}
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
@@ -187,7 +187,7 @@ export default function DatosRelevantes({ metricas }: Props) {
           </div>
 
           <div className="p-4 sm:p-6">
-            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-[#0B4632] font-bold">
+            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-[#0B4632] font-bold tabular-nums">
               {inView ? countSeg : 0}%
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
@@ -199,7 +199,7 @@ export default function DatosRelevantes({ metricas }: Props) {
           </div>
 
           <div className="p-4 sm:p-6">
-            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-[#E60000] font-bold">
+            <span className="block text-3xl sm:text-4xl lg:text-[48px] font-display-xl text-[#E60000] font-bold tabular-nums">
               {inView ? countDias : 0} Días
             </span>
             <span className="text-sm font-semibold text-primary mt-2 block">
