@@ -30,7 +30,7 @@ export default function Navbar() {
     pathname.startsWith('/inmueble');
 
   return (
-    <header className="sticky top-0 z-50 bg-surface-stone/95 backdrop-blur-md border-b border-border-hairline transition-all duration-300">
+    <header className="sticky top-0 z-50 bg-surface-stone/80 backdrop-blur-xl saturate-[180%] border-b border-border-hairline/80 transition-all duration-300 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex justify-between items-center max-w-[1500px] mx-auto">
         
         {/* Brand Logo */}
@@ -73,11 +73,11 @@ export default function Navbar() {
             <AnimatePresence>
               {inmueblesDropdown && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.97, y: 4 }}
+                  initial={{ opacity: 0, scale: 0.98, y: -4 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.97, y: 4 }}
-                  transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute top-8 left-0 w-56 origin-top bg-surface-stone border border-border-hairline rounded-[2px] shadow-xl py-2 z-50"
+                  exit={{ opacity: 0, scale: 0.98, y: -4 }}
+                  transition={{ type: 'spring', damping: 28, stiffness: 320, mass: 0.8 }}
+                  className="absolute top-9 left-0 w-56 origin-top bg-surface-stone/95 backdrop-blur-xl saturate-[180%] border border-border-hairline/80 rounded-[4px] shadow-[0_12px_32px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.02)] py-2 z-50"
                 >
                   <Link
                     href="/compra/page/1"
@@ -222,8 +222,8 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-surface-stone border-b border-border-hairline px-6 py-6 space-y-4"
+            transition={{ type: 'spring', damping: 30, stiffness: 300, mass: 0.9 }}
+            className="lg:hidden bg-surface-stone/95 backdrop-blur-xl saturate-[180%] border-b border-border-hairline/80 px-6 py-6 space-y-4 shadow-xl overflow-hidden"
           >
             <div className="flex flex-col space-y-3 font-body-sm text-sm">
               <Link

@@ -122,7 +122,7 @@ export default function BannerPrincipal() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="mt-10 lg:mt-14 w-full bg-surface-stone border border-border-hairline shadow-[0_12px_32px_-8px_rgba(17,17,17,0.06)] p-5 sm:p-7 rounded-[2px]"
+          className="mt-10 lg:mt-14 w-full apple-glass-card border border-border-hairline/80 apple-shadow-modal p-5 sm:p-7 rounded-[4px]"
         >
           {/* Transaction Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-4 border-b border-border-hairline custom-scrollbar">

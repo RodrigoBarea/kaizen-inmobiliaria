@@ -42,7 +42,7 @@ export default function InmuebleCard({ inmueble }: Props) {
 
   return (
     <Link href={`/inmueble/${slug}`} className="block h-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-[2px]">
-      <article className="bg-surface-stone border border-border-hairline rounded-[2px] overflow-hidden hover-lift flex flex-col h-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary">
+      <article className="bg-surface-stone border border-border-hairline rounded-[2px] overflow-hidden hover-lift flex flex-col h-full apple-shadow-card hover:border-primary/80">
         
         {/* Aspect 16/9 Image Container with Preload Shimmer */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-warm">
@@ -61,12 +61,12 @@ export default function InmuebleCard({ inmueble }: Props) {
             }`}
           />
 
-          {/* Badges: Operación y Tipo juntos */}
+          {/* Badges: Operación y Tipo juntos (Translucent Floating Layer) */}
           <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-            <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+            <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
               {formatOperacion(categoriaNombre)}
             </span>
-            <span className="bg-primary/90 backdrop-blur-md text-white px-2.5 py-1 rounded-[2px] text-[10px] font-semibold uppercase tracking-wider shadow-sm">
+            <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white px-2.5 py-1 rounded-[2px] text-[10px] font-semibold uppercase tracking-wider shadow-sm">
               {tipo}
             </span>
           </div>

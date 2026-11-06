@@ -114,12 +114,12 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                           sizes="(max-width: 768px) 100vw, 33vw"
                           className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                         />
-                        {/* Badges: Operación y Tipo juntos */}
+                        {/* Badges: Operación y Tipo juntos (Apple Translucent Dark Glass) */}
                         <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-                          <span className="bg-[#00170e]/95 backdrop-blur-md text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b] shadow-sm">
+                          <span className="bg-[#00170e]/85 backdrop-blur-md saturate-[160%] text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b]/80 shadow-sm">
                             {formatOperacion(item.categoria?.nombre_categoria)}
                           </span>
-                          <span className="bg-[#0B4632] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                          <span className="bg-[#0B4632]/85 backdrop-blur-md saturate-[160%] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                             {item.tipo}
                           </span>
                         </div>
@@ -170,12 +170,12 @@ export default function AreaRuralSection({ inmuebles = [] }: Props) {
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                       />
-                      {/* Badges: Operación y Tipo juntos */}
+                      {/* Badges: Operación y Tipo juntos (Apple Translucent Dark Glass) */}
                       <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-                        <span className="bg-[#00170e]/95 backdrop-blur-md text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b] shadow-sm">
+                        <span className="bg-[#00170e]/85 backdrop-blur-md saturate-[160%] text-[#b6efd3] text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-[#19503b]/80 shadow-sm">
                           En Venta
                         </span>
-                        <span className="bg-[#0B4632] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                        <span className="bg-[#0B4632]/85 backdrop-blur-md saturate-[160%] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                           {item.type}
                         </span>
                       </div>

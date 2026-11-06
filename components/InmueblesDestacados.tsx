@@ -93,12 +93,12 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 }`}
               />
 
-              {/* Badges: Operación y Tipo juntos */}
+              {/* Badges: Operación y Tipo juntos (Translucent Floating Layer) */}
               <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-                <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
                   {formatOperacion(lead.categoria?.nombre_categoria)}
                 </span>
-                <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                   {lead.tipo}
                 </span>
               </div>
@@ -183,7 +183,7 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
               return (
                 <article
                   key={item.id}
-                  className="bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group flex-1 overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-primary transition-[border-color,box-shadow,transform] duration-200 ease-out"
+                  className="bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group flex-1 overflow-hidden apple-shadow-card hover:border-primary/80 hover-lift"
                 >
                   <Link href={`/inmueble/${item.slug}`} className="relative aspect-[16/9] overflow-hidden bg-surface-warm block">
                     <Image
@@ -193,12 +193,12 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                     />
-                    {/* Badges: Operación y Tipo juntos */}
+                    {/* Badges: Operación y Tipo juntos (Translucent Floating Layer) */}
                     <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-                      <span className="bg-surface-stone/95 backdrop-blur-md text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline shadow-sm">
+                      <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
                         {formatOperacion(item.categoria?.nombre_categoria)}
                       </span>
-                      <span className="bg-primary/90 backdrop-blur-md text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+                      <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
                         {item.tipo}
                       </span>
                     </div>
