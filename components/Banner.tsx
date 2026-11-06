@@ -112,11 +112,6 @@ export default function BannerPrincipal() {
               <div className="absolute bottom-4 left-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-1.5 border border-border-hairline text-legal-badge font-legal-badge uppercase tracking-wider text-primary shadow-sm">
                 Villa Los Sauces · Aranjuez, Tarija
               </div>
-
-              {/* Exclusivity Badge */}
-              <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-[2px] text-legal-badge font-legal-badge uppercase tracking-widest shadow-sm">
-                Cartera KAIZEN
-              </div>
             </div>
           </motion.div>
 
