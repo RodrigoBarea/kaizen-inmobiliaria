@@ -67,7 +67,7 @@ export default function BannerPrincipal() {
             >
               Tu próximo hogar. <br />
               Tu mejor inversión. <br />
-              <span className="italic font-normal text-[#E60000]">Con seguridad jurídica.</span>
+              <span className="italic font-normal text-[#E60000]">Cero riesgos.</span>
             </motion.h1>
 
             {/* Subtítulo curado */}
