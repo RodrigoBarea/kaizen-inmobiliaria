@@ -36,32 +36,26 @@ export default function BlogPage() {
   const currentItems = blogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <div className="space-y-12 pb-20 pt-20 bg-white">
+    <div className="bg-white min-h-screen pb-24">
       
-      {/* Banner */}
-      <div className="relative min-h-[300px] w-full overflow-hidden bg-[#1A1A1A] flex items-center justify-center">
-        <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&auto=format&fit=crop&q=80"
-          alt="Blog Inmobiliario KAIZEN"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-30"
-          priority
-        />
-        <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
-          <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Artículos y publicaciones
-          </span>
-          <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Blog inmobiliario
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Información sobre el mercado inmobiliario en Tarija, trámites legales y recomendaciones para compradores y propietarios.
-          </p>
+      {/* Luminous Editorial Header inspirado en LuxuryEstate */}
+      <div className="bg-surface-canvas border-b border-border-hairline py-12 sm:py-16">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col items-start max-w-3xl">
+            <span className="text-[11px] uppercase font-semibold tracking-wider text-primary bg-surface-stone border border-border-hairline px-3 py-1 rounded-[2px] mb-3 shadow-sm">
+              Artículos y Publicaciones · KAIZEN
+            </span>
+            <h1 className="font-display-xl text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight leading-[1.1] mb-3">
+              Blog inmobiliario de Tarija
+            </h1>
+            <p className="font-body-md text-sm sm:text-base text-text-muted leading-relaxed">
+              Información sobre el mercado inmobiliario en Tarija, trámites legales y recomendaciones para compradores y propietarios.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 space-y-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 space-y-8">
         
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center space-y-3">
@@ -77,11 +71,12 @@ export default function BlogPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {currentItems.map((blog) => (
-              <div
+              <Link
                 key={blog.id}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover-lift flex flex-col group"
+                href={`/blog/${blog.slug}`}
+                className="bg-white rounded-[2px] border border-border-hairline overflow-hidden shadow-sm flex flex-col group transition-transform duration-200 hover:-translate-y-1"
               >
-                <div className="relative aspect-video w-full overflow-hidden bg-gray-100">
+                <div className="relative aspect-video w-full overflow-hidden bg-surface-canvas">
                   <Image
                     src={blog.portada || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80'}
                     alt={blog.titulo}
@@ -92,9 +87,9 @@ export default function BlogPage() {
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow space-y-3">
-                  <div className="flex items-center gap-4 text-xs text-gray-500">
+                  <div className="flex items-center gap-4 text-xs text-text-muted">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#E60000]" />
+                      <Calendar className="w-3.5 h-3.5 text-primary" />
                       <span>
                         {new Date(blog.created_at || new Date().toISOString()).toLocaleDateString('es-ES', {
                           month: 'short',
@@ -105,28 +100,28 @@ export default function BlogPage() {
                     </span>
                     {blog.agente && (
                       <span className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-gray-400" />
+                        <User className="w-3.5 h-3.5 text-text-muted" />
                         <span>{blog.agente.agent_name}</span>
                       </span>
                     )}
                   </div>
 
-                  <h3 className="font-headline-md text-lg font-bold text-[#1A1A1A] group-hover:text-[#E60000] transition line-clamp-2">
+                  <h3 className="font-headline-sm text-base font-bold text-primary group-hover:text-kaizen-red transition-colors line-clamp-2">
                     {blog.titulo}
                   </h3>
 
-                  <p className="font-body-md text-xs text-gray-600 line-clamp-3 leading-relaxed flex-grow">
+                  <p className="font-body-md text-xs text-text-muted line-clamp-3 leading-relaxed flex-grow">
                     {blog.contenido}
                   </p>
 
-                  <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#E60000] group-hover:underline flex items-center gap-1">
+                  <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
+                    <span className="text-xs font-semibold text-primary group-hover:text-kaizen-red flex items-center gap-1 transition-colors">
                       <span>Leer artículo</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

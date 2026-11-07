@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Inmueble } from '@/types/database';
 import { getInmuebles } from '@/lib/supabase';
 import InmuebleCard from '@/components/InmuebleCard';
@@ -37,45 +36,40 @@ export default function CompraPage() {
   const currentItems = inmuebles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <div className="space-y-12 pb-20 pt-20 bg-white">
+    <div className="bg-white min-h-screen pb-24">
       
-      {/* Banner de Categoría */}
-      <div className="relative min-h-[300px] w-full overflow-hidden bg-[#1A1A1A] flex items-center justify-center">
-        <Image
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80"
-          alt="Inmuebles en Venta"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-30"
-          priority
-        />
-        <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
-          <span className="text-xs uppercase font-bold tracking-widest text-red-300 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full inline-block">
-            Venta de propiedades
-          </span>
-          <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Inmuebles en venta
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Casas, departamentos y terrenos en Tarija con títulos de propiedad verificados.
-          </p>
+      {/* Luminous Editorial Header inspirado en LuxuryEstate */}
+      <div className="bg-surface-canvas border-b border-border-hairline py-12 sm:py-16">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col items-start max-w-3xl">
+            <span className="text-[11px] uppercase font-semibold tracking-wider text-primary bg-surface-stone border border-border-hairline px-3 py-1 rounded-[2px] mb-3 shadow-sm">
+              Catálogo Oficial · Venta
+            </span>
+            <h1 className="font-display-xl text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight leading-[1.1] mb-3">
+              Inmuebles en venta en Tarija
+            </h1>
+            <p className="font-body-md text-sm sm:text-base text-text-muted leading-relaxed">
+              Casas residenciales, departamentos y terrenos con títulos saneados en Derechos Reales y aptos para crédito hipotecario.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 space-y-8">
-        {/* Header con Contador */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 space-y-8">
+        
+        {/* Header con Contador y Enlace al Mapa */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-border-hairline">
           <div>
-            <h2 className="font-headline-md text-xl font-bold text-[#1A1A1A]">
-              Propiedades Disponibles ({inmuebles.length})
+            <h2 className="font-headline-sm text-lg sm:text-xl font-bold text-primary">
+              Propiedades disponibles ({inmuebles.length})
             </h2>
-            <p className="text-xs text-gray-500">Página {currentPage} de {totalPages}</p>
+            <p className="text-xs text-text-muted">Página {currentPage} de {totalPages}</p>
           </div>
           <Link
             href="/busqueda?categoria=venta"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E60000] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-kaizen-red bg-surface-stone border border-border-hairline px-3 py-1.5 rounded-[2px] transition-colors shadow-sm"
           >
-            <span className="material-symbols-outlined text-[18px]">map</span>
+            <span className="material-symbols-outlined text-[16px]">map</span>
             <span>Ver resultados en mapa interactivo</span>
           </Link>
         </div>
@@ -83,23 +77,23 @@ export default function CompraPage() {
         {/* Content */}
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center space-y-3">
-            <Loader2 className="w-8 h-8 animate-spin text-[#E60000]" />
-            <p className="text-xs text-gray-500">Cargando propiedades en venta...</p>
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <p className="text-xs text-text-muted">Cargando propiedades en venta...</p>
           </div>
         ) : currentItems.length === 0 ? (
-          <div className="py-16 text-center space-y-3 bg-[#F7F7F7] rounded-xl border border-gray-200">
-            <p className="font-headline-sm text-base text-gray-600 font-semibold">
+          <div className="py-16 text-center space-y-3 bg-surface-canvas rounded-[2px] border border-border-hairline">
+            <p className="font-headline-sm text-base text-text-muted font-semibold">
               No hay inmuebles disponibles en esta sección actualmente.
             </p>
             <Link
               href="/"
-              className="inline-block bg-[#1A1A1A] text-white text-xs font-bold px-6 py-2.5 rounded hover:bg-[#E60000] transition"
+              className="inline-block bg-primary text-white text-xs font-semibold px-6 py-2.5 rounded-[2px] hover:bg-kaizen-red transition-colors"
             >
               Volver al Inicio
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {currentItems.map((inmueble) => (
               <InmuebleCard key={inmueble.id} inmueble={inmueble} />
             ))}
@@ -111,10 +105,10 @@ export default function CompraPage() {
           <div className="pt-8 flex justify-center items-center gap-2">
             <Link
               href={`/compra/page/${Math.max(1, currentPage - 1)}`}
-              className={`p-2.5 rounded border border-gray-200 text-xs font-bold flex items-center gap-1 ${
+              className={`p-2.5 rounded-[2px] border border-border-hairline text-xs font-semibold flex items-center gap-1 transition-colors ${
                 currentPage === 1
-                  ? 'pointer-events-none opacity-40 bg-gray-100 text-gray-400'
-                  : 'bg-white text-[#1A1A1A] hover:bg-gray-50'
+                  ? 'pointer-events-none opacity-40 bg-surface-canvas text-text-muted'
+                  : 'bg-surface-stone text-primary hover:bg-surface-canvas'
               }`}
             >
               <ChevronLeft className="w-4 h-4" />
@@ -126,10 +120,10 @@ export default function CompraPage() {
                 <Link
                   key={p}
                   href={`/compra/page/${p}`}
-                  className={`w-9 h-9 rounded flex items-center justify-center text-xs font-bold transition ${
+                  className={`w-9 h-9 rounded-[2px] flex items-center justify-center text-xs font-semibold transition-colors ${
                     p === currentPage
-                      ? 'bg-[#E60000] text-white shadow-sm'
-                      : 'bg-white border border-gray-200 text-[#1A1A1A] hover:bg-gray-50'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'bg-surface-stone border border-border-hairline text-primary hover:bg-surface-canvas'
                   }`}
                 >
                   {p}
@@ -139,10 +133,10 @@ export default function CompraPage() {
 
             <Link
               href={`/compra/page/${Math.min(totalPages, currentPage + 1)}`}
-              className={`p-2.5 rounded border border-gray-200 text-xs font-bold flex items-center gap-1 ${
+              className={`p-2.5 rounded-[2px] border border-border-hairline text-xs font-semibold flex items-center gap-1 transition-colors ${
                 currentPage === totalPages
-                  ? 'pointer-events-none opacity-40 bg-gray-100 text-gray-400'
-                  : 'bg-white text-[#1A1A1A] hover:bg-gray-50'
+                  ? 'pointer-events-none opacity-40 bg-surface-canvas text-text-muted'
+                  : 'bg-surface-stone text-primary hover:bg-surface-canvas'
               }`}
             >
               <span>Siguiente</span>

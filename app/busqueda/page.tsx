@@ -74,7 +74,7 @@ function BusquedaContent() {
   });
 
   return (
-    <div className="pt-20 h-screen flex flex-col overflow-hidden bg-background">
+    <div className="h-[calc(100vh-68px)] flex flex-col overflow-hidden bg-background">
       {/* Mobile Toggle Tabs */}
       <div className="lg:hidden flex border-b border-surface-variant bg-surface shrink-0">
         <button

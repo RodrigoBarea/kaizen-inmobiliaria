@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Inmueble } from '@/types/database';
 import { getInmuebles } from '@/lib/supabase';
 import InmuebleCard from '@/components/InmuebleCard';
@@ -49,50 +48,44 @@ export default function AreaRuralPage() {
   )}`;
 
   return (
-    <div className="space-y-12 pb-20 pt-20 bg-white">
+    <div className="bg-white min-h-screen pb-24">
       
-      {/* Hero Banner Campestre */}
-      <div className="relative min-h-[360px] w-full overflow-hidden bg-[#151C18] flex items-center justify-center">
-        <Image
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600&auto=format&fit=crop&q=80"
-          alt="Propiedades en Área Rural de Tarija"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-35"
-          priority
-        />
-        <div className="relative z-10 text-center text-white px-4 space-y-3 py-16 max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-widest text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-3.5 py-1 rounded-full">
-            <TreePine className="w-3.5 h-3.5" /> Fincas, viñedos y campo
-          </span>
-          <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase tracking-tight">
-            Área rural y fincas en Tarija
-          </h1>
-          <p className="text-xs sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Propiedades en Uriondo, San Lorenzo, Tomatitas, Tolomosa y San Andrés. Terrenos y fincas con acceso a agua de riego, vía transitable y documentación saneada en Derechos Reales.
-          </p>
+      {/* Luminous Editorial Header inspirado en LuxuryEstate & Terruño */}
+      <div className="bg-surface-canvas border-b border-border-hairline py-12 sm:py-16">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col items-start max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 text-[11px] uppercase font-semibold tracking-wider text-[#0B4632] bg-[#E7EFEA] border border-[#0B4632]/20 px-3 py-1 rounded-[2px] mb-3 shadow-sm">
+              <TreePine className="w-3.5 h-3.5 text-[#0B4632]" /> Ecosistema & Terruño · Valle Central de Tarija
+            </span>
+            <h1 className="font-display-xl text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight leading-[1.1] mb-3">
+              Área rural, fincas y viñedos en Tarija
+            </h1>
+            <p className="font-body-md text-sm sm:text-base text-text-muted leading-relaxed">
+              Propiedades rurales en Uriondo, San Lorenzo, Padcaya y Calamuchita. Fincas y parcelas con derechos de agua registrados, suelo fértil y titulación saneada en INRA y Derechos Reales.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 space-y-10">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 space-y-10">
         
         {/* Barra de Filtro por Municipio / Zona */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-border-hairline">
           <div>
-            <h2 className="font-headline-md text-xl font-bold text-[#1A1A1A]">
+            <h2 className="font-headline-sm text-lg sm:text-xl font-bold text-primary">
               Propiedades disponibles ({filteredInmuebles.length})
             </h2>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-text-muted mt-0.5">
               Fincas rústicas, casas de campo y parcelas con potencial agrícola o turístico
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Municipio:</span>
+            <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Municipio:</span>
             <select
               value={selectedMunicipio}
               onChange={(e) => setSelectedMunicipio(e.target.value)}
-              className="h-10 px-3 border border-gray-300 rounded font-body-md text-xs sm:text-sm text-[#1A1A1A] bg-white cursor-pointer focus:border-[#E60000] focus:ring-0"
+              className="h-10 px-3 border border-border-hairline rounded-[2px] font-body-md text-xs sm:text-sm text-primary bg-white cursor-pointer focus:border-[#0B4632] focus:ring-0 shadow-sm"
             >
               <option value="Todos">Todo el Valle de Tarija</option>
               <option value="Uriondo">Uriondo / El Valle de la Concepción</option>
@@ -106,39 +99,39 @@ export default function AreaRuralPage() {
         </div>
 
         {/* 3 Garantías KAIZEN para el Campo */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-[#F7F7F7] p-6 rounded-2xl border border-gray-200">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-surface-canvas p-6 rounded-[2px] border border-border-hairline">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-[2px] bg-[#E7EFEA] text-[#0B4632] flex items-center justify-center shrink-0 border border-[#0B4632]/20">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-gray-900">Seguridad Jurídica INRA & DDRR</h4>
-              <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
-                Títulos saneados y verificación de gravámenes en Derechos Reales.
+              <h4 className="font-semibold text-sm text-primary">Seguridad Jurídica INRA & DDRR</h4>
+              <p className="text-xs text-text-muted mt-0.5 leading-relaxed">
+                Títulos saneados y verificación exhaustiva de gravámenes en Derechos Reales.
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-[2px] bg-[#E7EFEA] text-[#0B4632] flex items-center justify-center shrink-0 border border-[#0B4632]/20">
               <Waves className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-gray-900">Agua de Riego Permanente</h4>
-              <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
-                Comprobamos derechos de acequia, tomas de agua y manantiales.
+              <h4 className="font-semibold text-sm text-primary">Agua de Riego Permanente</h4>
+              <p className="text-xs text-text-muted mt-0.5 leading-relaxed">
+                Comprobamos derechos de acequia, tomas de agua, pozos y vertientes naturales.
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-[2px] bg-[#E7EFEA] text-[#0B4632] flex items-center justify-center shrink-0 border border-[#0B4632]/20">
               <Compass className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm text-gray-900">Asesoría Agronómica y Comercial</h4>
-              <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
-                Estudios de rentabilidad para viñedos, cabañas de alquiler o descanso.
+              <h4 className="font-semibold text-sm text-primary">Asesoría Agronómica y Comercial</h4>
+              <p className="text-xs text-text-muted mt-0.5 leading-relaxed">
+                Estudios de rentabilidad para viñedos, cabañas de descanso o proyectos turísticos.
               </p>
             </div>
           </div>
@@ -146,24 +139,24 @@ export default function AreaRuralPage() {
 
         {/* Listado de Propiedades */}
         {loading ? (
-          <div className="py-24 flex flex-col items-center justify-center text-gray-400 gap-3">
-            <Loader2 className="w-8 h-8 animate-spin text-[#E60000]" />
-            <p className="text-sm font-semibold">Cargando catálogo rural...</p>
+          <div className="py-24 flex flex-col items-center justify-center text-text-muted gap-3">
+            <Loader2 className="w-8 h-8 animate-spin text-[#0B4632]" />
+            <p className="text-sm font-medium">Cargando catálogo rural...</p>
           </div>
         ) : filteredInmuebles.length === 0 ? (
-          <div className="text-center py-20 bg-[#F7F7F7] rounded-xl border border-gray-200 space-y-4">
-            <TreePine className="w-12 h-12 text-gray-400 mx-auto" />
-            <h3 className="font-bold text-lg text-gray-800">
+          <div className="text-center py-20 bg-surface-canvas rounded-[2px] border border-border-hairline space-y-4">
+            <TreePine className="w-12 h-12 text-[#0B4632]/40 mx-auto" />
+            <h3 className="font-semibold text-lg text-primary">
               No hay propiedades registradas en este municipio por el momento
             </h3>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">
-              Contáctanos directamente por WhatsApp para consultar opciones privadas o propiedades fuera del catálogo web.
+            <p className="text-sm text-text-muted max-w-md mx-auto">
+              Contáctanos directamente por WhatsApp para consultar opciones privadas o propiedades fuera del catálogo público.
             </p>
             <a
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#10B981] hover:bg-[#059669] text-white font-bold px-6 py-3 rounded text-xs uppercase tracking-wider shadow"
+              className="inline-flex items-center gap-2 bg-[#0B4632] hover:bg-[#083526] text-white font-medium px-6 py-2.5 rounded-[2px] text-xs uppercase tracking-wider transition-colors shadow-sm"
             >
               <FaWhatsapp className="text-base" />
               <span>Consultar Opciones Privadas</span>
@@ -183,12 +176,12 @@ export default function AreaRuralPage() {
             {currentPage > 1 ? (
               <Link
                 href={`/area-rural/page/${currentPage - 1}`}
-                className="w-10 h-10 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition text-[#1A1A1A]"
+                className="w-10 h-10 rounded-[2px] border border-border-hairline flex items-center justify-center hover:bg-surface-stone transition text-primary"
               >
                 <ChevronLeft className="w-5 h-5" />
               </Link>
             ) : (
-              <span className="w-10 h-10 rounded border border-gray-200 flex items-center justify-center text-gray-300 cursor-not-allowed">
+              <span className="w-10 h-10 rounded-[2px] border border-border-hairline flex items-center justify-center text-text-muted/40 cursor-not-allowed bg-surface-canvas">
                 <ChevronLeft className="w-5 h-5" />
               </span>
             )}
@@ -197,10 +190,10 @@ export default function AreaRuralPage() {
               <Link
                 key={p}
                 href={`/area-rural/page/${p}`}
-                className={`w-10 h-10 rounded font-bold text-sm flex items-center justify-center transition ${
+                className={`w-10 h-10 rounded-[2px] font-semibold text-xs flex items-center justify-center transition ${
                   p === currentPage
-                    ? 'bg-[#E60000] text-white shadow-sm'
-                    : 'border border-gray-300 text-[#1A1A1A] hover:bg-gray-100'
+                    ? 'bg-[#0B4632] text-white shadow-sm'
+                    : 'border border-border-hairline text-primary hover:bg-surface-stone bg-white'
                 }`}
               >
                 {p}
@@ -210,28 +203,28 @@ export default function AreaRuralPage() {
             {currentPage < totalPages ? (
               <Link
                 href={`/area-rural/page/${currentPage + 1}`}
-                className="w-10 h-10 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition text-[#1A1A1A]"
+                className="w-10 h-10 rounded-[2px] border border-border-hairline flex items-center justify-center hover:bg-surface-stone transition text-primary"
               >
                 <ChevronRight className="w-5 h-5" />
               </Link>
             ) : (
-              <span className="w-10 h-10 rounded border border-gray-200 flex items-center justify-center text-gray-300 cursor-not-allowed">
+              <span className="w-10 h-10 rounded-[2px] border border-border-hairline flex items-center justify-center text-text-muted/40 cursor-not-allowed bg-surface-canvas">
                 <ChevronRight className="w-5 h-5" />
               </span>
             )}
           </div>
         )}
 
-        {/* Banner CTA para Venta de Tierras y Fincas */}
-        <div className="bg-[#1A1A1A] text-white p-8 sm:p-12 rounded-2xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-gray-800 shadow-2xl">
+        {/* Banner CTA para Venta de Tierras y Fincas con estilo refinado */}
+        <div className="bg-surface-canvas p-8 sm:p-12 rounded-[2px] flex flex-col lg:flex-row items-center justify-between gap-8 border border-border-hairline shadow-sm">
           <div className="space-y-3 text-center lg:text-left max-w-2xl">
-            <span className="text-xs font-bold text-[#E60000] uppercase tracking-widest bg-red-950/60 border border-red-900/60 px-3 py-1 rounded-full inline-block">
+            <span className="text-[11px] font-semibold text-[#0B4632] uppercase tracking-wider bg-[#E7EFEA] border border-[#0B4632]/20 px-3 py-1 rounded-[2px] inline-block shadow-sm">
               Para Propietarios de Campo
             </span>
-            <h3 className="font-headline-md text-2xl sm:text-3xl font-black">
+            <h3 className="font-display-xl text-2xl sm:text-3xl font-bold text-primary">
               ¿Deseas vender o dar en anticrético una finca o terreno en Tarija?
             </h3>
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
               En KAIZEN contamos con clientes calificados en busca de hectáreas productivas, casas de campo y viñedos en los valles tarijeños. Realizamos un estudio de tasación real sin costo.
             </p>
           </div>
@@ -239,7 +232,7 @@ export default function AreaRuralPage() {
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             <Link
               href="/vender"
-              className="bg-[#E60000] hover:bg-[#C00000] text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded shadow transition"
+              className="bg-primary hover:bg-primary-hover text-white font-medium text-xs uppercase tracking-wider px-6 py-3.5 rounded-[2px] shadow-sm transition-colors"
             >
               Registrar mi Inmueble Rural
             </Link>
@@ -247,7 +240,7 @@ export default function AreaRuralPage() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#10B981] hover:bg-[#059669] text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded shadow flex items-center gap-2 transition"
+              className="bg-[#0B4632] hover:bg-[#083526] text-white font-medium text-xs uppercase tracking-wider px-6 py-3.5 rounded-[2px] shadow-sm flex items-center gap-2 transition-colors"
             >
               <FaWhatsapp className="text-base" />
               <span>Hablar con un Especialista</span>

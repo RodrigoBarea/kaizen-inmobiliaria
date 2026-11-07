@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Inmueble } from '@/types/database';
 import { getInmuebles } from '@/lib/supabase';
 import InmuebleCard from '@/components/InmuebleCard';
@@ -37,61 +36,55 @@ export default function DestacadosPage() {
   const currentItems = inmuebles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <div className="space-y-12 pb-20 pt-20 bg-white">
+    <div className="bg-white min-h-screen pb-24">
       
-      {/* Banner */}
-      <div className="relative min-h-[300px] w-full overflow-hidden bg-[#1A1A1A] flex items-center justify-center">
-        <Image
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&auto=format&fit=crop&q=80"
-          alt="Propiedades Destacadas"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-30"
-          priority
-        />
-        <div className="relative z-10 text-center text-white px-4 space-y-2 py-12">
-          <span className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-widest text-amber-400 bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-full">
-            <Sparkles className="w-3.5 h-3.5" /> Selección KAIZEN
-          </span>
-          <h1 className="font-headline-md text-3xl sm:text-5xl font-black uppercase">
-            Propiedades destacadas
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto">
-            Inmuebles seleccionados por su ubicación en Tarija, calidad constructiva y estado de conservación.
-          </p>
+      {/* Luminous Editorial Header inspirado en LuxuryEstate */}
+      <div className="bg-surface-canvas border-b border-border-hairline py-12 sm:py-16">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="flex flex-col items-start max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 text-[11px] uppercase font-semibold tracking-wider text-primary bg-surface-stone border border-border-hairline px-3 py-1 rounded-[2px] mb-3 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Selección KAIZEN
+            </span>
+            <h1 className="font-display-xl text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight leading-[1.1] mb-3">
+              Propiedades destacadas en Tarija
+            </h1>
+            <p className="font-body-md text-sm sm:text-base text-text-muted leading-relaxed">
+              Inmuebles seleccionados por su ubicación estratégica, calidad constructiva y rigurosa verificación jurídica.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 space-y-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-gray-200">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-border-hairline">
           <div>
-            <h2 className="font-headline-md text-xl font-bold text-[#1A1A1A]">
+            <h2 className="font-headline-sm text-lg sm:text-xl font-bold text-primary">
               Propiedades seleccionadas ({inmuebles.length})
             </h2>
-            <p className="text-xs text-gray-500">Página {currentPage} de {totalPages}</p>
+            <p className="text-xs text-text-muted">Página {currentPage} de {totalPages}</p>
           </div>
           <Link
             href="/busqueda"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E60000] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-kaizen-red bg-surface-stone border border-border-hairline px-3 py-1.5 rounded-[2px] transition-colors shadow-sm"
           >
-            <span className="material-symbols-outlined text-[18px]">map</span>
-            <span>Ver todas en mapa</span>
+            <span className="material-symbols-outlined text-[16px]">map</span>
+            <span>Ver resultados en mapa interactivo</span>
           </Link>
         </div>
 
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center space-y-3">
-            <Loader2 className="w-8 h-8 animate-spin text-[#E60000]" />
-            <p className="text-xs text-gray-500">Cargando propiedades destacadas...</p>
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <p className="text-xs text-text-muted">Cargando propiedades destacadas...</p>
           </div>
         ) : currentItems.length === 0 ? (
-          <div className="py-16 text-center space-y-3 bg-[#F7F7F7] rounded-xl border border-gray-200">
-            <p className="font-headline-sm text-base text-gray-600 font-semibold">
+          <div className="py-16 text-center space-y-3 bg-surface-canvas rounded-[2px] border border-border-hairline">
+            <p className="font-headline-sm text-base text-text-muted font-semibold">
               No hay inmuebles destacados disponibles en este momento.
             </p>
             <Link
               href="/"
-              className="inline-block bg-[#1A1A1A] text-white text-xs font-bold px-6 py-2.5 rounded hover:bg-[#E60000] transition"
+              className="inline-block bg-primary text-white text-xs font-bold px-6 py-2.5 rounded-[2px] hover:bg-kaizen-red transition-colors"
             >
               Volver al Inicio
             </Link>
@@ -108,10 +101,10 @@ export default function DestacadosPage() {
           <div className="pt-8 flex justify-center items-center gap-2">
             <Link
               href={`/destacados/page/${Math.max(1, currentPage - 1)}`}
-              className={`p-2.5 rounded border border-gray-200 text-xs font-bold flex items-center gap-1 ${
+              className={`p-2.5 rounded-[2px] border border-border-hairline text-xs font-medium flex items-center gap-1 transition ${
                 currentPage === 1
-                  ? 'pointer-events-none opacity-40 bg-gray-100 text-gray-400'
-                  : 'bg-white text-[#1A1A1A] hover:bg-gray-50'
+                  ? 'pointer-events-none opacity-40 bg-surface-canvas text-text-muted'
+                  : 'bg-white text-primary hover:bg-surface-stone'
               }`}
             >
               <ChevronLeft className="w-4 h-4" />
@@ -123,10 +116,10 @@ export default function DestacadosPage() {
                 <Link
                   key={p}
                   href={`/destacados/page/${p}`}
-                  className={`w-9 h-9 rounded flex items-center justify-center text-xs font-bold transition ${
+                  className={`w-9 h-9 rounded-[2px] flex items-center justify-center text-xs font-semibold transition ${
                     p === currentPage
-                      ? 'bg-[#E60000] text-white shadow-sm'
-                      : 'bg-white border border-gray-200 text-[#1A1A1A] hover:bg-gray-50'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'bg-white border border-border-hairline text-primary hover:bg-surface-stone'
                   }`}
                 >
                   {p}
@@ -136,10 +129,10 @@ export default function DestacadosPage() {
 
             <Link
               href={`/destacados/page/${Math.min(totalPages, currentPage + 1)}`}
-              className={`p-2.5 rounded border border-gray-200 text-xs font-bold flex items-center gap-1 ${
+              className={`p-2.5 rounded-[2px] border border-border-hairline text-xs font-medium flex items-center gap-1 transition ${
                 currentPage === totalPages
-                  ? 'pointer-events-none opacity-40 bg-gray-100 text-gray-400'
-                  : 'bg-white text-[#1A1A1A] hover:bg-gray-50'
+                  ? 'pointer-events-none opacity-40 bg-surface-canvas text-text-muted'
+                  : 'bg-white text-primary hover:bg-surface-stone'
               }`}
             >
               <span>Siguiente</span>
