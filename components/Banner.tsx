@@ -83,14 +83,14 @@ export default function BannerPrincipal() {
           <span className="italic font-normal text-kaizen-red">Cero riesgos.</span>
         </motion.h1>
 
-        {/* Subtítulo Curado del Principio */}
+        {/* Subtítulo Comercial Persuasivo */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-sm sm:text-base md:text-lg font-body-md text-white/90 max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12 drop-shadow-sm font-normal"
         >
-          Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
+          Encuentra la propiedad ideal para vivir o invertir en las mejores zonas de Tarija. Te acompañamos en cada paso con total confianza y respaldo profesional.
         </motion.p>
 
         {/* Consola de Búsqueda Flotante Estilo LuxuryEstate con Contenido Original */}
