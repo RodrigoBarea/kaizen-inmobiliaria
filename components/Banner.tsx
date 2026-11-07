@@ -160,7 +160,7 @@ export default function BannerPrincipal() {
           <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 mt-4">
             
             {/* Filter: Tipo de Inmueble */}
-            <div className="lg:col-span-4 flex flex-col">
+            <div className="lg:col-span-3 flex flex-col">
               <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px] text-kaizen-red">home_work</span>
                 <span>Tipo de Propiedad</span>
@@ -169,7 +169,7 @@ export default function BannerPrincipal() {
                 <select
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}
-                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="Todos">Cualquier Tipología</option>
                   <option value="Casa">Residencia Unifamiliar</option>
@@ -193,7 +193,7 @@ export default function BannerPrincipal() {
                 <select
                   value={ciudad}
                   onChange={(e) => setCiudad(e.target.value)}
-                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="Todas">Todo Tarija & Valle Central</option>
                   <option value="Tarija">Tarija (Cercado)</option>
@@ -219,7 +219,7 @@ export default function BannerPrincipal() {
                 <select
                   value={rangoPrecio}
                   onChange={(e) => setRangoPrecio(e.target.value)}
-                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="todos">Sin restricción de precio</option>
                   <option value="50k">Hasta $50,000 USD</option>
@@ -235,13 +235,13 @@ export default function BannerPrincipal() {
             </div>
 
             {/* Botón Buscar */}
-            <div className="lg:col-span-2 flex flex-col justify-end">
+            <div className="lg:col-span-3 flex flex-col justify-end">
               <button
                 type="submit"
-                className="w-full h-[42px] bg-kaizen-red hover:bg-[#C00000] active:scale-[0.98] text-white font-medium text-xs sm:text-sm rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 shadow-sm"
+                className="w-full h-[42px] bg-kaizen-red hover:bg-[#C00000] active:scale-[0.98] text-white font-semibold text-xs sm:text-sm rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap px-4"
               >
-                <span className="material-symbols-outlined text-[18px]">search</span>
-                <span>Buscar propiedades</span>
+                <span className="material-symbols-outlined text-[18px] shrink-0">search</span>
+                <span className="whitespace-nowrap">Buscar propiedades</span>
               </button>
             </div>
 
