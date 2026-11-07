@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { SolicitudAsesoria } from '@/types/database';
 import { createSolicitudAsesoria } from '@/lib/supabase';
-import { CheckCircle2, Loader2, ShieldCheck, MapPin, DollarSign, Home } from 'lucide-react';
+import { CheckCircle2, Loader2, ShieldCheck, MapPin, DollarSign, Home, TrendingUp, UserCheck, FileText, ArrowRight } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function FormularioAsesoria() {
@@ -58,42 +58,96 @@ export default function FormularioAsesoria() {
     <section className="bg-surface-stone py-16 sm:py-20 lg:py-24 border-b border-border-hairline" id="asesoria">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 space-y-16">
         
-        {/* VIP Captación Section (From Stitch Design) */}
-        <div className="border border-border-hairline bg-surface-warm p-8 md:p-12 lg:p-16 relative overflow-hidden rounded-[2px]">
-          <div className="max-w-2xl relative z-10">
-            <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-[#0B4632] block mb-3 font-semibold">
-              Servicio para propietarios
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight mb-4">
-              ¿Deseas vender o poner en anticrético tu inmueble en Tarija?
-            </h2>
-            <p className="text-body-md sm:text-body-lg font-body-lg text-text-muted mb-8 leading-relaxed">
-              Tasamos tu propiedad y revisamos los documentos antes de publicarla. Gestionamos la promoción y el contacto con compradores directos en Tarija y el resto del país.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                className="bg-[#E60000] hover:bg-[#C00000] active:scale-[0.98] text-white px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-[transform,background-color] duration-150 hover:-translate-y-0.5 shadow-sm text-sm"
-                href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-                  '¡Hola KAIZEN! Deseo contactar a un agente inmobiliario para evaluar la venta o anticrético de mi propiedad en Tarija.'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Contactar agente inmobiliario
-              </a>
-              <Link
-                href="/vender"
-                className="border border-primary bg-transparent text-primary hover:bg-primary hover:text-white active:scale-[0.98] px-7 py-3 rounded-[2px] font-body-md font-semibold text-center transition-[transform,background-color,color] duration-150 text-sm"
-              >
-                Solicitar tasación de referencia
-              </Link>
+        {/* VIP Captación Section — Modern Apple 2-Column Card */}
+        <div className="relative overflow-hidden rounded-2xl border border-black/[0.06] bg-gradient-to-br from-[#FAF8F5] via-[#F4F1EC] to-[#EBE7E0] p-8 sm:p-10 lg:p-14 apple-shadow-card">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+            
+            {/* Left Column: Narrative & Actions */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-emerald-subtle text-[#0B4632] border border-[#0B4632]/20 w-fit mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0B4632]" />
+                <span>Servicio para propietarios</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-display-xl font-bold text-primary tracking-tight leading-[1.15] mb-4">
+                ¿Deseas vender o poner en anticrético tu inmueble en Tarija?
+              </h2>
+
+              <p className="text-sm sm:text-base text-text-muted mb-8 leading-relaxed max-w-xl">
+                Tasamos tu propiedad con datos reales de mercado y revisamos la titulación en Derechos Reales antes de publicar. Promocionamos con compradores calificados en Tarija y el resto del país.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                <a
+                  className="inline-flex items-center justify-center gap-2 bg-[#E60000] hover:bg-[#C00000] active:scale-[0.97] text-white px-6 py-3.5 rounded-xl font-semibold text-sm shadow-[0_4px_14px_rgba(230,0,0,0.22)] transition-[transform,background-color,box-shadow] duration-150 hover:-translate-y-0.5"
+                  href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+                    '¡Hola KAIZEN! Deseo contactar a un agente inmobiliario para evaluar la venta o anticrético de mi propiedad en Tarija.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp className="text-base" />
+                  <span>Contactar agente inmobiliario</span>
+                </a>
+                
+                <Link
+                  href="/vender"
+                  className="inline-flex items-center justify-center gap-1.5 bg-white/90 hover:bg-white active:scale-[0.97] text-primary border border-black/[0.08] hover:border-black/[0.18] px-6 py-3.5 rounded-xl font-semibold text-sm shadow-sm transition-[transform,background-color,border-color] duration-150"
+                >
+                  <span>Solicitar tasación de referencia</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
+
+            {/* Right Column: 3 Apple-Style Benefit Cards */}
+            <div className="lg:col-span-5 flex flex-col gap-3.5">
+              
+              {/* Pillar 1 */}
+              <div className="bg-white/80 backdrop-blur-md border border-black/[0.05] rounded-xl p-4 sm:p-5 flex items-start gap-4 shadow-sm hover:border-black/[0.12] transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-subtle text-[#0B4632] flex items-center justify-center shrink-0">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-primary">Tasación precisa de mercado</h4>
+                  <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                    Valuación según escrituras y precios reales de cierre en el Valle Central de Tarija, sin sobreprecios irreales.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 2 */}
+              <div className="bg-white/80 backdrop-blur-md border border-black/[0.05] rounded-xl p-4 sm:p-5 flex items-start gap-4 shadow-sm hover:border-black/[0.12] transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-subtle text-[#0B4632] flex items-center justify-center shrink-0">
+                  <UserCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-primary">Filtro de clientes reales</h4>
+                  <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                    Precalificamos capacidad económica y solvencia antes de coordinar visitas a tu propiedad.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pillar 3 */}
+              <div className="bg-white/80 backdrop-blur-md border border-black/[0.05] rounded-xl p-4 sm:p-5 flex items-start gap-4 shadow-sm hover:border-black/[0.12] transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-subtle text-[#0B4632] flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-primary">Cierre notarial y DD.RR.</h4>
+                  <p className="text-xs text-text-muted mt-1 leading-relaxed">
+                    Redacción jurídica de minutas, verificación de gravámenes y acompañamiento hasta la entrega de llaves.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
-          {/* Architectural Watermark Decoration */}
-          <div className="absolute right-0 bottom-0 pointer-events-none opacity-[0.04] translate-x-10 translate-y-10 hidden lg:block">
-            <span className="text-[340px] font-bold font-title-editorial leading-none tracking-tighter">KZ</span>
-          </div>
+          {/* Subtle Ambient Radial Light (Apple Depth) */}
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/40 rounded-full blur-3xl pointer-events-none" />
         </div>
 
         {/* Lead Consultation Form Block */}
