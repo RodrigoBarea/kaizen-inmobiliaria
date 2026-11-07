@@ -38,7 +38,7 @@ export default function Navbar() {
     pathname.startsWith('/blog');
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl saturate-[180%] border-b border-border-hairline transition-all duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+    <header className="sticky top-0 z-50 bg-white border-b border-border-hairline transition-all duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 py-3.5 flex justify-between items-center max-w-[1500px] mx-auto">
         
         {/* Brand Logo */}
@@ -55,10 +55,10 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links (LuxuryEstate Architecture: Zero Repetitions) */}
+        {/* Desktop Navigation Links (Architecture Apple & Luxury: 100% Sólido sin transparencias) */}
         <nav className="hidden lg:flex items-center space-x-7 xl:space-x-9">
           
-          {/* Comprar con Submenú Exclusivo */}
+          {/* Comprar con Submenú Sólido de Alta Definición */}
           <div
             className="relative h-full flex items-center"
             onMouseEnter={() => setComprarDropdown(true)}
@@ -85,27 +85,27 @@ export default function Navbar() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.98, y: -4 }}
                   transition={{ type: 'spring', damping: 28, stiffness: 320, mass: 0.8 }}
-                  className="absolute top-9 left-0 w-64 origin-top bg-white/98 backdrop-blur-2xl border border-border-hairline rounded-[2px] shadow-[0_16px_36px_rgba(0,0,0,0.08)] py-2 z-50"
+                  className="absolute top-full left-0 mt-1 w-64 origin-top bg-white border border-gray-200 rounded-[4px] shadow-[0_16px_36px_rgba(0,0,0,0.15)] py-2 z-50"
                 >
                   <Link
                     href="/compra/page/1"
                     onClick={() => setComprarDropdown(false)}
-                    className="block px-4 py-2.5 text-xs text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
-                    <span className="font-semibold block text-primary">Inmuebles en venta</span>
-                    <span className="text-[11px] text-text-muted block mt-0.5">Casas, departamentos y terrenos</span>
+                    <span className="font-semibold block text-[#1A1A1A]">Inmuebles en venta</span>
+                    <span className="text-[11px] text-gray-500 block mt-0.5">Casas, departamentos y terrenos</span>
                   </Link>
-                  <div className="border-t border-border-hairline my-1" />
+                  <div className="border-t border-gray-100 my-1" />
                   <Link
                     href="/destacados/page/1"
                     onClick={() => setComprarDropdown(false)}
-                    className="block px-4 py-2.5 text-xs text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
-                    <span className="font-semibold block text-primary flex items-center justify-between">
+                    <span className="font-semibold block text-[#1A1A1A] flex items-center justify-between">
                       <span>Propiedades destacadas</span>
                       <span className="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded-[2px]">VIP</span>
                     </span>
-                    <span className="text-[11px] text-text-muted block mt-0.5">Selección exclusiva KAIZEN</span>
+                    <span className="text-[11px] text-gray-500 block mt-0.5">Selección exclusiva KAIZEN</span>
                   </Link>
                 </motion.div>
               )}
@@ -160,7 +160,7 @@ export default function Navbar() {
             Vender
           </Link>
 
-          {/* Nosotros con Submenú */}
+          {/* Nosotros con Submenú Sólido */}
           <div
             className="relative h-full flex items-center"
             onMouseEnter={() => setNosotrosDropdown(true)}
@@ -187,34 +187,34 @@ export default function Navbar() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.98, y: -4 }}
                   transition={{ type: 'spring', damping: 28, stiffness: 320, mass: 0.8 }}
-                  className="absolute top-9 left-0 w-56 origin-top bg-white/98 backdrop-blur-2xl border border-border-hairline rounded-[2px] shadow-[0_16px_36px_rgba(0,0,0,0.08)] py-2 z-50"
+                  className="absolute top-full left-0 mt-1 w-56 origin-top bg-white border border-gray-200 rounded-[4px] shadow-[0_16px_36px_rgba(0,0,0,0.15)] py-2 z-50"
                 >
                   <Link
                     href="/sobre-nosotros"
                     onClick={() => setNosotrosDropdown(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
                     Sobre KAIZEN
                   </Link>
                   <Link
                     href="/guia-comprador"
                     onClick={() => setNosotrosDropdown(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
                     Guía del comprador
                   </Link>
                   <Link
                     href="/guia-vendedor"
                     onClick={() => setNosotrosDropdown(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
                     Guía del vendedor
                   </Link>
-                  <div className="border-t border-border-hairline my-1" />
+                  <div className="border-t border-gray-100 my-1" />
                   <Link
                     href="/blog/page/1"
                     onClick={() => setNosotrosDropdown(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-primary hover:bg-surface-canvas hover:text-kaizen-red transition-colors"
+                    className="block px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] hover:bg-[#F7F7F7] hover:text-kaizen-red transition-colors"
                   >
                     Blog inmobiliario
                   </Link>
@@ -232,12 +232,12 @@ export default function Navbar() {
           <Link
             href="/busqueda"
             aria-label="Buscar propiedad en Tarija"
-            className="w-9 h-9 rounded-[2px] flex items-center justify-center text-primary hover:text-kaizen-red hover:bg-surface-canvas transition-colors"
+            className="w-9 h-9 rounded-[2px] flex items-center justify-center text-primary hover:text-kaizen-red hover:bg-surface-canvas active:scale-[0.92] transition-all"
           >
             <span className="material-symbols-outlined text-[20px]">search</span>
           </Link>
 
-          {/* CTA Agendar Visita con diseño de alta gama */}
+          {/* CTA Agendar Visita con diseño Apple & Luxury */}
           <a
             href={waUrl}
             target="_blank"
@@ -252,7 +252,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Abrir menú"
-            className="lg:hidden p-1.5 text-primary hover:text-kaizen-red transition-colors focus:outline-none"
+            className="lg:hidden p-1.5 text-primary hover:text-kaizen-red active:scale-[0.92] transition-all focus:outline-none"
           >
             <span className="material-symbols-outlined text-[24px]">
               {mobileMenuOpen ? 'close' : 'menu'}
@@ -263,7 +263,7 @@ export default function Navbar() {
 
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation (100% Sólido sin transparencias) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -271,7 +271,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ type: 'spring', damping: 30, stiffness: 300, mass: 0.9 }}
-            className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-border-hairline px-6 py-6 space-y-4 shadow-xl overflow-hidden"
+            className="lg:hidden bg-white border-b border-border-hairline px-6 py-6 space-y-4 shadow-2xl overflow-hidden"
           >
             <div className="flex flex-col space-y-3 font-body-sm text-sm">
               <Link

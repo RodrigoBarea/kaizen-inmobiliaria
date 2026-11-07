@@ -93,67 +93,73 @@ export default function BannerPrincipal() {
           Encuentra la propiedad ideal para vivir o invertir en las mejores zonas de Tarija. Te acompañamos en cada paso con total confianza y respaldo profesional.
         </motion.p>
 
-        {/* Consola de Búsqueda Flotante Estilo LuxuryEstate con Contenido Original */}
+        {/* Consola de Búsqueda Flotante Estilo Apple & LuxuryEstate */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="w-full max-w-[1080px] bg-white/95 backdrop-blur-xl border border-white/40 rounded-[4px] shadow-[0_20px_50px_rgba(0,0,0,0.35)] p-4 sm:p-6 text-left"
+          className="w-full max-w-[1080px] bg-white border border-gray-200 rounded-[4px] shadow-[0_20px_50px_rgba(0,0,0,0.28)] p-5 sm:p-7 text-left"
         >
-          {/* Barra de Pestañas de Transacción Originales */}
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-3 sm:pb-4 border-b border-border-hairline custom-scrollbar">
-            <button
-              type="button"
-              onClick={() => handleTabClick('venta')}
-              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                activeTab === 'venta'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
-              }`}
-            >
-              Venta
-            </button>
+          {/* Pestañas de Navegación Segmentada (Apple Design) - Fondo Sólido No Transparente */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-gray-100">
+            
+            {/* Segmented Track */}
+            <div className="bg-[#F2F1ED] p-1.5 rounded-[4px] inline-flex items-center gap-1 overflow-x-auto max-w-full custom-scrollbar">
+              <button
+                type="button"
+                onClick={() => handleTabClick('venta')}
+                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
+                  activeTab === 'venta'
+                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
+                    : 'text-text-muted hover:text-primary'
+                }`}
+              >
+                Venta
+              </button>
 
-            <button
-              type="button"
-              onClick={() => handleTabClick('alquiler')}
-              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                activeTab === 'alquiler'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
-              }`}
-            >
-              Alquiler
-            </button>
+              <button
+                type="button"
+                onClick={() => handleTabClick('alquiler')}
+                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
+                  activeTab === 'alquiler'
+                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
+                    : 'text-text-muted hover:text-primary'
+                }`}
+              >
+                Alquiler
+              </button>
 
-            <button
-              type="button"
-              onClick={() => handleTabClick('anticretico')}
-              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                activeTab === 'anticretico'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
-              }`}
-            >
-              Anticrético
-            </button>
+              <button
+                type="button"
+                onClick={() => handleTabClick('anticretico')}
+                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
+                  activeTab === 'anticretico'
+                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
+                    : 'text-text-muted hover:text-primary'
+                }`}
+              >
+                Anticrético
+              </button>
 
-            <button
-              type="button"
-              onClick={() => handleTabClick('fincas')}
-              className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[#0B4632] hover:bg-[#E7EFEA] rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5"
-            >
-              <span>Fincas y viñedos</span>
-            </button>
+              <button
+                type="button"
+                onClick={() => handleTabClick('fincas')}
+                className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[#0B4632] hover:bg-emerald-100/60 rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5"
+              >
+                <span>Fincas y viñedos</span>
+              </button>
+            </div>
 
+            {/* Direct CTA Propietarios */}
             <button
               type="button"
               onClick={() => handleTabClick('vender')}
-              className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-text-muted hover:text-kaizen-red rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5 ml-auto"
+              className="px-3.5 py-2 text-xs sm:text-sm font-semibold text-text-muted hover:text-kaizen-red active:scale-[0.97] transition-all duration-150 whitespace-nowrap flex items-center gap-1.5 ml-auto"
             >
               <span className="material-symbols-outlined text-[16px]">real_estate_agent</span>
               <span>Quiero vender</span>
             </button>
+
           </div>
 
           {/* Formulario Estructurado con los Campos y Opciones Originales */}
