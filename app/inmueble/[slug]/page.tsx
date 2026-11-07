@@ -165,10 +165,10 @@ export default function InmuebleDetallePage() {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-            <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
+            <span className="bg-white/90 backdrop-blur-md text-primary text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider border border-black/[0.08] shadow-sm">
               {formatOperacion(categoria?.nombre_categoria)}
             </span>
-            <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+            <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider shadow-sm">
               {tipo}
             </span>
           </div>
@@ -191,10 +191,10 @@ export default function InmuebleDetallePage() {
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-              <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
+              <span className="bg-white/90 backdrop-blur-md text-primary text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider border border-black/[0.08] shadow-sm">
                 {formatOperacion(categoria?.nombre_categoria)}
               </span>
-              <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+              <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider shadow-sm">
                 {tipo}
               </span>
             </div>
@@ -242,10 +242,10 @@ export default function InmuebleDetallePage() {
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-              <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
+              <span className="bg-white/90 backdrop-blur-md text-primary text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider border border-black/[0.08] shadow-sm">
                 {formatOperacion(categoria?.nombre_categoria)}
               </span>
-              <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
+              <span className="bg-primary/90 backdrop-blur-md text-white text-[11px] uppercase px-3.5 py-1 rounded-full font-semibold tracking-wider shadow-sm">
                 {tipo}
               </span>
             </div>
