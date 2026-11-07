@@ -49,87 +49,63 @@ export default function BannerPrincipal() {
   };
 
   return (
-    <section className="relative w-full border-b border-border-hairline bg-surface-stone overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-8 pb-14 lg:pt-14 lg:pb-20">
+    <section className="relative w-full min-h-[640px] lg:min-h-[720px] flex items-center justify-center bg-[#0D1117] overflow-hidden">
+      
+      {/* Background Hero Image estilo LuxuryEstate con gradiente cinemático */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&auto=format&fit=crop&q=90"
+          alt="Arquitectura residencial de lujo en Tarija - KAIZEN Bienes Raíces"
+          fill
+          priority
+          sizes="100vw"
+          onLoad={() => setImageLoaded(true)}
+          className={`object-cover object-center transition-all duration-1000 ${
+            imageLoaded ? 'scale-100 opacity-60' : 'scale-105 opacity-0'
+          }`}
+        />
+        {/* Capa de contraste y luminosidad para máxima legibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/80" />
+      </div>
+
+      {/* Contenido Central */}
+      <div className="relative z-10 w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-16 sm:py-20 lg:py-24 flex flex-col items-center text-center">
         
-        {/* Asymmetric Editorial Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Column Left: Editorial Narrative & Value Proposition */}
-          <div className="lg:col-span-6 flex flex-col justify-center z-10">
-            
-            {/* Editorial Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-display-xl font-bold text-primary tracking-tight leading-[1.08] mb-6"
-            >
-              Tu próximo hogar. <br />
-              Tu mejor inversión. <br />
-              <span className="italic font-normal text-kaizen-red">Con seguridad jurídica.</span>
-            </motion.h1>
-
-            {/* Subtítulo curado */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg font-body-lg text-text-muted max-w-xl leading-relaxed"
-            >
-              Propiedades residenciales, fincas y terrenos en el Valle Central de Tarija con títulos al día, Folio Real verificado y aptas para crédito hipotecario.
-            </motion.p>
-
-          </div>
-
-          {/* Column Right: Large Editorial Imagery Frame with Preload Shimmer */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-6 relative"
-          >
-            <div className="relative w-full aspect-[4/3] lg:aspect-[16/11] border border-border-hairline bg-surface-canvas overflow-hidden rounded-[2px] group">
-              
-              {/* Skeleton Placeholder while loading */}
-              {!imageLoaded && (
-                <div className="absolute inset-0 skeleton-shimmer bg-surface-warm" />
-              )}
-
-              <Image
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&auto=format&fit=crop&q=85"
-                alt="Arquitectura residencial de lujo en Tarija - KAIZEN Bienes Raíces"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                onLoad={() => setImageLoaded(true)}
-                className={`object-cover transition-all duration-700 group-hover:scale-105 ${
-                  imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                }`}
-              />
-
-              {/* Architectural Framing Badge */}
-              <div className="absolute bottom-4 left-4 bg-surface-stone/95 backdrop-blur-md px-3.5 py-1.5 border border-border-hairline text-legal-badge font-legal-badge uppercase tracking-wider text-primary shadow-sm rounded-[2px]">
-                Villa Los Sauces · Aranjuez, Tarija
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
-
-        {/* BUSCADOR MODULAR FLOTANTE DE ALTA GAMA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        {/* Titular Principal Original Solicitado */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="mt-10 lg:mt-14 w-full apple-glass-card border border-border-hairline/80 apple-shadow-modal p-5 sm:p-7 rounded-[4px]"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-display-xl font-bold text-white tracking-tight leading-[1.08] mb-4 sm:mb-5 max-w-4xl drop-shadow-md"
         >
-          {/* Transaction Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-4 border-b border-border-hairline custom-scrollbar">
+          Tu próximo hogar. <br className="hidden sm:inline" />
+          Tu mejor inversión. <br />
+          <span className="italic font-normal text-kaizen-red">Cero riesgos.</span>
+        </motion.h1>
+
+        {/* Subtítulo Curado del Principio */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-sm sm:text-base md:text-lg font-body-md text-white/90 max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12 drop-shadow-sm font-normal"
+        >
+          Curaduría inmobiliaria con auditoría jurídica rigurosa en el Valle Central de Tarija. Residencias de autor, quintas vinícolas y propiedades con folio real saneado y aptas para crédito inmediato.
+        </motion.p>
+
+        {/* Consola de Búsqueda Flotante Estilo LuxuryEstate con Contenido Original */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="w-full max-w-[1080px] bg-white/95 backdrop-blur-xl border border-white/40 rounded-[4px] shadow-[0_20px_50px_rgba(0,0,0,0.35)] p-4 sm:p-6 text-left"
+        >
+          {/* Barra de Pestañas de Transacción Originales */}
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-3 sm:pb-4 border-b border-border-hairline custom-scrollbar">
             <button
               type="button"
               onClick={() => handleTabClick('venta')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
                 activeTab === 'venta'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -141,7 +117,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('alquiler')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
                 activeTab === 'alquiler'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -153,7 +129,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('anticretico')}
-              className={`px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium rounded-[2px] active:scale-[0.97] transition-transform duration-100 whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
                 activeTab === 'anticretico'
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-text-muted hover:text-primary hover:bg-surface-canvas'
@@ -165,7 +141,7 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('fincas')}
-              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-[#0B4632] hover:bg-emerald-subtle active:scale-[0.97] rounded-[2px] transition-transform duration-100 whitespace-nowrap flex items-center gap-1.5"
+              className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[#0B4632] hover:bg-[#E7EFEA] rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5"
             >
               <span>Fincas y viñedos</span>
             </button>
@@ -173,26 +149,27 @@ export default function BannerPrincipal() {
             <button
               type="button"
               onClick={() => handleTabClick('vender')}
-              className="px-4 sm:px-5 py-2 text-body-sm font-body-sm font-medium text-text-muted hover:text-kaizen-red active:scale-[0.97] rounded-[2px] transition-transform duration-100 whitespace-nowrap flex items-center gap-1.5 ml-auto"
+              className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-text-muted hover:text-kaizen-red rounded-[2px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5 ml-auto"
             >
               <span className="material-symbols-outlined text-[16px]">real_estate_agent</span>
               <span>Quiero vender</span>
             </button>
           </div>
 
-          {/* Formulario Estructurado */}
-          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          {/* Formulario Estructurado con los Campos y Opciones Originales */}
+          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 mt-4">
             
             {/* Filter: Tipo de Inmueble */}
-            <div className="flex flex-col">
-              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
-                Tipo de Propiedad
+            <div className="lg:col-span-4 flex flex-col">
+              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px] text-kaizen-red">home_work</span>
+                <span>Tipo de Propiedad</span>
               </label>
               <div className="relative">
                 <select
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}
-                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="Todos">Cualquier Tipología</option>
                   <option value="Casa">Residencia Unifamiliar</option>
@@ -200,22 +177,23 @@ export default function BannerPrincipal() {
                   <option value="Terreno">Terreno / Macrolote</option>
                   <option value="Oficina Comercial">Local / Oficina Comercial</option>
                 </select>
-                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
                   expand_more
                 </span>
               </div>
             </div>
 
             {/* Filter: Zona Tarija */}
-            <div className="flex flex-col">
-              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
-                Ubicación / Distrito
+            <div className="lg:col-span-3 flex flex-col">
+              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px] text-kaizen-red">location_on</span>
+                <span>Ubicación / Distrito</span>
               </label>
               <div className="relative">
                 <select
                   value={ciudad}
                   onChange={(e) => setCiudad(e.target.value)}
-                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="Todas">Todo Tarija & Valle Central</option>
                   <option value="Tarija">Tarija (Cercado)</option>
@@ -225,22 +203,23 @@ export default function BannerPrincipal() {
                   <option value="Bermejo">Bermejo</option>
                   <option value="Yacuiba">Yacuiba</option>
                 </select>
-                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
-                  location_on
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                  expand_more
                 </span>
               </div>
             </div>
 
             {/* Filter: Rango de Precio */}
-            <div className="flex flex-col">
-              <label className="text-legal-badge font-legal-badge uppercase text-text-muted mb-1.5 tracking-wider font-semibold">
-                Presupuesto Estimado ($us)
+            <div className="lg:col-span-3 flex flex-col">
+              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px] text-kaizen-red">payments</span>
+                <span>Presupuesto Estimado ($us)</span>
               </label>
               <div className="relative">
                 <select
                   value={rangoPrecio}
                   onChange={(e) => setRangoPrecio(e.target.value)}
-                  className="w-full bg-white border border-border-hairline px-4 py-3 text-body-md font-body-md text-primary appearance-none focus:border-primary focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-10"
+                  className="w-full bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 py-2.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
                 >
                   <option value="todos">Sin restricción de precio</option>
                   <option value="50k">Hasta $50,000 USD</option>
@@ -249,25 +228,32 @@ export default function BannerPrincipal() {
                   <option value="250k-450k">$250,000 a $450,000 USD</option>
                   <option value="450k+">Más de $450,000 USD</option>
                 </select>
-                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
-                  payments
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
+                  expand_more
                 </span>
               </div>
             </div>
 
-            {/* Surgical Action Trigger */}
-            <div className="flex flex-col justify-end">
+            {/* Botón Buscar */}
+            <div className="lg:col-span-2 flex flex-col justify-end">
               <button
                 type="submit"
-                className="w-full bg-kaizen-red hover:bg-[#C00000] active:scale-[0.98] text-white py-3 px-6 font-body-md font-medium tracking-tight rounded-[2px] transition-[transform,background-color,box-shadow] duration-150 flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-sm"
+                className="w-full h-[42px] bg-kaizen-red hover:bg-[#C00000] active:scale-[0.98] text-white font-medium text-xs sm:text-sm rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 shadow-sm"
               >
-                <span className="material-symbols-outlined text-[20px]">search</span>
+                <span className="material-symbols-outlined text-[18px]">search</span>
                 <span>Buscar propiedades</span>
               </button>
             </div>
 
           </form>
         </motion.div>
+
+        {/* Badge Arquitectónico de Referencia */}
+        <div className="mt-8 text-center">
+          <span className="inline-block bg-black/40 backdrop-blur-md px-3.5 py-1.5 border border-white/15 text-[11px] uppercase tracking-wider text-white/80 rounded-[2px]">
+            Villa Los Sauces · Aranjuez, Tarija
+          </span>
+        </div>
 
       </div>
     </section>
