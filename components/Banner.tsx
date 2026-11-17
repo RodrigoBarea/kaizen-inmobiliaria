@@ -93,170 +93,250 @@ export default function BannerPrincipal() {
           Encuentra la propiedad ideal para vivir o invertir en las mejores zonas de Tarija. Te acompañamos en cada paso con total confianza y respaldo profesional.
         </motion.p>
 
-        {/* Consola de Búsqueda Flotante Estilo Apple & LuxuryEstate */}
+        {/* Consola de Búsqueda Compacta Estilo LuxuryEstate (Pill Horizontal Sólido) */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="w-full max-w-[1080px] bg-white border border-gray-200 rounded-[4px] shadow-[0_20px_50px_rgba(0,0,0,0.28)] p-5 sm:p-7 text-left"
+          className="w-full max-w-[940px] mx-auto text-left"
         >
-          {/* Pestañas de Navegación Segmentada (Apple Design) - Fondo Sólido No Transparente */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-gray-100">
-            
-            {/* Segmented Track */}
-            <div className="bg-[#F2F1ED] p-1.5 rounded-[4px] inline-flex items-center gap-1 overflow-x-auto max-w-full custom-scrollbar">
-              <button
-                type="button"
-                onClick={() => handleTabClick('venta')}
-                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                  activeTab === 'venta'
-                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
-                    : 'text-text-muted hover:text-primary'
-                }`}
+          {/* Desktop & Tablet: Sleek Horizontal Capsule (Directo estilo LuxuryEstate) */}
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex items-center bg-white rounded-full p-2 border border-white/80 shadow-[0_16px_44px_rgba(0,0,0,0.32)] gap-1 text-primary"
+          >
+            {/* 1. Operación (For sale / Alquiler / etc.) */}
+            <div className="relative flex-[1.15] h-11 px-4 flex items-center justify-between rounded-full hover:bg-gray-50 transition-colors cursor-pointer group">
+              <span className="text-xs sm:text-[13px] font-semibold text-primary truncate select-none">
+                {activeTab === 'venta' && 'En venta'}
+                {activeTab === 'alquiler' && 'En alquiler'}
+                {activeTab === 'anticretico' && 'Anticrético'}
+                {activeTab === 'fincas' && 'Fincas & viñedos'}
+                {activeTab === 'vender' && 'Quiero vender'}
+              </span>
+              <span className="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary transition-colors shrink-0 ml-1">
+                expand_more
+              </span>
+              <select
+                value={activeTab}
+                onChange={(e) => handleTabClick(e.target.value as any)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                aria-label="Seleccionar operación"
               >
-                Venta
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTabClick('alquiler')}
-                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                  activeTab === 'alquiler'
-                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
-                    : 'text-text-muted hover:text-primary'
-                }`}
-              >
-                Alquiler
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTabClick('anticretico')}
-                className={`px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] ${
-                  activeTab === 'anticretico'
-                    ? 'bg-white text-primary shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
-                    : 'text-text-muted hover:text-primary'
-                }`}
-              >
-                Anticrético
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleTabClick('fincas')}
-                className="px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold text-[#0B4632] hover:bg-emerald-100/60 rounded-[3px] transition-all duration-150 whitespace-nowrap active:scale-[0.97] flex items-center gap-1.5"
-              >
-                <span>Fincas y viñedos</span>
-              </button>
+                <option value="venta">En venta</option>
+                <option value="alquiler">En alquiler</option>
+                <option value="anticretico">Anticrético</option>
+                <option value="fincas">Fincas & viñedos</option>
+                <option value="vender">Quiero vender mi propiedad</option>
+              </select>
             </div>
 
-            {/* Direct CTA Propietarios */}
+            <div className="h-6 w-[1px] bg-gray-200 shrink-0" />
+
+            {/* 2. Tipología (Tipo de propiedad) */}
+            <div className="relative flex-1 h-11 px-4 flex items-center justify-between rounded-full hover:bg-gray-50 transition-colors cursor-pointer group">
+              <span className="text-xs sm:text-[13px] font-semibold text-primary truncate select-none">
+                {tipo === 'Todos' ? 'Cualquier tipo' : tipo}
+              </span>
+              <span className="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary transition-colors shrink-0 ml-1">
+                expand_more
+              </span>
+              <select
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                aria-label="Seleccionar tipo de propiedad"
+              >
+                <option value="Todos">Cualquier tipo</option>
+                <option value="Casa">Casa Unifamiliar</option>
+                <option value="Departamento">Departamento</option>
+                <option value="Terreno">Terreno / Macrolote</option>
+                <option value="Oficina Comercial">Local / Oficina</option>
+              </select>
+            </div>
+
+            <div className="h-6 w-[1px] bg-gray-200 shrink-0" />
+
+            {/* 3. Ubicación (Location) */}
+            <div className="relative flex-[1.25] h-11 px-4 flex items-center justify-between rounded-full hover:bg-gray-50 transition-colors cursor-pointer group">
+              <span className="text-xs sm:text-[13px] font-semibold text-primary truncate select-none">
+                {ciudad === 'Todas' ? 'Toda Tarija' : ciudad}
+              </span>
+              <span className="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary transition-colors shrink-0 ml-1">
+                expand_more
+              </span>
+              <select
+                value={ciudad}
+                onChange={(e) => setCiudad(e.target.value)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                aria-label="Seleccionar ubicación"
+              >
+                <option value="Todas">Toda Tarija & Valle Central</option>
+                <option value="Tarija">Tarija (Cercado)</option>
+                <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
+                <option value="Uriondo">Uriondo (Valle)</option>
+                <option value="Padcaya">Padcaya</option>
+                <option value="Bermejo">Bermejo</option>
+                <option value="Yacuiba">Yacuiba</option>
+              </select>
+            </div>
+
+            <div className="h-6 w-[1px] bg-gray-200 shrink-0" />
+
+            {/* 4. Presupuesto (Any price) */}
+            <div className="relative flex-1 h-11 px-4 flex items-center justify-between rounded-full hover:bg-gray-50 transition-colors cursor-pointer group">
+              <span className="text-xs sm:text-[13px] font-semibold text-primary truncate select-none">
+                {rangoPrecio === 'todos' && 'Cualquier precio'}
+                {rangoPrecio === '50k' && 'Hasta $50k'}
+                {rangoPrecio === '50k-120k' && '$50k - $120k'}
+                {rangoPrecio === '120k-250k' && '$120k - $250k'}
+                {rangoPrecio === '250k-450k' && '$250k - $450k'}
+                {rangoPrecio === '450k+' && '+$450k'}
+              </span>
+              <span className="material-symbols-outlined text-[18px] text-gray-400 group-hover:text-primary transition-colors shrink-0 ml-1">
+                expand_more
+              </span>
+              <select
+                value={rangoPrecio}
+                onChange={(e) => setRangoPrecio(e.target.value)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                aria-label="Seleccionar presupuesto"
+              >
+                <option value="todos">Cualquier precio</option>
+                <option value="50k">Hasta $50,000 USD</option>
+                <option value="50k-120k">$50,000 a $120,000 USD</option>
+                <option value="120k-250k">$120,000 a $250,000 USD</option>
+                <option value="250k-450k">$250,000 a $450,000 USD</option>
+                <option value="450k+">Más de $450,000 USD</option>
+              </select>
+            </div>
+
+            {/* Botón Buscar estilo LuxuryEstate */}
             <button
-              type="button"
-              onClick={() => handleTabClick('vender')}
-              className="px-3.5 py-2 text-xs sm:text-sm font-semibold text-text-muted hover:text-kaizen-red active:scale-[0.97] transition-all duration-150 whitespace-nowrap flex items-center gap-1.5 ml-auto"
+              type="submit"
+              className="bg-kaizen-red hover:bg-[#C00000] active:scale-[0.96] text-white px-6 h-11 rounded-full font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md transition-all duration-150 shrink-0 whitespace-nowrap ml-1"
             >
-              <span className="material-symbols-outlined text-[16px]">real_estate_agent</span>
-              <span>Quiero vender</span>
+              <span className="material-symbols-outlined text-[18px]">search</span>
+              <span>Buscar</span>
             </button>
+          </form>
 
-          </div>
+          {/* Mobile View: Compact Modern Card (< 768px) */}
+          <form
+            onSubmit={handleSearch}
+            className="md:hidden bg-white rounded-2xl p-3.5 shadow-[0_16px_40px_rgba(0,0,0,0.32)] border border-white/80 space-y-2.5 text-primary"
+          >
+            <div className="grid grid-cols-2 gap-2">
+              {/* Operación */}
+              <div className="relative bg-surface-canvas rounded-lg px-3 py-2 flex items-center justify-between border border-border-hairline">
+                <span className="text-xs font-semibold text-primary truncate">
+                  {activeTab === 'venta' && 'En venta'}
+                  {activeTab === 'alquiler' && 'En alquiler'}
+                  {activeTab === 'anticretico' && 'Anticrético'}
+                  {activeTab === 'fincas' && 'Fincas'}
+                  {activeTab === 'vender' && 'Vender'}
+                </span>
+                <span className="material-symbols-outlined text-[16px] text-gray-400">expand_more</span>
+                <select
+                  value={activeTab}
+                  onChange={(e) => handleTabClick(e.target.value as any)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                >
+                  <option value="venta">En venta</option>
+                  <option value="alquiler">En alquiler</option>
+                  <option value="anticretico">Anticrético</option>
+                  <option value="fincas">Fincas & viñedos</option>
+                  <option value="vender">Quiero vender</option>
+                </select>
+              </div>
 
-          {/* Formulario Estructurado con los Campos y Opciones Originales */}
-          <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 mt-4">
-            
-            {/* Filter: Tipo de Inmueble */}
-            <div className="lg:col-span-3 flex flex-col">
-              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px] text-kaizen-red">home_work</span>
-                <span>Tipo de Propiedad</span>
-              </label>
-              <div className="relative">
+              {/* Tipología */}
+              <div className="relative bg-surface-canvas rounded-lg px-3 py-2 flex items-center justify-between border border-border-hairline">
+                <span className="text-xs font-semibold text-primary truncate">
+                  {tipo === 'Todos' ? 'Tipología' : tipo}
+                </span>
+                <span className="material-symbols-outlined text-[16px] text-gray-400">expand_more</span>
                 <select
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}
-                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 >
-                  <option value="Todos">Cualquier Tipología</option>
-                  <option value="Casa">Residencia Unifamiliar</option>
+                  <option value="Todos">Cualquier tipo</option>
+                  <option value="Casa">Casa</option>
                   <option value="Departamento">Departamento</option>
-                  <option value="Terreno">Terreno / Macrolote</option>
-                  <option value="Oficina Comercial">Local / Oficina Comercial</option>
+                  <option value="Terreno">Terreno</option>
+                  <option value="Oficina Comercial">Comercial</option>
                 </select>
-                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
-                  expand_more
-                </span>
               </div>
-            </div>
 
-            {/* Filter: Zona Tarija */}
-            <div className="lg:col-span-3 flex flex-col">
-              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px] text-kaizen-red">location_on</span>
-                <span>Ubicación / Distrito</span>
-              </label>
-              <div className="relative">
+              {/* Ubicación */}
+              <div className="relative bg-surface-canvas rounded-lg px-3 py-2 flex items-center justify-between border border-border-hairline">
+                <span className="text-xs font-semibold text-primary truncate">
+                  {ciudad === 'Todas' ? 'Toda Tarija' : ciudad}
+                </span>
+                <span className="material-symbols-outlined text-[16px] text-gray-400">expand_more</span>
                 <select
                   value={ciudad}
                   onChange={(e) => setCiudad(e.target.value)}
-                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 >
-                  <option value="Todas">Todo Tarija & Valle Central</option>
-                  <option value="Tarija">Tarija (Cercado)</option>
-                  <option value="San Lorenzo">San Lorenzo / Tomatitas</option>
-                  <option value="Uriondo">Uriondo (Valle de la Concepción)</option>
+                  <option value="Todas">Toda Tarija</option>
+                  <option value="Tarija">Cercado</option>
+                  <option value="San Lorenzo">San Lorenzo</option>
+                  <option value="Uriondo">Uriondo</option>
                   <option value="Padcaya">Padcaya</option>
                   <option value="Bermejo">Bermejo</option>
                   <option value="Yacuiba">Yacuiba</option>
                 </select>
-                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
-                  expand_more
-                </span>
               </div>
-            </div>
 
-            {/* Filter: Rango de Precio */}
-            <div className="lg:col-span-3 flex flex-col">
-              <label className="text-[11px] uppercase tracking-wider font-semibold text-text-muted mb-1 flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px] text-kaizen-red">payments</span>
-                <span>Presupuesto Estimado ($us)</span>
-              </label>
-              <div className="relative">
+              {/* Presupuesto */}
+              <div className="relative bg-surface-canvas rounded-lg px-3 py-2 flex items-center justify-between border border-border-hairline">
+                <span className="text-xs font-semibold text-primary truncate">
+                  {rangoPrecio === 'todos' ? 'Precio' : rangoPrecio}
+                </span>
+                <span className="material-symbols-outlined text-[16px] text-gray-400">expand_more</span>
                 <select
                   value={rangoPrecio}
                   onChange={(e) => setRangoPrecio(e.target.value)}
-                  className="w-full h-[42px] bg-surface-canvas hover:bg-white border border-border-hairline px-3.5 text-xs sm:text-sm font-medium text-primary appearance-none focus:border-primary focus:bg-white focus:ring-0 focus:outline-none transition-colors rounded-[2px] cursor-pointer pr-8 shadow-sm"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 >
-                  <option value="todos">Sin restricción de precio</option>
-                  <option value="50k">Hasta $50,000 USD</option>
-                  <option value="50k-120k">$50,000 a $120,000 USD</option>
-                  <option value="120k-250k">$120,000 a $250,000 USD</option>
-                  <option value="250k-450k">$250,000 a $450,000 USD</option>
-                  <option value="450k+">Más de $450,000 USD</option>
+                  <option value="todos">Cualquier precio</option>
+                  <option value="50k">Hasta $50k</option>
+                  <option value="50k-120k">$50k - $120k</option>
+                  <option value="120k-250k">$120k - $250k</option>
+                  <option value="250k-450k">$250k - $450k</option>
+                  <option value="450k+">+ $450k</option>
                 </select>
-                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[18px] text-text-muted">
-                  expand_more
-                </span>
               </div>
             </div>
 
-            {/* Botón Buscar */}
-            <div className="lg:col-span-3 flex flex-col justify-end">
-              <button
-                type="submit"
-                className="w-full h-[42px] bg-kaizen-red hover:bg-[#C00000] active:scale-[0.98] text-white font-semibold text-xs sm:text-sm rounded-[2px] transition-all duration-150 flex items-center justify-center gap-2 shadow-sm whitespace-nowrap px-4"
-              >
-                <span className="material-symbols-outlined text-[18px] shrink-0">search</span>
-                <span className="whitespace-nowrap">Buscar propiedades</span>
-              </button>
-            </div>
-
+            {/* Mobile Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-kaizen-red hover:bg-[#C00000] text-white py-2.5 rounded-full font-semibold text-xs flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+            >
+              <span className="material-symbols-outlined text-[18px]">search</span>
+              <span>Buscar propiedades</span>
+            </button>
           </form>
+
+          {/* Quick link for sellers below */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs">
+            <button
+              type="button"
+              onClick={() => router.push('/vender')}
+              className="text-white/85 hover:text-white transition-colors flex items-center gap-1.5 underline-offset-4 hover:underline"
+            >
+              <span className="material-symbols-outlined text-[15px]">real_estate_agent</span>
+              <span>¿Eres propietario? Vender mi inmueble con KAIZEN</span>
+            </button>
+          </div>
         </motion.div>
 
         {/* Badge Arquitectónico de Referencia */}
-        <div className="mt-8 text-center">
-          <span className="inline-block bg-black/40 backdrop-blur-md px-3.5 py-1.5 border border-white/15 text-[11px] uppercase tracking-wider text-white/80 rounded-[2px]">
+        <div className="mt-6 text-center">
+          <span className="inline-block bg-black/40 backdrop-blur-md px-3.5 py-1.5 border border-white/15 text-[11px] uppercase tracking-wider text-white/80 rounded-full">
             Villa Los Sauces · Aranjuez, Tarija
           </span>
         </div>
