@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+import SimuladorFinanciero from '@/components/SimuladorFinanciero';
 
 export default function GuiaCompradorPage() {
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59170000000';
@@ -91,6 +92,11 @@ export default function GuiaCompradorPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Simulador Financiero Interactivo Integrado en la Guía */}
+        <div className="pt-6">
+          <SimuladorFinanciero />
         </div>
 
         {/* CTA */}
