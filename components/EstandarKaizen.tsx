@@ -29,55 +29,55 @@ export default function EstandarKaizen() {
   ];
 
   return (
-    <section className="w-full bg-[#F6F5F2] py-16 sm:py-24 border-b border-[#181816]/15" id="estandar">
+    <section className="w-full bg-surface-canvas py-16 sm:py-24 border-b border-border-hairline" id="estandar">
       <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#181816]/15">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-border-hairline">
           <div className="max-w-2xl">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A65D47] block mb-2 font-medium">
+            <span className="text-legal-badge font-legal-badge uppercase tracking-[0.14em] text-text-muted block mb-2 font-semibold">
               Criterio de Curaduría Notarial
             </span>
-            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#181816] tracking-tight">
-              El Estándar <span className="italic font-normal text-[#A65D47]">Kaizen</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight">
+              El Estándar <span className="italic font-normal text-kaizen-red">Kaizen</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#181816]/75 max-w-md mt-4 md:mt-0 font-normal leading-relaxed">
-            Solo admitimos inmuebles que superan nuestra triple auditoría. Cuidamos el patrimonio de familias e inversores en Tarija con rigor técnico.
+          <p className="font-body-md text-xs sm:text-sm text-text-muted max-w-md mt-4 md:mt-0 font-normal leading-relaxed">
+            Solo admitimos inmuebles que superan nuestra triple auditoría. Cuidamos el patrimonio de familias e inversores en Tarija con total respaldo.
           </p>
         </div>
 
-        {/* 3 Pillars Grid with Visible Architectural Borders */}
+        {/* 3 Pillars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {pilares.map((pilar, index) => (
             <div
               key={index}
-              className="bg-[#EFECE6] border border-[#181816]/15 p-6 sm:p-8 flex flex-col justify-between hover:border-[#181816] transition-colors duration-200"
+              className="bg-surface-stone border border-border-hairline rounded-[2px] p-6 sm:p-8 flex flex-col justify-between hover:border-primary/80 transition-colors duration-200 apple-shadow-card"
             >
               <div>
                 <div className="flex items-baseline justify-between mb-4">
-                  <span className="font-editorial italic text-4xl sm:text-5xl font-semibold text-[#A65D47]">
+                  <span className="text-3xl sm:text-4xl font-bold text-kaizen-red font-display-xl">
                     {pilar.romano}
                   </span>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#181816]/60 bg-[#F6F5F2] px-2 py-0.5 border border-[#181816]/10">
+                  <span className="text-[10px] uppercase tracking-wider font-semibold text-text-muted bg-surface-warm px-2 py-0.5 rounded-[2px]">
                     Pilar 0{index + 1}
                   </span>
                 </div>
 
-                <h3 className="font-editorial text-2xl font-semibold text-[#181816] mb-3 leading-tight">
+                <h3 className="text-xl font-headline-sm font-semibold text-primary mb-3 leading-tight">
                   {pilar.titulo}
                 </h3>
 
-                <p className="font-sans text-xs sm:text-sm text-[#181816]/75 leading-relaxed mb-6 font-normal">
+                <p className="font-body-md text-xs sm:text-sm text-text-muted leading-relaxed mb-6 font-normal">
                   {pilar.descripcion}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#181816]/15 font-mono text-[10px] text-[#181816]/80 flex flex-col gap-1">
-                <span className="text-[#A65D47] font-semibold tracking-wider uppercase">
+              <div className="pt-4 border-t border-border-hairline text-[11px] text-text-muted flex flex-col gap-1">
+                <span className="text-kaizen-red font-semibold tracking-wider uppercase text-[10px]">
                   {pilar.tag}
                 </span>
-                <span className="text-[#181816]/65">
+                <span className="text-text-muted">
                   {pilar.criterio}
                 </span>
               </div>

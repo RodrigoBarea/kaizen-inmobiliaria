@@ -59,7 +59,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
       </head>
-      <body className="bg-[#F6F5F2] text-[#181816] font-sans antialiased selection:bg-[#181816] selection:text-[#F6F5F2] flex flex-col min-h-screen">
+      <body className="bg-surface-stone text-primary font-body-md antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
