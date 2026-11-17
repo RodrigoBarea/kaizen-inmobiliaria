@@ -1,7 +1,9 @@
 import BannerPrincipal from '@/components/Banner';
 import InmueblesDestacados from '@/components/InmueblesDestacados';
-import DatosRelevantes from '@/components/DatosRelevantes';
+import SimuladorFinanciero from '@/components/SimuladorFinanciero';
+import EstandarKaizen from '@/components/EstandarKaizen';
 import AreaRuralSection from '@/components/AreaRuralSection';
+import DatosRelevantes from '@/components/DatosRelevantes';
 import FormularioAsesoria from '@/components/FormularioAsesoria';
 import GuiasInmobiliarias from '@/components/GuiasInmobiliarias';
 import { getInmuebles, getMetricas } from '@/lib/supabase';
@@ -16,7 +18,7 @@ export default async function HomePage() {
 
   try {
     const [destacados, todos, metricasData] = await Promise.all([
-      getInmuebles({ isFeatured: true, limit: 6 }),
+      getInmuebles({ isFeatured: true, limit: 9 }),
       getInmuebles({ activeOnly: true }),
       getMetricas(),
     ]);
@@ -31,6 +33,8 @@ export default async function HomePage() {
     <>
       <BannerPrincipal />
       <InmueblesDestacados inmuebles={inmueblesDestacados} />
+      <SimuladorFinanciero />
+      <EstandarKaizen />
       <AreaRuralSection inmuebles={inmueblesRurales} />
       <DatosRelevantes metricas={metricas} />
       <FormularioAsesoria />

@@ -1,40 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Inmueble } from '@/types/database';
 import InmuebleCard from './InmuebleCard';
 import { formatOperacion } from '@/lib/format';
+import { FaWhatsapp } from 'react-icons/fa';
 
 interface Props {
   inmuebles?: Inmueble[];
 }
 
 export default function InmueblesDestacados({ inmuebles = [] }: Props) {
+  const [filterObjective, setFilterObjective] = useState<'todos' | 'roi' | 'vivienda'>('todos');
   const [leadImgLoaded, setLeadImgLoaded] = useState(false);
-  const list = Array.isArray(inmuebles) ? inmuebles : [];
+  const rawList = Array.isArray(inmuebles) ? inmuebles : [];
 
   const rawPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '59178000000';
   const cleanPhone = rawPhone.replace(/[^\d]/g, '');
 
-  if (list.length === 0) {
+  // Filtrado por objetivo del cliente
+  const filteredList = useMemo(() => {
+    if (filterObjective === 'todos') return rawList;
+    if (filterObjective === 'roi') {
+      // Priorizar terrenos, locales o inmuebles con buena relación precio/área
+      return rawList.filter(
+        (item) =>
+          item.tipo?.toLowerCase().includes('terreno') ||
+          item.tipo?.toLowerCase().includes('comercial') ||
+          item.tipo?.toLowerCase().includes('departamento') ||
+          Number(item.precio) <= 150000
+      );
+    }
+    if (filterObjective === 'vivienda') {
+      return rawList.filter(
+        (item) =>
+          item.tipo?.toLowerCase().includes('casa') ||
+          (item.dormitorios && item.dormitorios >= 2)
+      );
+    }
+    return rawList;
+  }, [rawList, filterObjective]);
+
+  if (rawList.length === 0) {
     return (
-      <section className="py-16 sm:py-24 bg-surface-canvas border-b border-border-hairline" id="propiedades">
+      <section className="py-16 sm:py-24 bg-[#F6F5F2] border-b border-[#181816]/15" id="propiedades">
         <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center py-12">
-          <span className="material-symbols-outlined text-4xl text-text-muted mb-2">home_work</span>
-          <h3 className="text-headline-sm font-semibold text-primary">Propiedades en preparación</h3>
-          <p className="text-body-sm text-text-muted mt-1">
-            Nuevas propiedades en proceso de revisión de títulos para su publicación.
+          <span className="material-symbols-outlined text-4xl text-[#181816]/40 mb-2">home_work</span>
+          <h3 className="font-editorial text-2xl font-semibold text-[#181816]">Propiedades en proceso de auditoría</h3>
+          <p className="font-sans text-xs sm:text-sm text-[#181816]/65 mt-1">
+            Nuevas piezas en proceso de saneamiento registral y peritaje constructivo para publicación.
           </p>
         </div>
       </section>
     );
   }
 
-  const lead = list[0];
-  const sideCards = list.slice(1, 3);
-  const remainingCards = list.slice(3, 6);
+  const displayList = filteredList.length > 0 ? filteredList : rawList;
+  const lead = displayList[0];
+  const sideCards = displayList.slice(1, 3);
+  const remainingCards = displayList.slice(3, 9);
 
   const leadImg =
     lead.imagenes && lead.imagenes.length > 0
@@ -42,32 +68,75 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
       : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&auto=format&fit=crop&q=80';
 
   const leadPrice = Number(lead.precio) || 0;
+  const leadArea = lead.construccion || lead.terreno || 0;
+  const leadM2Price = leadArea > 0 ? Math.round(leadPrice / leadArea) : null;
+  const leadRef = `KZ-${lead.id.slice(0, 4).toUpperCase()}`;
+
   const leadWaUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `¡Hola equipo KAIZEN! 👋 Deseo agendar una visita privada para la propiedad "${lead.inmueble_name}" ($${leadPrice.toLocaleString('es-BO')} USD) en Tarija. ¿Podrían informarme la disponibilidad?`
+    `Hola equipo KAIZEN. Deseo agendar una visita y solicitar el informe notarial de la propiedad "${lead.inmueble_name}" (REF: ${leadRef}, $${leadPrice.toLocaleString('es-BO')} USD).`
   )}`;
 
   return (
-    <section className="py-14 sm:py-20 lg:py-24 bg-surface-canvas border-b border-border-hairline" id="propiedades">
+    <section className="py-16 sm:py-24 bg-[#F6F5F2] border-b border-[#181816]/15" id="propiedades">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         
-        {/* Chapter Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-12 border-b border-border-hairline pb-6">
+        {/* Chapter Header with Objective Filter */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 pb-6 border-b border-[#181816]/15 gap-4">
           <div>
-            <span className="text-legal-badge font-legal-badge uppercase tracking-[0.14em] text-text-muted block mb-2 font-semibold">
-              Propiedades en Tarija
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A65D47] block mb-2 font-medium">
+              Curaduría Exclusiva Tarija
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-headline-lg font-headline-lg font-semibold text-primary tracking-tight">
-              Propiedades destacadas
+            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#181816] tracking-tight">
+              Catálogo de <span className="italic font-normal text-[#A65D47]">Fichas Técnicas</span>
             </h2>
           </div>
           
-          <div className="mt-4 md:mt-0 flex items-center gap-6">
+          {/* Objective Filter Pills */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="bg-[#EFECE6] border border-[#181816]/15 p-1 inline-flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setFilterObjective('todos')}
+                className={`px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors active:scale-[0.98] ${
+                  filterObjective === 'todos'
+                    ? 'bg-[#181816] text-[#F6F5F2]'
+                    : 'text-[#181816]/70 hover:text-[#181816]'
+                }`}
+              >
+                Todas ({rawList.length})
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setFilterObjective('roi')}
+                className={`px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors active:scale-[0.98] ${
+                  filterObjective === 'roi'
+                    ? 'bg-[#181816] text-[#F6F5F2]'
+                    : 'text-[#181816]/70 hover:text-[#181816]'
+                }`}
+              >
+                Inversión / Alto ROI
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setFilterObjective('vivienda')}
+                className={`px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors active:scale-[0.98] ${
+                  filterObjective === 'vivienda'
+                    ? 'bg-[#181816] text-[#F6F5F2]'
+                    : 'text-[#181816]/70 hover:text-[#181816]'
+                }`}
+              >
+                Vivienda & Familia
+              </button>
+            </div>
+
             <Link
               href="/compra/page/1"
-              className="text-body-sm font-body-sm font-medium text-primary hover:text-kaizen-red flex items-center gap-1 transition-colors"
+              className="font-mono text-xs uppercase tracking-wider text-[#181816] hover:text-[#A65D47] flex items-center gap-1 transition-colors px-2 py-1.5"
             >
-              <span>Ver catálogo completo</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <span>Ver todas</span>
+              <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
             </Link>
           </div>
         </div>
@@ -75,11 +144,11 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
         {/* Asymmetric Bento Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Card 1: Large Scale Masterpiece (7 Columns) */}
-          <article className="lg:col-span-7 bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
-            <Link href={`/inmueble/${lead.slug}`} className="relative aspect-[16/10] overflow-hidden bg-surface-warm block">
+          {/* Card 1: Masterpiece Feature (7 Columns) */}
+          <article className="lg:col-span-7 bg-[#EFECE6] border border-[#181816]/15 flex flex-col group overflow-hidden hover:border-[#181816] transition-colors">
+            <Link href={`/inmueble/${lead.slug}`} className="relative aspect-[16/10] overflow-hidden bg-[#181816]/5 block">
               {!leadImgLoaded && (
-                <div className="absolute inset-0 skeleton-shimmer bg-surface-warm z-0" />
+                <div className="absolute inset-0 bg-[#EFECE6] animate-pulse" />
               )}
               <Image
                 src={leadImg}
@@ -88,164 +157,109 @@ export default function InmueblesDestacados({ inmuebles = [] }: Props) {
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 priority
                 onLoad={() => setLeadImgLoaded(true)}
-                className={`w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out ${
+                className={`w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out ${
                   leadImgLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
               />
 
-              {/* Badges: Operación y Tipo juntos (Translucent Floating Layer) */}
-              <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-                <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
+              {/* Technical Badges */}
+              <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10 font-mono text-[10px] uppercase tracking-wider">
+                <span className="bg-[#181816] text-[#F6F5F2] px-2.5 py-1">
                   {formatOperacion(lead.categoria?.nombre_categoria)}
                 </span>
-                <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[11px] uppercase px-3 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
-                  {lead.tipo}
+                <span className="bg-[#F6F5F2] text-[#181816] border border-[#181816]/20 px-2.5 py-1">
+                  REF: {leadRef}
                 </span>
               </div>
+
+              {leadM2Price && (
+                <div className="absolute bottom-3 right-3 bg-[#181816]/90 backdrop-blur-sm text-[#F6F5F2] font-mono text-[10px] uppercase px-2.5 py-1">
+                  ${leadM2Price}/M²
+                </div>
+              )}
             </Link>
 
             <div className="p-6 sm:p-8 flex flex-col flex-1 justify-between">
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-text-muted font-medium">
-                    {lead.direccion || lead.ciudad} · Tarija
-                  </span>
-                  <span className="text-legal-badge font-legal-badge text-[#0B4632] bg-emerald-subtle px-2 py-0.5 rounded-[2px] font-semibold">
-                    Ref: KZ-{lead.id.slice(0, 4).toUpperCase()}
-                  </span>
+                <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-[#181816]/65 mb-2">
+                  <span>{lead.direccion || lead.ciudad} · Tarija</span>
+                  <span className="text-[#A65D47] font-semibold">AUDITORÍA APROBADA</span>
                 </div>
 
                 <Link href={`/inmueble/${lead.slug}`}>
-                  <h3 className="text-xl sm:text-2xl font-headline-md font-semibold text-primary mb-3 hover:text-kaizen-red transition-colors">
+                  <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#181816] group-hover:text-[#A65D47] transition-colors mb-3">
                     {lead.inmueble_name}
                   </h3>
                 </Link>
 
-                <p className="text-body-md font-body-md text-text-muted mb-6 leading-relaxed line-clamp-2">
-                  {lead.descripcion || 'Propiedad de autor con diseño contemporáneo, acabados de primera y entorno residencial privilegiado en Tarija.'}
+                <p className="font-sans text-xs sm:text-sm text-[#181816]/75 mb-6 leading-relaxed line-clamp-2">
+                  {lead.descripcion || 'Propiedad de autor con peritaje estructural concluido y tradición registral limpia en Derechos Reales.'}
                 </p>
               </div>
 
               <div>
-                {/* Micro-spec Tabular Rule */}
-                <div className="grid grid-cols-4 border-t border-b border-border-hairline py-4 mb-6 text-center text-xs">
+                {/* Blueprint Table 4-col */}
+                <div className="grid grid-cols-4 border-t border-b border-[#181816]/15 py-3 mb-6 text-center font-mono text-[10px] uppercase">
                   <div>
-                    <span className="block text-[10px] font-legal-badge text-text-muted uppercase">Construido</span>
-                    <span className="text-sm font-semibold text-primary">{lead.construccion || '—'} m²</span>
+                    <span className="block text-[#181816]/50 text-[9px]">Construcción</span>
+                    <span className="font-semibold text-[#181816] text-xs">{lead.construccion || '—'} m²</span>
                   </div>
-                  <div className="border-l border-border-hairline">
-                    <span className="block text-[10px] font-legal-badge text-text-muted uppercase">Terreno</span>
-                    <span className="text-sm font-semibold text-primary">{lead.terreno || '—'} m²</span>
+                  <div className="border-l border-[#181816]/15">
+                    <span className="block text-[#181816]/50 text-[9px]">Terreno</span>
+                    <span className="font-semibold text-[#181816] text-xs">{lead.terreno || '—'} m²</span>
                   </div>
-                  <div className="border-l border-border-hairline">
-                    <span className="block text-[10px] font-legal-badge text-text-muted uppercase">Suites</span>
-                    <span className="text-sm font-semibold text-primary">{lead.dormitorios || 0} Dorms</span>
+                  <div className="border-l border-[#181816]/15">
+                    <span className="block text-[#181816]/50 text-[9px]">Habitaciones</span>
+                    <span className="font-semibold text-[#181816] text-xs">{lead.dormitorios || 0} Hab.</span>
                   </div>
-                  <div className="border-l border-border-hairline">
-                    <span className="block text-[10px] font-legal-badge text-text-muted uppercase">Cochera</span>
-                    <span className="text-sm font-semibold text-primary">{lead.estacionamientos || 1} Autos</span>
+                  <div className="border-l border-[#181816]/15">
+                    <span className="block text-[#181816]/50 text-[9px]">Valor M²</span>
+                    <span className="font-semibold text-[#A65D47] text-xs">{leadM2Price ? `$${leadM2Price}` : 'Consultar'}</span>
                   </div>
                 </div>
 
-                {/* Price and Action Cluster */}
+                {/* Price and Action Row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <span className="block text-2xl sm:text-[26px] font-metric-price font-bold text-primary">
-                      ${leadPrice.toLocaleString('es-BO')} USD
+                    <span className="font-editorial text-3xl font-bold text-[#181816]">
+                      ${leadPrice.toLocaleString('es-BO')} <span className="font-mono text-xs font-normal text-[#181816]/60">USD</span>
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-2">
                     <a
                       href={leadWaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-5 py-2.5 bg-[#E60000] hover:bg-[#C00000] text-white text-xs font-semibold transition-colors rounded-[2px] flex items-center gap-1.5 shadow-sm"
+                      className="px-4 py-2.5 bg-[#181816] hover:bg-[#A65D47] active:scale-[0.98] text-[#F6F5F2] font-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-2"
                     >
-                      <span className="material-symbols-outlined text-[16px]">calendar_today</span>
+                      <FaWhatsapp className="text-[14px]" />
                       <span>Agendar Visita</span>
                     </a>
+
+                    <Link
+                      href={`/inmueble/${lead.slug}`}
+                      className="px-3.5 py-2.5 border border-[#181816]/25 hover:border-[#181816] text-[#181816] font-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-1"
+                    >
+                      <span>Ver Ficha</span>
+                      <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           </article>
 
-          {/* Column 2: Vertical Refined Dual Stack (5 Columns) */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            {sideCards.map((item) => {
-              const itemPrice = Number(item.precio) || 0;
-              const itemImg =
-                item.imagenes && item.imagenes.length > 0
-                  ? item.imagenes[0]
-                  : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80';
-
-              return (
-                <article
-                  key={item.id}
-                  className="bg-surface-stone border border-border-hairline rounded-[2px] flex flex-col group flex-1 overflow-hidden apple-shadow-card hover:border-primary/80 hover-lift"
-                >
-                  <Link href={`/inmueble/${item.slug}`} className="relative aspect-[16/9] overflow-hidden bg-surface-warm block">
-                    <Image
-                      src={itemImg}
-                      alt={item.inmueble_name}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
-                    />
-                    {/* Badges: Operación y Tipo juntos (Translucent Floating Layer) */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-                      <span className="bg-surface-stone/85 backdrop-blur-md saturate-[160%] text-primary text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider border border-border-hairline/80 shadow-sm">
-                        {formatOperacion(item.categoria?.nombre_categoria)}
-                      </span>
-                      <span className="bg-primary/85 backdrop-blur-md saturate-[160%] text-white text-[10px] uppercase px-2.5 py-1 rounded-[2px] font-semibold tracking-wider shadow-sm">
-                        {item.tipo}
-                      </span>
-                    </div>
-                  </Link>
-
-                  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1">
-                    <div>
-                      <span className="text-legal-badge font-legal-badge uppercase tracking-widest text-text-muted block mb-1">
-                        {item.ciudad} · Tarija
-                      </span>
-                      <Link href={`/inmueble/${item.slug}`}>
-                        <h3 className="text-lg font-headline-sm font-semibold text-primary mb-2 hover:text-kaizen-red transition-colors line-clamp-1">
-                          {item.inmueble_name}
-                        </h3>
-                      </Link>
-                      <div className="flex items-center gap-3 text-xs text-text-muted mb-4">
-                        <span>{item.construccion || item.terreno || 150} m²</span>
-                        <span>•</span>
-                        <span>{item.dormitorios || 3} Dorms</span>
-                        <span>•</span>
-                        <span>{item.banos || 2} Baños</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-3 border-t border-border-hairline flex items-center justify-between">
-                      <div>
-                        <span className="text-lg font-headline-sm font-bold text-primary">
-                          ${itemPrice.toLocaleString('es-BO')} USD
-                        </span>
-                      </div>
-                      <Link
-                        href={`/inmueble/${item.slug}`}
-                        className="text-xs font-semibold text-primary hover:text-kaizen-red flex items-center gap-1 transition-colors"
-                      >
-                        <span>Ver Inmueble</span>
-                        <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+          {/* Column 2: Side Cards (5 Columns) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            {sideCards.map((item) => (
+              <InmuebleCard key={item.id} inmueble={item} />
+            ))}
           </div>
 
         </div>
 
-        {/* Remaining 3-column cards if available */}
+        {/* Remaining properties grid */}
         {remainingCards.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
             {remainingCards.map((item) => (
